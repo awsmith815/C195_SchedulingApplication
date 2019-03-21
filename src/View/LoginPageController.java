@@ -9,16 +9,19 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import static Model.SQLManager.confirmUserNamePassword;
 import java.io.IOException;
+import java.util.Optional;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 /**
  * FXML Controller class
@@ -27,9 +30,9 @@ import javafx.stage.Stage;
  */
 public class LoginPageController {
     @FXML
-    private TextField txtUsername, txtPassword;
+    private TextField txtUsername; 
     @FXML
-    private Button btnLogin, btnCancel;
+    private TextField txtPassword;
     @FXML
     private Label lblLoginError;
     public static int dbError = 0;
@@ -61,15 +64,25 @@ public class LoginPageController {
         }
     }
     
+    @FXML
+    private void confirmExit(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initModality(Modality.NONE);
+        alert.setTitle("Confirm Exit");
+        alert.setHeaderText("Confirm Exit");
+        alert.setContentText("Are you sure you wish to exit?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            System.exit(0);
+        }
+    }
+    
+    
     /**
      * Initializes the controller class.
      */
-    @FXML
-    public void initialize() {
-        btnLogin.setOnAction(e -> clickLogin(e));
-        btnCancel.setOnAction(e -> {
-            System.exit(0);
-        });
+    public void initialize(URL url, ResourceBundle rb) {
+
     }    
     
 }

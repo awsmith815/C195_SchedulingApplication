@@ -5,29 +5,20 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.LoginPageController">
+<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.LoginPageController">
    <children>
-    <AnchorPane layoutY="8.0" minHeight="0.0" minWidth="0.0" prefHeight="391.0" prefWidth="598.0">
-         <children>
-            <Label alignment="CENTER" layoutX="241.0" layoutY="72.0" prefHeight="54.0" prefWidth="116.0" text="Welcome!" textAlignment="CENTER">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="153.0" layoutY="154.0" prefHeight="32.0" prefWidth="85.0" text="Username:" />
-            <Label layoutX="153.0" layoutY="186.0" prefHeight="32.0" prefWidth="85.0" text="Password:" />
-            <TextField fx:id="txtUsername" layoutX="231.0" layoutY="157.0" promptText="Username" />
-            <Button fx:id="btnLogin" layoutX="201.0" layoutY="257.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="81.0" text="Login" />
-            <Button fx:id="btnCancel" layoutX="317.0" layoutY="257.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="81.0" text="Cancel" />
-            <Label fx:id="lblLoginError" alignment="CENTER" layoutX="203.0" layoutY="218.0" prefHeight="37.0" prefWidth="193.0" textAlignment="CENTER" textFill="#e80606">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <PasswordField fx:id="txtPassword" layoutX="231.0" layoutY="189.0" promptText="Password" />
-         </children>
-      </AnchorPane>
+      <Label layoutX="121.0" layoutY="14.0" prefHeight="34.0" prefWidth="109.0" text="Welcome">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Line endX="200.0" layoutX="125.0" layoutY="68.0" startX="-100.0" />
+      <TextField fx:id="txtUsername" layoutX="38.0" layoutY="145.0" prefHeight="34.0" prefWidth="275.0" promptText="Username" />
+      <PasswordField fx:id="txtPassword" layoutX="38.0" layoutY="205.0" prefHeight="34.0" prefWidth="275.0" promptText="Password" />
+      <Button layoutX="78.0" layoutY="286.0" mnemonicParsing="false" onAction="#clickLogin" prefHeight="25.0" prefWidth="87.0" text="Login" />
+      <Button layoutX="187.0" layoutY="286.0" mnemonicParsing="false" onAction="#confirmExit" prefHeight="25.0" prefWidth="87.0" text="Exit" />
    </children>
 </AnchorPane>
