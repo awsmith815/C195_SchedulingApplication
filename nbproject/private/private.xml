@@ -5,9 +5,13 @@
         <group>
             <file>file:/Users/austin.smith/NetBeansProjects/SchedulingApplication/src/View/MainMenuController.java</file>
             <file>file:/Users/austin.smith/NetBeansProjects/SchedulingApplication/src/Model/Customer.java</file>
+            <file>file:/Users/austin.smith/NetBeansProjects/SchedulingApplication/src/View/ModifyCustomerController.java</file>
             <file>file:/Users/austin.smith/NetBeansProjects/SchedulingApplication/src/Model/SQLManager.java</file>
             <file>file:/Users/austin.smith/NetBeansProjects/SchedulingApplication/src/Model/Appointment.java</file>
+            <file>file:/Users/austin.smith/NetBeansProjects/SchedulingApplication/src/View/AddCustomerController.java</file>
             <file>file:/Users/austin.smith/NetBeansProjects/SchedulingApplication/src/View/LoginPageController.java</file>
+            <file>file:/Users/austin.smith/NetBeansProjects/SchedulingApplication/src/View/AddCustomer.fxml</file>
+            <file>file:/Users/austin.smith/NetBeansProjects/SchedulingApplication/src/View/ModifyCustomer.fxml</file>
         </group>
     </open-files>
 </project-private>

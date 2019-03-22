@@ -92,4 +92,12 @@ public class Customer {
     public void setCountry(String country){
         this.country=country;
     }
+    
+    public static String customerValidation(String customerName, String address1, String address2, String postalCode, String city, String country, String phone, String errorMessage){
+        if(customerName.length() == 0){
+            errorMessage = errorMessage + "Customer Name cannot be empty\n";
+        }
+        return errorMessage;
+    }
+    
 }

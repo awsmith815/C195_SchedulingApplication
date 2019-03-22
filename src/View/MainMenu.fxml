@@ -40,7 +40,7 @@
                   <Insets bottom="5.0" left="38.0" top="5.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="New Customer">
+            <Button mnemonicParsing="false" onAction="#addCustomer" prefHeight="38.0" prefWidth="150.0" text="New Customer">
                <VBox.margin>
                   <Insets bottom="5.0" left="38.0" top="5.0" />
                </VBox.margin>
@@ -67,7 +67,7 @@
             </Button>
          </children>
       </VBox>
-      <TableView layoutX="476.0" layoutY="90.0" prefHeight="320.0" prefWidth="489.0">
+      <TableView layoutX="476.0" layoutY="366.0" prefHeight="320.0" prefWidth="489.0">
         <columns>
           <TableColumn prefWidth="96.0" text="Customer ID" />
           <TableColumn prefWidth="130.0" text="Customer Name" />
@@ -76,6 +76,6 @@
             <TableColumn prefWidth="101.0" text="Phone" />
         </columns>
       </TableView>
-      <Label layoutX="476.0" layoutY="52.0" prefHeight="38.0" prefWidth="119.0" text="Customer List" />
+      <Label layoutX="476.0" layoutY="332.0" prefHeight="38.0" prefWidth="119.0" text="Customer List" />
    </children>
 </AnchorPane>
