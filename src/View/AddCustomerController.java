@@ -66,12 +66,12 @@ public class AddCustomerController implements Initializable {
                 errorMessage = "";
             }else{
                try{
-                SQL_Customer.addCustomer(customerName, address1, address2, city, country, postalCode, phone);
+                SQL_Customer.addCustomer(customerName, address1, postalCode, phone);
                 Parent mainMenuParent = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
                 Scene mainMenuScene = new Scene(mainMenuParent);
                 Stage mainMenuStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 mainMenuStage.setScene(mainMenuScene);
-                mainMenuStage.show();
+                mainMenuStage.show(); 
                }catch(IOException exc){
                    exc.printStackTrace();
                }

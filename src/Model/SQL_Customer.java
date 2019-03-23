@@ -5,12 +5,15 @@
  */
 package Model;
 
+import Util.Database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Optional;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Modality;
@@ -20,6 +23,74 @@ import javafx.stage.Modality;
  * @author austin.smith
  */
 public class SQL_Customer {
+    
+    private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
+    
+    //Get a single customer in the database
+    public static Customer getCustomer(int customerID){
+        try{
+            Statement stmt = Database.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery("select * from customer where customerId="+customerID);
+            if(rs.next()){
+                Customer customerName = new Customer();
+                customerName.setCustomerName(rs.getString("customerName"));
+                stmt.close();
+                return customerName;
+            }
+        }catch(SQLException exc){
+            System.out.println("SQLExceptions: "+exc.getMessage());
+        }
+        return null;
+    }
+    
+    public static ObservableList<Customer> getAllCustomers(){
+        allCustomers.clear();
+        try{
+            Statement stmt = Database.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery("select c.customerId, c.customerName, a.address, a.phone, a.postalCode, ci.city "
+                    + "from customer c inner join address a on a.addressId = c.addressId inner join city ci on ci.cityId = a.cityId");
+            while(rs.next()){
+                //public Customer(int customerID, String customerName, String address1, String postalCode, String city, String phone){
+                Customer customer = new Customer(
+                        rs.getInt("customerId"),
+                        rs.getString("customerName"),
+                        rs.getString("address"),
+                        rs.getString("postalCode"),
+                        rs.getString("city"),
+                        rs.getString("phone"));
+                allCustomers.add(customer);
+            }
+            stmt.close();
+            return allCustomers;
+        }catch(SQLException exc){
+            System.out.println("SQLExceptions: "+exc.getMessage());
+            return null;
+        }
+    }
+    
+    public static boolean addCustomer(String customerName, String address1, String postalCode, String phone){
+        try{
+            Statement stmt = Database.getConnection().createStatement();
+            int addAddress = stmt.executeUpdate("insert into address set address='"+address1+"',phone='"+phone+"',postalCode='"+postalCode+"'");
+            if(addAddress==1){
+                int addressID = allCustomers.size()+1;
+                int addCustomer = stmt.executeUpdate("insert into customer set customerName='"+customerName+"',addressId="+addressID);
+                if(addCustomer==1){
+                    return true;
+                }
+            }
+        }catch(SQLException exc){
+            System.out.println("SQLExceptions: "+exc.getMessage());
+        }
+        return false;
+    }
+    
+    
+    
+    
+    
+    
+    /**
     public static void addCustomer(String customerName, String address1, String address2, String city, String country, String postalCode, String phone){
         try{
             int countryID = createCountryID(country);
@@ -174,4 +245,5 @@ public class SQL_Customer {
             exc.printStackTrace();
             return -1;
         }
+        */ 
 }

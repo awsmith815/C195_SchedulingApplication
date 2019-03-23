@@ -14,8 +14,14 @@ public class Customer {
     private int customerID, addressID, cityID, countryID, active;
     private String customerName, phone, address1, address2, postalCode, city, country;
     
-    public Customer(){
-        
+    public Customer(){}
+    public Customer(int customerID, String customerName, String address1, String postalCode, String city, String phone){
+        this.customerID = customerID;
+        this.customerName = customerName;
+        this.address1=address1;
+        this.postalCode=postalCode;
+        this.city=city;
+        this.phone=phone;
     }
     
     //Getters
