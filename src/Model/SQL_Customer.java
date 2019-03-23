@@ -6,6 +6,7 @@
 package Model;
 
 import Util.Database;
+import Model.SQL_User;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -25,6 +26,7 @@ import javafx.stage.Modality;
 public class SQL_Customer {
     
     private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
+    private static String currentUser = "Test";
     
     //Get a single customer in the database
     public static Customer getCustomer(int customerID){
@@ -42,7 +44,7 @@ public class SQL_Customer {
         }
         return null;
     }
-    
+    /**
     public static ObservableList<Customer> getAllCustomers(){
         allCustomers.clear();
         try{
@@ -67,30 +69,124 @@ public class SQL_Customer {
             return null;
         }
     }
+    */
     
-    public static boolean addCustomer(String customerName, String address1, String postalCode, String phone){
+    public static void addCustomer(String customerName, String address1, String address2, String city, String country, String postalCode, String phone){
         try{
+            int countryID = addCountryID(country);
+            int cityID = addCityID(city, countryID);
+            int addressID = addAddressID(address1, address2, cityID, postalCode, phone);
             Statement stmt = Database.getConnection().createStatement();
-            int addAddress = stmt.executeUpdate("insert into address set address='"+address1+"',phone='"+phone+"',postalCode='"+postalCode+"'");
-            if(addAddress==1){
-                int addressID = allCustomers.size()+1;
-                int addCustomer = stmt.executeUpdate("insert into customer set customerName='"+customerName+"',addressId="+addressID);
-                if(addCustomer==1){
-                    return true;
-                }
-            }
+            
+            
         }catch(SQLException exc){
             System.out.println("SQLExceptions: "+exc.getMessage());
         }
-        return false;
     }
     
+    public static int addCountryID(String country){
+        try{
+            Statement stmt = Database.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery("select countryId from country where country='"+country+"'");
+            if(rs.next()){
+                int countryID = rs.getInt(1);
+                rs.close();
+                return countryID;
+            }else{
+                rs.close();
+                int countryID;
+                ResultSet newCountryID = stmt.executeQuery("select max(countryId) from country");
+                if(newCountryID.next()){
+                    countryID = newCountryID.getInt(1)+1;
+                    newCountryID.close();
+                }else{
+                    newCountryID.close();
+                    countryID = 1;
+                }
+                stmt.executeUpdate("Insert into country values("+countryID+",'"+country+"',current_date,'"+currentUser+"',current_timestamp,'"+currentUser+"')");
+                return countryID;
+            }
+            
+        }catch(SQLException exc){
+            System.out.println("SQLException: "+exc.getMessage());    
+            return -1;
+        }
+    }
     
+    public static int addCityID(String city, int countryID){
+        try{
+            Statement stmt = Database.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery("select cityId from city where city='"+city+"' and countryId="+countryID);
+            if(rs.next()){
+                int cityID = rs.getInt(1);
+                rs.close();
+                return cityID;
+            }else{
+                rs.close();
+                int cityID;
+                ResultSet newCityID = stmt.executeQuery("select max(cityId) from city");
+                if(newCityID.next()){
+                    cityID = newCityID.getInt(1)+1;
+                    newCityID.close();
+                }else{
+                    newCityID.close();
+                    cityID = 1;
+                }
+                stmt.executeUpdate("insert into city values("+cityID+",'"+city+"',"+countryID+",current_date,'"+currentUser+"',current_timestamp,'"+currentUser+"')");
+                return cityID;
+            }
+        }catch(SQLException exc){
+            System.out.println("SQLException: "+exc.getMessage());
+            return -1;
+        }
+    }
     
-    
-    
+    public static int addAddressID(String address1, String address2, int cityID, String postalCode, String phone){
+        try{
+            Statement stmt = Database.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery("select addressId from address where address='"+address1+"' and address2='"+address2+"' and cityID="+cityID+" and postalCode='"+postalCode+"' and phone='"+phone+"'");
+            if(rs.next()){
+                int addressID = rs.getInt(1);
+                rs.close();
+                return addressID;
+            }else{
+                rs.close();
+                int addressID;
+                ResultSet newAddressID = stmt.executeQuery("select max(addressId) from address");
+                if(newAddressID.next()){
+                    addressID = newAddressID.getInt(1)+1;
+                    newAddressID.close();
+                }else{
+                    newAddressID.close();
+                    addressID = 1;
+                }
+                stmt.executeUpdate("insert into address values("+addressID+",'"+address1+"','"+address2+"',"+cityID+",'"+postalCode+"','"+phone+"',current_date,'"+currentUser+"',current_timestamp,'"+currentUser+"')");
+                return addressID;
+            }
+        }catch(SQLException exc){
+            System.out.println("SQLException: "+exc.getMessage());
+            return -1;
+        }
+        
+    }
+    public static int newCustomerID(String customerName, int addressID){
+        try{
+            Statement stmt = Database.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery("select customerId from customer where customerName='"+customerName+"' and addressId="+addressID);
+            if(rs.next()){
+                int customerID = rs.getInt(1);
+                rs.close();
+                return customerID;
+            }else{
+                
+            }
+        }catch(SQLException exc){
+            System.out.println("SQLException: "+exc.getMessage());
+            return -1;
+    }
     
     /**
+   
     public static void addCustomer(String customerName, String address1, String address2, String city, String country, String postalCode, String phone){
         try{
             int countryID = createCountryID(country);
@@ -159,91 +255,5 @@ public class SQL_Customer {
         }
     }
     
-    //Calculating IDs for Customer, Address, City, country
-    public static int createAddressID(String address1, String address2, String postalCode, String phone, int cityID){
-        try(Connection con = DriverManager.getConnection(url,usr,pswrd);
-                Statement myStmt = con.createStatement()){
-            ResultSet checkAddressID = myStmt.executeQuery("select addressID from address where address ='"+address1+"' and address2='"+address2+"' and cityId="+cityID+" and postalCode='"+postalCode+"' and phone='"+phone+"'");
-            if(checkAddressID.next()){
-                int addressID=checkAddressID.getInt(1);
-                checkAddressID.close();
-                return addressID;
-            }else{
-                checkAddressID.close();
-                int addressID;
-                ResultSet findAddressID = myStmt.executeQuery("select addressId from address order by addressId");
-                if(findAddressID.next()){
-                    addressID = findAddressID.getInt(1)+1;
-                    findAddressID.close();
-                }else{
-                    findAddressID.close();
-                    addressID = 1;
-                }
-                myStmt.executeUpdate("insert into address values("+addressID+",'"+address1+"','"+address2+"',"+cityID+",'"+postalCode+"','"+phone+"',current_date,"+"'"+createdBy+"',current_timestamp,'"+createdBy+"')");
-                return addressID;
-            }
-            
-        }catch(SQLException exc){
-            exc.printStackTrace();
-            return -1;
-        }
-    }
-    
-    public static int createCityID(String city, int countryID){
-        try(Connection con = DriverManager.getConnection(url,usr,pswrd);
-                Statement myStmt = con.createStatement()){
-            ResultSet checkCityID = myStmt.executeQuery("select cityId from city where city = '"+city+"'and countryId = "+countryID);
-            if(checkCityID.next()){
-                int cityID=checkCityID.getInt(1);
-                checkCityID.close();
-                return cityID;
-            }else{
-                checkCityID.close();
-                int cityID;
-                ResultSet findCityID = myStmt.executeQuery("select cityId from city order by cityId");
-                if(findCityID.next()){
-                    cityID = findCityID.getInt(1)+1;
-                    findCityID.close();
-                }else{
-                    findCityID.close();
-                    cityID = 1;                    
-                }
-                myStmt.executeUpdate("insert into city values("+cityID+",'"+city+"',"+countryID+",current_date,"+"'"+createdBy+"',current_timestamp,'"+createdBy+"')");
-                return cityID;
-            }
-            
-        }catch(SQLException exc){
-            exc.printStackTrace();
-            return -1;
-        }
-    }
-    
-    public static int createCountryID(String country){
-        try(Connection con = DriverManager.getConnection(url,usr,pswrd);
-                Statement myStmt = con.createStatement()){
-            ResultSet checkCountryID = myStmt.executeQuery("select countryId from country where country = '"+ country +"'");
-            if(checkCountryID.next()){
-                int countryID = checkCountryID.getInt(1);
-                checkCountryID.close();
-                return countryID;
-            }else{
-                checkCountryID.close();
-                int countryID;
-                ResultSet findCountryID = myStmt.executeQuery("select countryId from country order by countryId");
-                if(findCountryID.next()){
-                    countryID = findCountryID.getInt(1)+1;
-                    findCountryID.close();
-                }else{
-                    findCountryID.close();
-                    countryID = 1;
-                }
-                myStmt.executeUpdate("Insert into country values("+countryID+",'"+country+"',current_date,"+"'"+createdBy+"',current_timestamp,'"+createdBy+"')");
-                return countryID;
-            }
-            
-        }catch(SQLException exc){
-            exc.printStackTrace();
-            return -1;
-        }
         */ 
 }
