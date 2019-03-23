@@ -4,61 +4,55 @@
  * and open the template in the editor.
  */
 package Model;
+
+import Util.Database;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.sql.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.sql.*;
 import java.time.Instant;
 import java.util.Arrays;
+
 /**
  *
  * @author austin.smith
  */
-public class SQLManager {
+public class SQL_User {
+    private static String currentUser;
     
-    private static final String url = "jdbc:mysql://52.206.157.109:3306/U050k8";
-    private static final String usr = "U050k8";
-    private static final String pswrd = "53688403912";
-    
+    public static void setCurrentUser(String userName){
+        currentUser = userName;
+    }
     private static int getUser(String userName){
         int userId = -1;
         try{
-            Connection myConn = null;
-            Statement myStmt = null;
-            ResultSet myRs = null;
-            myConn = DriverManager.getConnection(url,usr,pswrd);
-            myStmt = myConn.createStatement();
-            myRs = myStmt.executeQuery("select userId from user where userName = '" + userName + "'");
-            while(myRs.next()){
-                userId = myRs.getInt("userId");
+            Statement stmt = Database.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery("select userId from user where userName = '" + userName + "'");
+            while(rs.next()){
+                userId = rs.getInt("userId");
             }
-            if(myRs != null){
-                myRs.close();
+            if(rs != null){
+                rs.close();
             }   
         }catch(SQLException exc){
 
         }
     return userId;
     }
-    
     private static boolean confirmPassword(int userId, String password){
         try{
-            Connection myConn = null;
-            Statement myStmt = null;
-            ResultSet myRs = null;
             String loginPassword = null;
-            myConn = DriverManager.getConnection(url,usr,pswrd);
-            myStmt = myConn.createStatement();
-            myRs = myStmt.executeQuery("select password from user where userId = " + userId);
-            if(myRs.next()){
-                loginPassword = myRs.getString("password");
+            Statement stmt = Database.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery("select password from user where userId = " + userId);
+            if(rs.next()){
+                loginPassword = rs.getString("password");
             }else{
                 return false;
             }
-            myRs.close();
+            rs.close();
             if(loginPassword.equals(password)){
                 return true;
             }else{
@@ -69,12 +63,12 @@ public class SQLManager {
             return false;
         }
     }
-    public static boolean confirmUserNamePassword(String userName, String password){
-        String currentUser;
+    
+    public static boolean login(String userName, String password){        
         int userId = getUser(userName);
         boolean confirmPassword = confirmPassword(userId,password);
         if(confirmPassword){
-            currentUser = userName;
+            setCurrentUser(userName);
             try{
                 Path path = Paths.get("logger.txt");
                 Files.write(path, Arrays.asList("User " + currentUser + " logged in at " + Date.from(Instant.now()).toString() + "."),
@@ -87,4 +81,6 @@ public class SQLManager {
             return false;
         }
     }
+    
+    
 }

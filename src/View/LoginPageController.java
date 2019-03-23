@@ -12,7 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import static Model.SQLManager.confirmUserNamePassword;
+import static Model.SQL_User.login;
 import java.io.IOException;
 import java.util.Optional;
 import javafx.fxml.FXMLLoader;
@@ -46,7 +46,7 @@ public class LoginPageController {
             lblLoginError.setText("No Username/Password");
             return;
         }
-        boolean confirmLogin = confirmUserNamePassword(userName, password);
+        boolean confirmLogin = login(userName, password);
         if(confirmLogin == true){
             try{
                 Parent mainMenuParent = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));

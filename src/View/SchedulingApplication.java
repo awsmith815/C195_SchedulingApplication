@@ -6,7 +6,7 @@ package View;
  * and open the template in the editor.
  */
 
-
+import Util.Database;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -31,7 +31,9 @@ public class SchedulingApplication extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Database.connect();
         launch(args);
+        Database.disconnect();
     }
     
 }
