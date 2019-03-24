@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -9,15 +8,14 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainMenuController">
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainMenuController">
    <children>
       <MenuBar prefHeight="29.0" prefWidth="1200.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem mnemonicParsing="false" onAction="#exit" text="Close" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
@@ -32,50 +30,22 @@
           </Menu>
         </menus>
       </MenuBar>
-      <Label layoutX="7.0" layoutY="29.0" prefHeight="70.0" prefWidth="119.0" text="Appiontment List" />
-      <VBox layoutX="986.0" layoutY="29.0" prefHeight="673.0" prefWidth="210.0">
-         <children>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="New Appointment">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="38.0" top="5.0" />
-               </VBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#addCustomer" prefHeight="38.0" prefWidth="150.0" text="New Customer">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="38.0" top="5.0" />
-               </VBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="Modify Appointment">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="38.0" top="5.0" />
-               </VBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="Modify Customer">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="38.0" top="5.0" />
-               </VBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="Build Report">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="38.0" top="5.0" />
-               </VBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="Exit">
-               <VBox.margin>
-                  <Insets bottom="10.0" left="38.0" top="390.0" />
-               </VBox.margin>
-            </Button>
-         </children>
-      </VBox>
-      <TableView layoutX="476.0" layoutY="366.0" prefHeight="320.0" prefWidth="489.0">
+      <TableView fx:id="tblCustomer" layoutX="557.0" layoutY="127.0" prefHeight="320.0" prefWidth="587.0">
         <columns>
-          <TableColumn prefWidth="96.0" text="Customer ID" />
-          <TableColumn prefWidth="130.0" text="Customer Name" />
-            <TableColumn prefWidth="79.0" text="City" />
-            <TableColumn prefWidth="82.0" text="Country" />
-            <TableColumn prefWidth="101.0" text="Phone" />
+          <TableColumn fx:id="colCustomerName" prefWidth="132.0" text="Customer Name" />
+          <TableColumn fx:id="colAddress" prefWidth="140.0" text="Address" />
+            <TableColumn fx:id="colCity" prefWidth="95.0" text="City" />
+            <TableColumn fx:id="colCountry" prefWidth="112.0" text="Country" />
+            <TableColumn fx:id="colPhone" prefWidth="107.0" text="Phone" />
         </columns>
       </TableView>
-      <Label layoutX="476.0" layoutY="332.0" prefHeight="38.0" prefWidth="119.0" text="Customer List" />
+      <Label layoutX="557.0" layoutY="89.0" prefHeight="38.0" prefWidth="119.0" text="Customer List" />
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="128.0" layoutY="462.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="New Appointment" />
+      <Button layoutX="699.0" layoutY="462.0" mnemonicParsing="false" onAction="#addCustomer" prefHeight="38.0" prefWidth="150.0" text="New Customer" />
+      <Button layoutX="304.0" layoutY="462.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="Modify Appointment" />
+      <Button layoutX="887.0" layoutY="462.0" mnemonicParsing="false" onAction="#modifyCustomer" prefHeight="38.0" prefWidth="150.0" text="Modify Customer" />
+      <Button layoutX="1037.0" layoutY="596.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="Build Report" />
+      <Button layoutX="1036.0" layoutY="648.0" mnemonicParsing="false" onAction="#exit" prefHeight="38.0" prefWidth="150.0" text="Exit" />
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" layoutY="516.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="View Calendar" />
    </children>
 </AnchorPane>

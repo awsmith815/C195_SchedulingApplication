@@ -5,6 +5,9 @@
  */
 package Model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 /**
  *
  * @author austin.smith
@@ -13,6 +16,7 @@ public class Customer {
     
     private int customerID, addressID, cityID, countryID, active;
     private String customerName, phone, address1, address2, postalCode, city, country;
+    private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
     
     public Customer(){}
     public Customer(int customerID, String customerName, String address1, String postalCode, String city, String phone){
@@ -61,6 +65,10 @@ public class Customer {
     public String getCountry(){
         return country;
     }
+    public static ObservableList<Customer> getAllCustomers(){
+        return allCustomers;
+    }
+    
     //Setters
     public void setCustomerID(int customerID){
         this.customerID=customerID;

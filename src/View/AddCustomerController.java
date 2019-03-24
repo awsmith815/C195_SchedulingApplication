@@ -66,7 +66,8 @@ public class AddCustomerController implements Initializable {
                 errorMessage = "";
             }else{
                try{
-                SQL_Customer.addCustomer(customerName, address1, postalCode, phone);
+                   //public static int addCustomer(String customerName, String address1, String address2, String city, String country, String postalCode, String phone)
+                SQL_Customer.addCustomer(customerName, address1, address2, city, country, postalCode, phone);
                 Parent mainMenuParent = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
                 Scene mainMenuScene = new Scene(mainMenuParent);
                 Stage mainMenuStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
@@ -80,7 +81,7 @@ public class AddCustomerController implements Initializable {
     }
     
     @FXML
-     void cancelSubmit(ActionEvent e){
+     void cancelSubmit(ActionEvent e) throws IOException{
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.initModality(Modality.NONE);
         alert.setTitle("Confirm Exit");
@@ -88,7 +89,11 @@ public class AddCustomerController implements Initializable {
         alert.setContentText("Are you sure you wish to exit?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            System.exit(0);
+            Parent mainMenuParent = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+            Scene mainMenuScene = new Scene(mainMenuParent);
+            Stage mainMenuStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            mainMenuStage.setScene(mainMenuScene);
+            mainMenuStage.show();
         }
      }
     /**

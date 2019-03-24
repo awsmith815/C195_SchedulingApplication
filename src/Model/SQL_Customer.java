@@ -6,18 +6,12 @@
 package Model;
 
 import Util.Database;
-import Model.SQL_User;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Optional;
-import javafx.collections.FXCollections;
+import java.util.ArrayList;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.stage.Modality;
+
 
 /**
  *
@@ -25,62 +19,41 @@ import javafx.stage.Modality;
  */
 public class SQL_Customer {
     
-    private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
+    //private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
     private static String currentUser = "Test";
     
-    //Get a single customer in the database
-    public static Customer getCustomer(int customerID){
-        try{
-            Statement stmt = Database.getConnection().createStatement();
-            ResultSet rs = stmt.executeQuery("select * from customer where customerId="+customerID);
-            if(rs.next()){
-                Customer customerName = new Customer();
-                customerName.setCustomerName(rs.getString("customerName"));
-                stmt.close();
-                return customerName;
-            }
-        }catch(SQLException exc){
-            System.out.println("SQLExceptions: "+exc.getMessage());
-        }
-        return null;
-    }
-    /**
-    public static ObservableList<Customer> getAllCustomers(){
-        allCustomers.clear();
-        try{
-            Statement stmt = Database.getConnection().createStatement();
-            ResultSet rs = stmt.executeQuery("select c.customerId, c.customerName, a.address, a.phone, a.postalCode, ci.city "
-                    + "from customer c inner join address a on a.addressId = c.addressId inner join city ci on ci.cityId = a.cityId");
-            while(rs.next()){
-                //public Customer(int customerID, String customerName, String address1, String postalCode, String city, String phone){
-                Customer customer = new Customer(
-                        rs.getInt("customerId"),
-                        rs.getString("customerName"),
-                        rs.getString("address"),
-                        rs.getString("postalCode"),
-                        rs.getString("city"),
-                        rs.getString("phone"));
-                allCustomers.add(customer);
-            }
-            stmt.close();
-            return allCustomers;
-        }catch(SQLException exc){
-            System.out.println("SQLExceptions: "+exc.getMessage());
-            return null;
-        }
-    }
-    */
-    
-    public static void addCustomer(String customerName, String address1, String address2, String city, String country, String postalCode, String phone){
+    //Add Customer
+    public static int addCustomer(String customerName, String address1, String address2, String city, String country, String postalCode, String phone){
         try{
             int countryID = addCountryID(country);
             int cityID = addCityID(city, countryID);
             int addressID = addAddressID(address1, address2, cityID, postalCode, phone);
             Statement stmt = Database.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery("select customerId from customer where customerName='"+customerName+"' and addressId="+addressID);
+            if(rs.next()){
+                int customerID = rs.getInt(1);
+                rs.close();     
+                return customerID;
+            }else{
+                rs.close();
+                int customerID;
+                ResultSet newCustomerID = stmt.executeQuery("select max(customerID) from customer");
+                if(newCustomerID.next()){
+                    customerID = newCustomerID.getInt(1)+1;
+                    newCustomerID.close();                  
+                }else{
+                    newCustomerID.close();
+                    customerID = 1;
+                }
+                int active = 1;
+                stmt.executeUpdate("Insert into customer values("+customerID+",'"+customerName+"',"+addressID+","+active+",current_date,'"+currentUser+"',current_timestamp,'"+currentUser+"')");
+                return customerID;
+            }
             
             
         }catch(SQLException exc){
             System.out.println("SQLExceptions: "+exc.getMessage());
+            return -1;
         }
     }
     
@@ -169,21 +142,89 @@ public class SQL_Customer {
         }
         
     }
-    public static int newCustomerID(String customerName, int addressID){
+   
+    public static void updateAllCustomers(){
         try{
             Statement stmt = Database.getConnection().createStatement();
-            ResultSet rs = stmt.executeQuery("select customerId from customer where customerName='"+customerName+"' and addressId="+addressID);
-            if(rs.next()){
-                int customerID = rs.getInt(1);
-                rs.close();
-                return customerID;
-            }else{
+            ObservableList<Customer> allCustomers = Customer.getAllCustomers();
+            allCustomers.clear();
+            ResultSet activeCustomerID = stmt.executeQuery("select customerId from customer where active=1");
+            ArrayList<Integer> customerIDlist = new ArrayList<>();
+            while(activeCustomerID.next()){
+                customerIDlist.add(activeCustomerID.getInt(1));
+            }
+            for(int customerID : customerIDlist){
+                Customer customer = new Customer();
+                ResultSet customerData = stmt.executeQuery("select customerName, active, addressId from customer where customerId="+customerID);                
+                customerData.next();
+                String customerName = customerData.getString("customerName");
+                int active = customerData.getInt("active");
+                int addressID = customerData.getInt("addressId");
+                customer.setCustomerID(customerID);
+                customer.setCustomerName(customerName);
+                customer.setActive(active);
+                customer.setAddressID(addressID);
+                ResultSet addressData = stmt.executeQuery("select address, address2, postalCode, phone, cityId from address where addressId="+addressID);
+                addressData.next();
+                String address1 = addressData.getString("address");
+                String address2 = addressData.getString("address2");
+                String postalCode = addressData.getString("postalCode");
+                String phone = addressData.getString("phone");
+                int cityID = addressData.getInt("cityId");
+                customer.setAddress1(address1);
+                customer.setAddress2(address2);
+                customer.setPostalCode(postalCode);
+                customer.setPhone(phone);
+                customer.setCityID(cityID);
+                ResultSet cityData = stmt.executeQuery("select city, countryId from city where cityId="+cityID);
+                cityData.next();
+                String city = cityData.getString("city");
+                int countryID = cityData.getInt("countryId");
+                customer.setCity(city);
+                customer.setCountryID(countryID);
+                ResultSet countryData = stmt.executeQuery("select country from country where countryId="+countryID);
+                countryData.next();
+                String country = countryData.getString("country");
+                customer.setCountry(country);
+                allCustomers.add(customer);
                 
             }
         }catch(SQLException exc){
             System.out.println("SQLException: "+exc.getMessage());
-            return -1;
+            System.out.println("Error: "+exc.getLocalizedMessage());
+        }
     }
+
+    //Modify Customer
+    public static int modifyCustomer(int customerID,String customerName, String address1, String address2, String city, String country, String postalCode, String phone){
+        try{
+            int countryID = addCountryID(country);
+            int cityID = addCityID(city, countryID);
+            int addressID = addAddressID(address1, address2, cityID, postalCode, phone);
+            Statement stmt = Database.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery("select customerID where customerName='"+customerName+"' and addressId="+addressID);
+            if(rs.next()){                
+                rs.close();                 
+                return customerID;
+            }else{
+                ResultSet updateCustomer = stmt.executeQuery("update customer set customerName='"+customerName+"',addressId="+addressID+", lastUpdate= current_timestamp, "
+                        + "lastUpdateBy='"+currentUser+"' where customerId="+customerID);
+                
+                return -1;
+            }
+            
+        }catch(SQLException exc){
+            System.out.println("SQLException: "+exc.getMessage());
+            return -1;
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
     
     /**
    
@@ -256,4 +297,49 @@ public class SQL_Customer {
     }
     
         */ 
+    
+    /**
+    public static ObservableList<Customer> getAllCustomers(){
+        allCustomers.clear();
+        try{
+            Statement stmt = Database.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery("select c.customerId, c.customerName, a.address, a.phone, a.postalCode, ci.city "
+                    + "from customer c inner join address a on a.addressId = c.addressId inner join city ci on ci.cityId = a.cityId");
+            while(rs.next()){
+                //public Customer(int customerID, String customerName, String address1, String postalCode, String city, String phone){
+                Customer customer = new Customer(
+                        rs.getInt("customerId"),
+                        rs.getString("customerName"),
+                        rs.getString("address"),
+                        rs.getString("postalCode"),
+                        rs.getString("city"),
+                        rs.getString("phone"));
+                allCustomers.add(customer);
+            }
+            stmt.close();
+            return allCustomers;
+        }catch(SQLException exc){
+            System.out.println("SQLExceptions: "+exc.getMessage());
+            return null;
+        }
+    }
+     public static Customer getCustomer(int customerID){
+        try{
+            Statement stmt = Database.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery("select * from customer where customerId="+customerID);
+            if(rs.next()){
+                Customer customerName = new Customer();
+                customerName.setCustomerName(rs.getString("customerName"));
+                stmt.close();
+                return customerName;
+            }
+        }catch(SQLException exc){
+            System.out.println("SQLExceptions: "+exc.getMessage());
+        }
+        return null;
+    } 
+     
+    
+    */
+
 }
