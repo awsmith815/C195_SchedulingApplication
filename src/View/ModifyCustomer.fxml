@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="550.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="View.ModifyCustomerController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.ModifyCustomerController">
     <children>
       <Line endX="236.0" layoutX="275.0" layoutY="77.0" startX="-243.0" />
       <Label layoutX="178.0" layoutY="25.0" text="Modify Customer">
@@ -44,7 +44,7 @@
             <TextField fx:id="txtCustomerCountry" promptText="Country" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6" />
          </children>
       </GridPane>
-      <Button layoutX="140.0" layoutY="517.0" mnemonicParsing="false" onAction="#submitCustomer" prefHeight="29.0" prefWidth="97.0" text="Submit" />
+      <Button layoutX="140.0" layoutY="517.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="97.0" text="Submit" />
       <Button layoutX="308.0" layoutY="517.0" mnemonicParsing="false" onAction="#cancelSubmit" prefHeight="29.0" prefWidth="97.0" text="Cancel" />
    </children>
 </AnchorPane>

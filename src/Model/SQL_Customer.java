@@ -146,7 +146,7 @@ public class SQL_Customer {
     public static void updateAllCustomers(){
         try{
             Statement stmt = Database.getConnection().createStatement();
-            ObservableList<Customer> allCustomers = Customer.getAllCustomers();
+            ObservableList<Customer> allCustomers = CustomerList.getAllCustomers();
             allCustomers.clear();
             ResultSet activeCustomerID = stmt.executeQuery("select customerId from customer where active=1");
             ArrayList<Integer> customerIDlist = new ArrayList<>();

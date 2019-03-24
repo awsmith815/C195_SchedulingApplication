@@ -7,6 +7,7 @@ package View;
 
 import Model.Customer;
 import Model.SQL_Customer;
+import Model.CustomerList;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -73,7 +74,7 @@ public class MainMenuController implements Initializable {
             alert.showAndWait();
             return;
         }
-        modifyCustomerIndex = Customer.getAllCustomers().indexOf(modifyCustomerIndex);
+        modifyCustomerIndex = CustomerList.getAllCustomers().indexOf(modifyCustomerIndex);
         try{
             Parent modifyCustomerParent = FXMLLoader.load(getClass().getResource("ModifyCustomer.fxml"));
             Scene modifyCustomerScene = new Scene(modifyCustomerParent);
@@ -91,7 +92,7 @@ public class MainMenuController implements Initializable {
     
     public void updateCustomerTable(){
         SQL_Customer.updateAllCustomers();
-        tblCustomer.setItems(Customer.getAllCustomers());
+        tblCustomer.setItems(CustomerList.getAllCustomers());
     }
     
     @FXML
