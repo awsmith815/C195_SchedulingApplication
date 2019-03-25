@@ -47,6 +47,7 @@ public class MainMenuController implements Initializable {
     @FXML
     private TableColumn<Customer,String> colPhone;
     private static int modifyCustomerIndex;
+    private static Customer modifyCustomer;
     
     
     
@@ -63,9 +64,10 @@ public class MainMenuController implements Initializable {
         }
     }
     @FXML
-    void modifyCustomer(ActionEvent e){
-        Customer selectCustomer = tblCustomer.getSelectionModel().getSelectedItem();
-        if(selectCustomer == null){
+    private void modifyCustomers(ActionEvent e){
+        modifyCustomer = tblCustomer.getSelectionModel().getSelectedItem();
+        /**
+        if(modifyCustomer == null){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initModality(Modality.NONE);
             alert.setTitle("Error");
@@ -74,7 +76,8 @@ public class MainMenuController implements Initializable {
             alert.showAndWait();
             return;
         }
-        modifyCustomerIndex = CustomerList.getAllCustomers().indexOf(modifyCustomerIndex);
+        */
+        modifyCustomerIndex = CustomerList.getAllCustomers().indexOf(modifyCustomer);
         try{
             Parent modifyCustomerParent = FXMLLoader.load(getClass().getResource("ModifyCustomer.fxml"));
             Scene modifyCustomerScene = new Scene(modifyCustomerParent);
@@ -82,7 +85,10 @@ public class MainMenuController implements Initializable {
             modifyCustomerStage.setScene(modifyCustomerScene);
             modifyCustomerStage.show();
         }catch(IOException exc){
-            exc.printStackTrace();
+            System.out.println(exc.getMessage());
+            System.out.println(exc.getLocalizedMessage());
+            System.out.println(exc.initCause(exc));
+            
         }
     }
     

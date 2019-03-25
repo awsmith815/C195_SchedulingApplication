@@ -43,7 +43,7 @@
       <Button alignment="CENTER" contentDisplay="CENTER" layoutX="128.0" layoutY="462.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="New Appointment" />
       <Button layoutX="699.0" layoutY="462.0" mnemonicParsing="false" onAction="#addCustomer" prefHeight="38.0" prefWidth="150.0" text="New Customer" />
       <Button layoutX="304.0" layoutY="462.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="Modify Appointment" />
-      <Button layoutX="887.0" layoutY="462.0" mnemonicParsing="false" onAction="#modifyCustomer" prefHeight="38.0" prefWidth="150.0" text="Modify Customer" />
+      <Button layoutX="887.0" layoutY="462.0" mnemonicParsing="false" onAction="#modifyCustomers" prefHeight="38.0" prefWidth="150.0" text="Modify Customer" />
       <Button layoutX="1037.0" layoutY="596.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="Build Report" />
       <Button layoutX="1036.0" layoutY="648.0" mnemonicParsing="false" onAction="#exit" prefHeight="38.0" prefWidth="150.0" text="Exit" />
       <Button alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" layoutY="516.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="View Calendar" />

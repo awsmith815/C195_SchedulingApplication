@@ -5,30 +5,32 @@
  */
 package Model;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 /**
  *
  * @author austin.smith
  */
 public class Customer {
-    
+
     private int customerID, addressID, cityID, countryID, active;
     private String customerName, phone, address1, address2, postalCode, city, country;
     
     
-    public Customer(){}
-    /**
-    public Customer(int customerID, String customerName, String address1, String postalCode, String city, String phone){
-        this.customerID = customerID;
+    public Customer(){
+
+    }
+    /*
+    public Customer(String customerName, String address1, String address2, String postalCode, String city, String phone, String country){
+        //this.customerID = customerID;
         this.customerName = customerName;
         this.address1=address1;
+        this.address2=address2;
         this.postalCode=postalCode;
         this.city=city;
         this.phone=phone;
+        this.country=country;
     }
     */
+    
     //Getters
     public int getCustomerID(){
         return customerID;
@@ -111,5 +113,5 @@ public class Customer {
         }
         return errorMessage;
     }
-    
+
 }

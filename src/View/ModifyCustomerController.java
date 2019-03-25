@@ -33,34 +33,34 @@ import javafx.stage.Stage;
 public class ModifyCustomerController implements Initializable {
     
     @FXML
-    private TextField txtCustomerName;
+    private TextField txtModifyCustomerName;
     @FXML
-    private TextField txtCustomerPhone;
+    private TextField txtModifyCustomerPhone;
     @FXML
-    private TextField txtCustomerAddress1;
+    private TextField txtModifyCustomerAddress1;
     @FXML
-    private TextField txtCustomerAddress2;
+    private TextField txtModifyCustomerAddress2;
     @FXML
-    private TextField txtCustomerCity;
+    private TextField txtModifyCustomerCity;
     @FXML
-    private TextField txtCustomerPostalCode;
+    private TextField txtModifyCustomerPostalCode;
     @FXML
-    private TextField txtCustomerCountry;
+    private TextField txtModifyCustomerCountry;
     private Customer customer;
     int modifyCustomerIndex = MainMenuController.getModifyCustomerIndex();
     private String errorMessage = new String();
     private int customerID;
-    /*
+
     @FXML
     void submitCustomer(ActionEvent e){     
         customerID = customer.getCustomerID();
-        String customerName = txtCustomerName.getText();
-        String address1 = txtCustomerAddress1.getText();
-        String address2 = txtCustomerAddress2.getText();
-        String city = txtCustomerCity.getText();
-        String country = txtCustomerCountry.getText();
-        String postalCode = txtCustomerPostalCode.getText();
-        String phone = txtCustomerPhone.getText();
+        String customerName = txtModifyCustomerName.getText();
+        String address1 = txtModifyCustomerAddress1.getText();
+        String address2 = txtModifyCustomerAddress2.getText();
+        String city = txtModifyCustomerCity.getText();
+        String country = txtModifyCustomerCountry.getText();
+        String postalCode = txtModifyCustomerPostalCode.getText();
+        String phone = txtModifyCustomerPhone.getText();
         errorMessage = Customer.customerValidation(customerName, address1, address2, postalCode, city, country, phone, errorMessage);
         if(errorMessage.length() > 0){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -72,7 +72,7 @@ public class ModifyCustomerController implements Initializable {
             }else{
                try{
                 //public static int modifyCustomer(int customerID,String customerName, String address1, String address2, String city, String country, String postalCode, String phone){
-                //SQL_Customer.modifyCustomer(customerID, customerName, address1, address2, city, country, postalCode, phone);
+                SQL_Customer.modifyCustomer(customerID, customerName, address1, address2, city, country, postalCode, phone);
                 Parent mainMenuParent = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
                 Scene mainMenuScene = new Scene(mainMenuParent);
                 Stage mainMenuStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
@@ -86,7 +86,7 @@ public class ModifyCustomerController implements Initializable {
 
     }
     
-    */
+   
     
     @FXML
      void cancelSubmit(ActionEvent e) throws IOException{
@@ -104,28 +104,22 @@ public class ModifyCustomerController implements Initializable {
             mainMenuStage.show();
         }
      }
+     
+    
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        
-        customer = CustomerList.getAllCustomers().get(modifyCustomerIndex);
-        //String customerName = customer.getCustomerName();
-        //String address1 = customer.getAddress1();
-        //String address2 = customer.getAddress2();
-        //String city = customer.getCity();
-        //String country = customer.getCountry();
-        //String postalCode = customer.getPostalCode();
-        //String phone = customer.getPhone();
-        customerID = CustomerList.getAllCustomers().get(modifyCustomerIndex).getCustomerID();
-        txtCustomerName.setText(customer.getCustomerName());
-        txtCustomerAddress1.setText(customer.getAddress1());
-        txtCustomerAddress2.setText(customer.getAddress2());
-        txtCustomerCity.setText(customer.getCity());
-        txtCustomerCountry.setText(customer.getCountry());
-        txtCustomerPostalCode.setText(customer.getPostalCode());
-        txtCustomerPhone.setText(customer.getPhone());
+    public void initialize(URL url, ResourceBundle rb) {        
+        customer = CustomerList.getAllCustomers().get(modifyCustomerIndex);        
+        //customerID = CustomerList.getAllCustomers().get(modifyCustomerIndex).getCustomerID();
+        txtModifyCustomerName.setText(customer.getCustomerName());
+        txtModifyCustomerAddress1.setText(customer.getAddress1());
+        txtModifyCustomerAddress2.setText(customer.getAddress2());
+        txtModifyCustomerCity.setText(customer.getCity());
+        txtModifyCustomerCountry.setText(customer.getCountry());
+        txtModifyCustomerPostalCode.setText(customer.getPostalCode());
+        txtModifyCustomerPhone.setText(customer.getPhone());
         
                 
     }    
