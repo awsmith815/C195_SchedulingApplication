@@ -109,4 +109,8 @@ public class Appointment {
     public void setCreatedDate(Date createdDate){
         this.createdDate=createdDate;
     }
+    
+    public static String appointmentValidation(String errorMessage){
+        return errorMessage;
+    }
 }

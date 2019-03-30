@@ -65,7 +65,7 @@
             <Pane fx:id="paneAppointment" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #FFE5CC;">
                <children>
                   <Button alignment="CENTER" contentDisplay="CENTER" layoutX="582.0" layoutY="389.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="View Calendar" />
-                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="214.0" layoutY="389.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="New Appointment" />
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="214.0" layoutY="389.0" mnemonicParsing="false" onAction="#addAppointment" prefHeight="38.0" prefWidth="150.0" text="New Appointment" />
                   <Button layoutX="400.0" layoutY="389.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="Modify Appointment" />
                </children>
                <effect>

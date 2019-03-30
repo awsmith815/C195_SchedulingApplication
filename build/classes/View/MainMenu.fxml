@@ -5,26 +5,27 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="813.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainMenuController">
    <children>
-      <AnchorPane prefHeight="700.0" prefWidth="238.0" style="-fx-background-color: lightgrey;">
+      <AnchorPane prefHeight="700.0" prefWidth="238.0" style="-fx-background-color: lightblue;">
          <children>
             <AnchorPane layoutX="-4.0" prefHeight="700.0" prefWidth="65.0" style="-fx-background-color: lightblue;">
                <effect>
                   <DropShadow />
                </effect>
             </AnchorPane>
-            <Button fx:id="btnMainMenu" layoutX="61.0" layoutY="100.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="27.0" prefWidth="176.0" text="Main Menu" />
-            <Button fx:id="btnCustomer" layoutX="61.0" layoutY="141.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="27.0" prefWidth="176.0" text="Customer" />
-            <Button fx:id="btnAppointment" layoutX="61.0" layoutY="186.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="27.0" prefWidth="176.0" text="Appointment" />
-            <Button fx:id="btnReport" layoutX="61.0" layoutY="231.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="27.0" prefWidth="176.0" text="Report" />
+            <Button fx:id="btnMainMenu" layoutX="29.0" layoutY="100.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="27.0" prefWidth="204.0" text="Main Menu" />
+            <Button fx:id="btnCustomer" layoutX="29.0" layoutY="141.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="27.0" prefWidth="204.0" text="Customer" />
+            <Button fx:id="btnAppointment" layoutX="29.0" layoutY="186.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="27.0" prefWidth="204.0" text="Appointment" />
+            <Button fx:id="btnReport" layoutX="29.0" layoutY="231.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="27.0" prefWidth="204.0" text="Report" />
          </children>
          <effect>
-            <DropShadow color="#000000bb" />
+            <InnerShadow />
          </effect>
       </AnchorPane>
       <AnchorPane layoutX="238.0" prefHeight="700.0" prefWidth="949.0">
@@ -34,7 +35,7 @@
                   <Button layoutX="400.0" layoutY="428.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="Build Report" />
                </children>
                <effect>
-                  <DropShadow />
+                  <InnerShadow />
                </effect>
             </Pane>
             <Pane fx:id="paneCustomer" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #FFE5CC;">
@@ -58,17 +59,17 @@
                   </Label>
                </children>
                <effect>
-                  <DropShadow />
+                  <InnerShadow />
                </effect>
             </Pane>
             <Pane fx:id="paneAppointment" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #FFE5CC;">
                <children>
                   <Button alignment="CENTER" contentDisplay="CENTER" layoutX="582.0" layoutY="389.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="View Calendar" />
-                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="214.0" layoutY="389.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="New Appointment" />
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="214.0" layoutY="389.0" mnemonicParsing="false" onAction="#addAppointment" prefHeight="38.0" prefWidth="150.0" text="New Appointment" />
                   <Button layoutX="400.0" layoutY="389.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="Modify Appointment" />
                </children>
                <effect>
-                  <DropShadow />
+                  <InnerShadow />
                </effect>
             </Pane>
             <Pane fx:id="paneMainMenu" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #FFE5CC;">
@@ -80,7 +81,7 @@
                   </Label>
                </children>
                <effect>
-                  <DropShadow />
+                  <InnerShadow />
                </effect>
             </Pane>
          </children>

@@ -147,6 +147,21 @@ public class MainMenuController implements Initializable {
         tblCustomer.setItems(CustomerList.getAllCustomers());
     }
     
+    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //Appointment
+    @FXML
+    void addAppointment(ActionEvent e){
+        try{
+            Parent addAppointmentParent = FXMLLoader.load(getClass().getResource("AddAppointment.fxml"));
+            Scene addAppointmentScene = new Scene(addAppointmentParent);
+            Stage addAppointmentStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            addAppointmentStage.setScene(addAppointmentScene);
+            addAppointmentStage.show();            
+        }catch(IOException exc){
+            exc.printStackTrace();
+        }
+    }
+    
     @FXML
     void exit(ActionEvent e){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
