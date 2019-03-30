@@ -110,7 +110,7 @@ public class Appointment {
         this.createdDate=createdDate;
     }
     
-    public static String appointmentValidation(String errorMessage){
+    public static String appointmentValidation(String title, String errorMessage){
         return errorMessage;
     }
 }

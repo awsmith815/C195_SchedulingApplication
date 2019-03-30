@@ -5,13 +5,21 @@
  */
 package View;
 
+import Model.Appointment;
 import Model.Customer;
 import Model.CustomerList;
 import Model.SQL_Customer;
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -78,9 +86,10 @@ public class AddAppointmentController implements Initializable {
     @FXML
     private DatePicker dateAppointmentDate;
     
-    
+    private String errorMessage = new String();
     private static int addApptCustomerIndex;
     private static Customer addApptCustomer;
+    private ObservableList<Customer> customerSelected = FXCollections.observableArrayList();
         
     ObservableList<String> apptTimes = FXCollections.observableArrayList("8:00 AM","9:00 AM","10:00 AM","11:00 AM","12:00 PM","1:00 PM","2:00 PM","3:00 PM","4:00 PM","5:00 PM");
     
@@ -96,6 +105,7 @@ public class AddAppointmentController implements Initializable {
             alert.showAndWait();            
         }else{        
         addApptCustomerIndex = CustomerList.getAllCustomers().indexOf(addApptCustomer);
+        customerSelected.add(addApptCustomer);
         paneAddAppointment.toFront();
         }
                   
@@ -107,15 +117,40 @@ public class AddAppointmentController implements Initializable {
     
     @FXML
     private void addAppointment(ActionEvent e){ 
+        Customer customer = null;
+        if(customerSelected.size()==1){
+             customer = customerSelected.get(0);
+        }
         String title = txtAppointmentTitle.getText();
         String description = txtAppointmentDescription.getText();
         String location = txtAppointmentLocation.getText();
-        String contact = txtAppointmentContact.getText();
+        String contact = txtAppointmentContact.getText();       
         String type = txtAppointmentType.getText();
         String url = txtAppointmentURL.getText();
         String start = cbAppointmentStart.getSelectionModel().getSelectedItem();
         String end = cbAppointmentEnd.getSelectionModel().getSelectedItem();
         LocalDate appointmentDate = dateAppointmentDate.getValue();
+        errorMessage = Appointment.appointmentValidation(title, errorMessage);
+        if(errorMessage.length()>0){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText("Add Appointment Error");
+            alert.setContentText(errorMessage);
+            alert.showAndWait();
+            errorMessage = "";
+        }
+        SimpleDateFormat localFormat = new SimpleDateFormat("yyyy-MM-dd h:mm a");
+        localFormat.setTimeZone(TimeZone.getDefault());
+        Date startFullDate = null;
+        Date endFullDate = null;
+        try{
+            startFullDate = localFormat.parse(appointmentDate.toString()+" "+start);
+            endFullDate = localFormat.parse(appointmentDate.toString()+" "+end);
+        }catch(ParseException exc){
+            exc.printStackTrace();
+        }
+        ZonedDateTime startDateTimeZone = ZonedDateTime.ofInstant(startFullDate.toInstant(), ZoneId.of("UTC"));
+        ZonedDateTime endDateTimeZone = ZonedDateTime.ofInstant(endFullDate.toInstant(), ZoneId.of("UTC"));
         
         try{
             Parent mainMenuParent = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
