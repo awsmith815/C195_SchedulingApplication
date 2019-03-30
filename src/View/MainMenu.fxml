@@ -92,14 +92,14 @@
                   <Button alignment="CENTER" contentDisplay="CENTER" layoutX="214.0" layoutY="464.0" mnemonicParsing="false" onAction="#addAppointment" prefHeight="38.0" prefWidth="150.0" text="New Appointment" />
                   <Button layoutX="400.0" layoutY="464.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="Modify Appointment" />
                   <Button layoutX="585.0" layoutY="464.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="Delete Appointment" />
-                  <TableView layoutX="136.0" layoutY="78.0" prefHeight="362.0" prefWidth="679.0">
+                  <TableView fx:id="tblAppointment" layoutX="136.0" layoutY="78.0" prefHeight="362.0" prefWidth="679.0">
                     <columns>
-                      <TableColumn prefWidth="125.0" text="Title" />
-                      <TableColumn prefWidth="126.0" text="Location" />
-                        <TableColumn prefWidth="108.0" text="Type" />
-                        <TableColumn prefWidth="97.0" text="Contact" />
-                        <TableColumn prefWidth="110.0" text="Start" />
-                        <TableColumn prefWidth="112.0" text="End" />
+                      <TableColumn fx:id="colAppointmentTitle" prefWidth="125.0" text="Title" />
+                      <TableColumn fx:id="colAppointmentLocation" prefWidth="126.0" text="Location" />
+                        <TableColumn fx:id="colAppointmentType" prefWidth="108.0" text="Type" />
+                        <TableColumn fx:id="colAppointmentContact" prefWidth="97.0" text="Contact" />
+                        <TableColumn fx:id="colAppointmentStart" prefWidth="110.0" text="Start" />
+                        <TableColumn fx:id="colAppointmentEnd" prefWidth="112.0" text="End" />
                     </columns>
                   </TableView>
                </children>

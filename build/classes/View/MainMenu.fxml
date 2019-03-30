@@ -19,10 +19,34 @@
                   <DropShadow />
                </effect>
             </AnchorPane>
-            <Button fx:id="btnMainMenu" layoutX="29.0" layoutY="100.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="27.0" prefWidth="204.0" text="Main Menu" />
-            <Button fx:id="btnCustomer" layoutX="29.0" layoutY="141.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="27.0" prefWidth="204.0" text="Customer" />
-            <Button fx:id="btnAppointment" layoutX="29.0" layoutY="186.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="27.0" prefWidth="204.0" text="Appointment" />
-            <Button fx:id="btnReport" layoutX="29.0" layoutY="231.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="27.0" prefWidth="204.0" text="Report" />
+            <Button fx:id="btnMainMenu" layoutX="62.0" layoutY="71.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="27.0" prefWidth="171.0" style="-fx-background-color: none;" text="Main Menu">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <effect>
+                  <InnerShadow />
+               </effect></Button>
+            <Button fx:id="btnCustomer" layoutX="62.0" layoutY="113.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="35.0" prefWidth="171.0" style="-fx-background-color: none;" text="Customer">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <effect>
+                  <InnerShadow />
+               </effect></Button>
+            <Button fx:id="btnAppointment" layoutX="62.0" layoutY="155.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="35.0" prefWidth="171.0" style="-fx-background-color: none;" text="Appointment">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <effect>
+                  <InnerShadow />
+               </effect></Button>
+            <Button fx:id="btnReport" layoutX="62.0" layoutY="199.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="35.0" prefWidth="171.0" style="-fx-background-color: none;" text="Report">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <effect>
+                  <InnerShadow />
+               </effect></Button>
          </children>
          <effect>
             <InnerShadow />
@@ -64,9 +88,20 @@
             </Pane>
             <Pane fx:id="paneAppointment" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #FFE5CC;">
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="582.0" layoutY="389.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="View Calendar" />
-                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="214.0" layoutY="389.0" mnemonicParsing="false" onAction="#addAppointment" prefHeight="38.0" prefWidth="150.0" text="New Appointment" />
-                  <Button layoutX="400.0" layoutY="389.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="Modify Appointment" />
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="400.0" layoutY="522.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="View Calendar" />
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="214.0" layoutY="464.0" mnemonicParsing="false" onAction="#addAppointment" prefHeight="38.0" prefWidth="150.0" text="New Appointment" />
+                  <Button layoutX="400.0" layoutY="464.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="Modify Appointment" />
+                  <Button layoutX="585.0" layoutY="464.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="Delete Appointment" />
+                  <TableView layoutX="136.0" layoutY="78.0" prefHeight="362.0" prefWidth="679.0">
+                    <columns>
+                      <TableColumn prefWidth="125.0" text="Title" />
+                      <TableColumn prefWidth="126.0" text="Location" />
+                        <TableColumn prefWidth="108.0" text="Type" />
+                        <TableColumn prefWidth="97.0" text="Contact" />
+                        <TableColumn prefWidth="110.0" text="Start" />
+                        <TableColumn prefWidth="112.0" text="End" />
+                    </columns>
+                  </TableView>
                </children>
                <effect>
                   <InnerShadow />

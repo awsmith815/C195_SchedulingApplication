@@ -8,8 +8,11 @@ package View;
 import Model.Customer;
 import Model.SQL_Customer;
 import Model.CustomerList;
+import Model.SQL_Appointment;
+import Model.Appointment;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
@@ -51,8 +54,7 @@ public class MainMenuController implements Initializable {
     @FXML
     private Pane paneAppointment;
     @FXML
-    private Pane paneReport;
-       
+    private Pane paneReport;       
     @FXML
     private TableView<Customer> tblCustomer;
     @FXML
@@ -65,6 +67,22 @@ public class MainMenuController implements Initializable {
     private TableColumn<Customer,String> colCountry;
     @FXML
     private TableColumn<Customer,String> colPhone;
+    @FXML
+    private TableView<Appointment> tblAppointment;
+    @FXML
+    private TableColumn<Appointment,String> colAppointmentTitle;
+    @FXML
+    private TableColumn<Appointment,String> colAppointmentLocation;
+    @FXML
+    private TableColumn<Appointment,String> colAppointmentType;
+    @FXML
+    private TableColumn<Appointment,String> colAppointmentContact;
+    @FXML
+    private TableColumn<Appointment,Timestamp> colAppointmentStart;
+    @FXML
+    private TableColumn<Appointment,Timestamp> colAppointmentEnd;
+    
+    
     private static int modifyCustomerIndex;
     private static Customer modifyCustomer;
     
@@ -173,6 +191,11 @@ public class MainMenuController implements Initializable {
         if (result.get() == ButtonType.OK) {
             System.exit(0);
         }
+    }
+    
+    
+    public void updateAppointmentTable(){
+        SQL_Appointment.updateAllAppointments();
     }
     
     /**
