@@ -196,28 +196,42 @@ public class SQL_Customer {
     }
 
     //Modify Customer
-    public static int modifyCustomer(int customerID,String customerName, String address1, String address2, String city, String country, String postalCode, String phone){
+    public static boolean modifyCustomer(int customerID,String customerName, String address1, String address2, String city, String country, String postalCode, String phone){
         try{
             int countryID = addCountryID(country);
             int cityID = addCityID(city, countryID);
             int addressID = addAddressID(address1, address2, cityID, postalCode, phone);
             Statement stmt = Database.getConnection().createStatement();
-            ResultSet rs = stmt.executeQuery("select customerID where customerName='"+customerName+"' and addressId="+addressID);
-            if(rs.next()){                
-                rs.close();                 
-                return customerID;
-            }else{
-                stmt.executeQuery("update customer set customerName='"+customerName+"',addressId="+addressID+", lastUpdate= current_timestamp, "
-                        + "lastUpdateBy='"+currentUser+"' where customerId="+customerID);
-                
-                return -1;
-            }
-            
+            updateCustomerTable(customerID, customerName, addressID);
+            return true;
         }catch(SQLException exc){
-            System.out.println("SQLException: "+exc.getMessage());
-            return -1;
+            System.out.println("SQLException: "+exc.getMessage());            
+        }
+        return false;
+    }
+    
+    private static void updateCustomerTable(int customerID, String customerName, int addressID){
+        try{            
+            Statement stmt = Database.getConnection().createStatement();                        
+            stmt.executeUpdate("update customer set customerName='"+customerName+"',addressId="+addressID+", lastUpdate= current_timestamp, "
+                        + "lastUpdateBy='"+currentUser+"' where customerId="+customerID);
+        }catch(SQLException exc){
+            exc.printStackTrace();
         }
     }
     
+    //Set customer to inactive
+    public static void setCustomerInactive(Customer customer){
+        int customerID = customer.getCustomerID();
+        try{
+            Statement stmt = Database.getConnection().createStatement();
+            stmt.executeUpdate("update customer set active=0 where customerId="+customerID);
+        }catch(SQLException exc){
+            System.out.println("SQLException: "+exc.getMessage());
+        }
+        updateAllCustomers();        
+    }
 
+    
+    
 }

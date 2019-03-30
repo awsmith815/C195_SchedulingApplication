@@ -18,18 +18,6 @@ public class Customer {
     public Customer(){
 
     }
-    /*
-    public Customer(String customerName, String address1, String address2, String postalCode, String city, String phone, String country){
-        //this.customerID = customerID;
-        this.customerName = customerName;
-        this.address1=address1;
-        this.address2=address2;
-        this.postalCode=postalCode;
-        this.city=city;
-        this.phone=phone;
-        this.country=country;
-    }
-    */
     
     //Getters
     public int getCustomerID(){
@@ -108,9 +96,27 @@ public class Customer {
     }
     
     public static String customerValidation(String customerName, String address1, String address2, String postalCode, String city, String country, String phone, String errorMessage){
-        if(customerName.length() == 0){
+        if(customerName.length()==0){
             errorMessage = errorMessage + "Customer Name cannot be empty\n";
         }
+        if(address1.length()==0){
+            errorMessage = errorMessage + "Address1 cannot be empty\n";
+        }
+        if(address2.length()==0){
+            errorMessage = errorMessage + "Address2 cannot be empty\n";
+        }
+        if(postalCode.length()==0){
+            errorMessage = errorMessage + "postalCode cannot be empty\n";
+        }
+        if(city.length()==0){
+            errorMessage = errorMessage + "City cannot be empty\n";
+        }
+        if(country.length()==0){
+            errorMessage = errorMessage + "Country cannot be empty\n";
+        }
+        if(phone.length()==0){
+            errorMessage = errorMessage + "Phone cannot be empty\n";
+        }        
         return errorMessage;
     }
 

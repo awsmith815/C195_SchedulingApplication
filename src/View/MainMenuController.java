@@ -21,9 +21,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -34,6 +36,23 @@ import javafx.stage.Stage;
  */
 public class MainMenuController implements Initializable {
     
+    @FXML
+    private Button btnMainMenu;
+    @FXML
+    private Button btnCustomer;
+    @FXML
+    private Button btnAppointment;
+    @FXML
+    private Button btnReport;
+    @FXML
+    private Pane paneMainMenu;
+    @FXML
+    private Pane paneCustomer;
+    @FXML
+    private Pane paneAppointment;
+    @FXML
+    private Pane paneReport;
+       
     @FXML
     private TableView<Customer> tblCustomer;
     @FXML
@@ -49,7 +68,18 @@ public class MainMenuController implements Initializable {
     private static int modifyCustomerIndex;
     private static Customer modifyCustomer;
     
-    
+    @FXML
+    private void handleButtonAction(ActionEvent e){
+        if(e.getSource()==btnMainMenu){
+            paneMainMenu.toFront();
+        }else if(e.getSource()==btnCustomer){
+            paneCustomer.toFront();
+        }else if(e.getSource()==btnAppointment){
+            paneAppointment.toFront();
+        }else if(e.getSource()==btnReport){
+            paneReport.toFront();
+        }
+    }
     
     @FXML
     void addCustomer(ActionEvent e){
@@ -64,9 +94,26 @@ public class MainMenuController implements Initializable {
         }
     }
     @FXML
+    void removeCustomer(ActionEvent e){
+        Customer customer = tblCustomer.getSelectionModel().getSelectedItem();
+        if(customer!=null){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.initModality(Modality.NONE);
+            alert.setTitle("Confirm");
+            alert.setHeaderText("Confirm");
+            alert.setContentText("Are you sure you wish to remove this customer?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if(result.get()==ButtonType.OK){
+                SQL_Customer.setCustomerInactive(customer);
+            }else{
+                System.out.println("Part was not removed");
+            }
+        }
+    }
+    
+    @FXML
     private void modifyCustomers(ActionEvent e){
-        modifyCustomer = tblCustomer.getSelectionModel().getSelectedItem();
-        /**
+        modifyCustomer = tblCustomer.getSelectionModel().getSelectedItem();      
         if(modifyCustomer == null){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initModality(Modality.NONE);
@@ -75,8 +122,7 @@ public class MainMenuController implements Initializable {
             alert.setContentText("No Customer Selected to modify");
             alert.showAndWait();
             return;
-        }
-        */
+        }        
         modifyCustomerIndex = CustomerList.getAllCustomers().indexOf(modifyCustomer);
         try{
             Parent modifyCustomerParent = FXMLLoader.load(getClass().getResource("ModifyCustomer.fxml"));

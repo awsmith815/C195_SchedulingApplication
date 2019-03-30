@@ -53,6 +53,7 @@ public class LoginPageController {
                 Scene mainMenuScene = new Scene(mainMenuParent);
                 Stage mainMenuStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 mainMenuStage.setScene(mainMenuScene);
+                mainMenuStage.centerOnScreen();
                 mainMenuStage.show();
             }catch(IOException exc){
                 exc.printStackTrace();

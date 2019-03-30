@@ -2,50 +2,88 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainMenuController">
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="813.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainMenuController">
    <children>
-      <MenuBar prefHeight="29.0" prefWidth="1200.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" onAction="#exit" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-      <TableView fx:id="tblCustomer" layoutX="557.0" layoutY="127.0" prefHeight="320.0" prefWidth="587.0">
-        <columns>
-          <TableColumn fx:id="colCustomerName" prefWidth="132.0" text="Customer Name" />
-          <TableColumn fx:id="colAddress" prefWidth="140.0" text="Address" />
-            <TableColumn fx:id="colCity" prefWidth="95.0" text="City" />
-            <TableColumn fx:id="colCountry" prefWidth="112.0" text="Country" />
-            <TableColumn fx:id="colPhone" prefWidth="107.0" text="Phone" />
-        </columns>
-      </TableView>
-      <Label layoutX="557.0" layoutY="89.0" prefHeight="38.0" prefWidth="119.0" text="Customer List" />
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="128.0" layoutY="462.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="New Appointment" />
-      <Button layoutX="699.0" layoutY="462.0" mnemonicParsing="false" onAction="#addCustomer" prefHeight="38.0" prefWidth="150.0" text="New Customer" />
-      <Button layoutX="304.0" layoutY="462.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="Modify Appointment" />
-      <Button layoutX="887.0" layoutY="462.0" mnemonicParsing="false" onAction="#modifyCustomers" prefHeight="38.0" prefWidth="150.0" text="Modify Customer" />
-      <Button layoutX="1037.0" layoutY="596.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="Build Report" />
-      <Button layoutX="1036.0" layoutY="648.0" mnemonicParsing="false" onAction="#exit" prefHeight="38.0" prefWidth="150.0" text="Exit" />
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" layoutY="516.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="View Calendar" />
+      <AnchorPane prefHeight="700.0" prefWidth="238.0" style="-fx-background-color: lightgrey;">
+         <children>
+            <AnchorPane layoutX="-4.0" prefHeight="700.0" prefWidth="65.0" style="-fx-background-color: lightblue;">
+               <effect>
+                  <DropShadow />
+               </effect>
+            </AnchorPane>
+            <Button fx:id="btnMainMenu" layoutX="61.0" layoutY="100.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="27.0" prefWidth="176.0" text="Main Menu" />
+            <Button fx:id="btnCustomer" layoutX="61.0" layoutY="141.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="27.0" prefWidth="176.0" text="Customer" />
+            <Button fx:id="btnAppointment" layoutX="61.0" layoutY="186.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="27.0" prefWidth="176.0" text="Appointment" />
+            <Button fx:id="btnReport" layoutX="61.0" layoutY="231.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="27.0" prefWidth="176.0" text="Report" />
+         </children>
+         <effect>
+            <DropShadow color="#000000bb" />
+         </effect>
+      </AnchorPane>
+      <AnchorPane layoutX="238.0" prefHeight="700.0" prefWidth="949.0">
+         <children>
+            <Pane fx:id="paneReport" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #FFE5CC;">
+               <children>
+                  <Button layoutX="400.0" layoutY="428.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="Build Report" />
+               </children>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Pane>
+            <Pane fx:id="paneCustomer" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #FFE5CC;">
+               <children>
+                  <TableView fx:id="tblCustomer" layoutX="172.0" layoutY="110.0" prefHeight="295.0" prefWidth="587.0">
+                    <columns>
+                      <TableColumn fx:id="colCustomerName" prefWidth="132.0" text="Customer Name" />
+                      <TableColumn fx:id="colAddress" prefWidth="140.0" text="Address" />
+                        <TableColumn fx:id="colCity" prefWidth="95.0" text="City" />
+                        <TableColumn fx:id="colCountry" prefWidth="112.0" text="Country" />
+                        <TableColumn fx:id="colPhone" prefWidth="107.0" text="Phone" />
+                    </columns>
+                  </TableView>
+                  <Button layoutX="238.0" layoutY="421.0" mnemonicParsing="false" onAction="#addCustomer" prefHeight="38.0" prefWidth="150.0" text="New Customer" />
+                  <Button layoutX="400.0" layoutY="421.0" mnemonicParsing="false" onAction="#modifyCustomers" prefHeight="38.0" prefWidth="150.0" text="Modify Customer" />
+                  <Button layoutX="561.0" layoutY="421.0" mnemonicParsing="false" onAction="#removeCustomer" prefHeight="38.0" prefWidth="150.0" text="Remove Customer" />
+                  <Label layoutX="387.0" layoutY="69.0" text="All Customers">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Pane>
+            <Pane fx:id="paneAppointment" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #FFE5CC;">
+               <children>
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="582.0" layoutY="389.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="View Calendar" />
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="214.0" layoutY="389.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="New Appointment" />
+                  <Button layoutX="400.0" layoutY="389.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="Modify Appointment" />
+               </children>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Pane>
+            <Pane fx:id="paneMainMenu" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #FFE5CC;">
+               <children>
+                  <Label layoutX="240.0" layoutY="112.0" prefHeight="71.0" prefWidth="469.0" text="WELCOME TO THE SCHEDULING APP">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Pane>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
