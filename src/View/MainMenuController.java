@@ -10,11 +10,13 @@ import Model.SQL_Customer;
 import Model.CustomerList;
 import Model.SQL_Appointment;
 import Model.Appointment;
+import Model.AppointmentList;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -192,10 +194,11 @@ public class MainMenuController implements Initializable {
             System.exit(0);
         }
     }
-    
+       
     
     public void updateAppointmentTable(){
         SQL_Appointment.updateAllAppointments();
+        tblAppointment.setItems(AppointmentList.getAllAppointments());
     }
     
     /**
@@ -212,6 +215,16 @@ public class MainMenuController implements Initializable {
         colCountry.setCellValueFactory(customer -> new SimpleStringProperty(customer.getValue().getCountry()));
         colPhone.setCellValueFactory(customer -> new SimpleStringProperty(customer.getValue().getPhone()));
         updateCustomerTable();
+        
+        colAppointmentTitle.setCellValueFactory(appointment -> new SimpleStringProperty(appointment.getValue().getTitle()));
+        colAppointmentLocation.setCellValueFactory(appointment -> new SimpleStringProperty(appointment.getValue().getLocation()));
+        colAppointmentType.setCellValueFactory(appointment -> new SimpleStringProperty(appointment.getValue().getType()));
+        colAppointmentContact.setCellValueFactory(appointment -> new SimpleStringProperty(appointment.getValue().getContact()));
+        colAppointmentStart.setCellValueFactory(appointment -> new SimpleObjectProperty(appointment.getValue().getStart()));
+        colAppointmentEnd.setCellValueFactory(appointment -> new SimpleObjectProperty(appointment.getValue().getEnd()));
+        updateAppointmentTable();
+        
+        
     }    
     
 }

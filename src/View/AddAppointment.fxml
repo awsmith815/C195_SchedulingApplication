@@ -26,14 +26,20 @@
                <children>
                   <TextField fx:id="txtAppointmentTitle" layoutX="62.0" layoutY="57.0" prefHeight="27.0" prefWidth="194.0" promptText="Appointment Title" />
                   <TextArea fx:id="txtAppointmentDescription" layoutX="62.0" layoutY="102.0" prefHeight="139.0" prefWidth="465.0" promptText="Description" />
-                  <TextField fx:id="txtAppointmentLocation" layoutX="62.0" layoutY="273.0" prefHeight="27.0" prefWidth="194.0" promptText="Appointment Location" />
-                  <TextField fx:id="txtAppointmentType" layoutX="333.0" layoutY="273.0" prefHeight="27.0" prefWidth="194.0" promptText="Appointment Type" />
                   <TextField fx:id="txtAppointmentURL" layoutX="333.0" layoutY="334.0" prefHeight="27.0" prefWidth="194.0" promptText="URL" />
+                  <ComboBox fx:id="cbAppointmentLocation" layoutX="62.0" layoutY="273.0" prefHeight="27.0" prefWidth="194.0" promptText="Appointment Location" />
+                  <ComboBox fx:id="cbAppointmentType" layoutX="333.0" layoutY="273.0" prefHeight="27.0" prefWidth="194.0" promptText="Appointment Type" />
                   <DatePicker fx:id="dateAppointmentDate" layoutX="333.0" layoutY="57.0" promptText="Appointment Date" />
                   <ComboBox fx:id="cbAppointmentStart" layoutX="62.0" layoutY="401.0" prefHeight="27.0" prefWidth="194.0" promptText="Start Time" />
                   <ComboBox fx:id="cbAppointmentEnd" layoutX="333.0" layoutY="401.0" prefHeight="27.0" prefWidth="194.0" promptText="End Time" />
                   <Button layoutX="201.0" layoutY="494.0" mnemonicParsing="false" onAction="#addAppointment" prefHeight="17.0" prefWidth="198.0" text="Submit" />
                   <TextField fx:id="txtAppointmentContact" layoutX="62.0" layoutY="334.0" prefHeight="27.0" prefWidth="194.0" promptText="Appointment Contact" />
+                  <Button layoutX="201.0" layoutY="531.0" mnemonicParsing="false" onAction="#exitSubmit" prefHeight="17.0" prefWidth="198.0" text="Cancel" />
+                  <Button fx:id="btnBack" mnemonicParsing="false" onAction="#handleBackAction" style="-fx-background-color: none;" text="&lt;- Back" underline="true">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
                </children>
             </Pane>
             <Pane fx:id="paneSelectAddCustomer" prefHeight="687.0" prefWidth="590.0" style="-fx-background-color: lightblue;">
@@ -50,8 +56,9 @@
                         <Blend />
                      </effect>
                   </TableView>
-                  <Button layoutX="247.0" layoutY="412.0" mnemonicParsing="false" onAction="#selectCustomerNext" prefHeight="38.0" prefWidth="107.0" text="Next -&gt;" />
+                  <Button layoutX="219.0" layoutY="413.0" mnemonicParsing="false" onAction="#selectCustomerNext" prefHeight="38.0" prefWidth="163.0" text="Next -&gt;" />
                   <Label layoutX="224.0" layoutY="78.0" text="Please select a customer" />
+                  <Button layoutX="219.0" layoutY="464.0" mnemonicParsing="false" onAction="#exitSubmit" prefHeight="38.0" prefWidth="163.0" text="Go Back" />
                </children>
             </Pane>
          </children>

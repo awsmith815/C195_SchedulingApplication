@@ -11,7 +11,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.LoginPageController">
    <children>
-      <Label layoutX="121.0" layoutY="14.0" prefHeight="34.0" prefWidth="109.0" text="Welcome">
+      <Label fx:id="lblWelcome" alignment="CENTER" layoutX="25.0" layoutY="14.0" prefHeight="34.0" prefWidth="301.0" text="Welcome">
          <font>
             <Font size="24.0" />
          </font>
@@ -22,14 +22,18 @@
          <font>
             <Font size="12.0" />
          </font></PasswordField>
-      <Button layoutX="78.0" layoutY="286.0" mnemonicParsing="false" onAction="#clickLogin" prefHeight="25.0" prefWidth="87.0" text="Login" />
-      <Button layoutX="187.0" layoutY="286.0" mnemonicParsing="false" onAction="#confirmExit" prefHeight="25.0" prefWidth="87.0" text="Exit" />
+      <Button fx:id="btnLogin" layoutX="78.0" layoutY="286.0" mnemonicParsing="false" onAction="#clickLogin" prefHeight="25.0" prefWidth="87.0" text="Login" />
+      <Button fx:id="btnExit" layoutX="187.0" layoutY="286.0" mnemonicParsing="false" onAction="#confirmExit" prefHeight="25.0" prefWidth="87.0" text="Exit" />
       <Line disable="true" endX="200.0" layoutX="125.0" layoutY="380.0" startX="-100.0" />
-      <Label layoutX="122.0" layoutY="428.0" opacity="0.5" style="-fx-border-color: black;" text="The Scheduling App">
+      <Label fx:id="lblFooter" alignment="CENTER" layoutX="32.0" layoutY="428.0" opacity="0.5" prefHeight="16.0" prefWidth="301.0" text="The Scheduling App">
          <font>
             <Font size="11.0" />
          </font>
       </Label>
+      <Label fx:id="lblLoginError" alignment="CENTER" contentDisplay="CENTER" layoutX="38.0" layoutY="257.0" prefHeight="17.0" prefWidth="275.0" textAlignment="CENTER" textFill="#e80d0d">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
    </children>
    <effect>
       <InnerShadow />

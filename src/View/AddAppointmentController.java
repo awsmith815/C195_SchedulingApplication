@@ -8,6 +8,7 @@ package View;
 import Model.Appointment;
 import Model.Customer;
 import Model.CustomerList;
+import Model.SQL_Appointment;
 import Model.SQL_Customer;
 import java.io.IOException;
 import java.net.URL;
@@ -18,6 +19,7 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 import javafx.beans.property.SimpleStringProperty;
@@ -32,6 +34,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
@@ -54,6 +57,8 @@ public class AddAppointmentController implements Initializable {
     @FXML
     private Pane paneAddAppointment;
     @FXML
+    private Button btnBack;
+    @FXML
     private TableView<Customer> tblCustomerAppt;
     @FXML
     private TableColumn<Customer, String> colCustomerName;
@@ -72,9 +77,9 @@ public class AddAppointmentController implements Initializable {
     @FXML
     private TextArea txtAppointmentDescription;
     @FXML
-    private TextField txtAppointmentLocation;
+    private ComboBox<String> cbAppointmentLocation;
     @FXML
-    private TextField txtAppointmentType;
+    private ComboBox<String> cbAppointmentType;
     @FXML
     private TextField txtAppointmentContact;
     @FXML
@@ -92,6 +97,8 @@ public class AddAppointmentController implements Initializable {
     private ObservableList<Customer> customerSelected = FXCollections.observableArrayList();
         
     ObservableList<String> apptTimes = FXCollections.observableArrayList("8:00 AM","9:00 AM","10:00 AM","11:00 AM","12:00 PM","1:00 PM","2:00 PM","3:00 PM","4:00 PM","5:00 PM");
+    ObservableList<String> apptLocations = FXCollections.observableArrayList("New York","London","Phoenix","Online");
+    ObservableList<String> apptType = FXCollections.observableArrayList("Meeting","Documenting","Planning");
     
     @FXML
     private void selectCustomerNext(ActionEvent e){
@@ -123,9 +130,9 @@ public class AddAppointmentController implements Initializable {
         }
         String title = txtAppointmentTitle.getText();
         String description = txtAppointmentDescription.getText();
-        String location = txtAppointmentLocation.getText();
+        String location = cbAppointmentLocation.getSelectionModel().getSelectedItem();
         String contact = txtAppointmentContact.getText();       
-        String type = txtAppointmentType.getText();
+        String type = cbAppointmentType.getSelectionModel().getSelectedItem();
         String url = txtAppointmentURL.getText();
         String start = cbAppointmentStart.getSelectionModel().getSelectedItem();
         String end = cbAppointmentEnd.getSelectionModel().getSelectedItem();
@@ -151,22 +158,43 @@ public class AddAppointmentController implements Initializable {
         }
         ZonedDateTime startDateTimeZone = ZonedDateTime.ofInstant(startFullDate.toInstant(), ZoneId.of("UTC"));
         ZonedDateTime endDateTimeZone = ZonedDateTime.ofInstant(endFullDate.toInstant(), ZoneId.of("UTC"));
-        
-        try{
+        if(SQL_Appointment.addVerifyNewAppointment(customer, title, description, location, contact, type, url, startDateTimeZone, endDateTimeZone)){
+            try{
+                Parent mainMenuParent = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+                Scene mainMenuScene = new Scene(mainMenuParent);
+                Stage mainMenuStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                mainMenuStage.setScene(mainMenuScene);
+                mainMenuStage.show(); 
+            }catch(IOException exc){
+                exc.printStackTrace();
+            }
+        }
+                  
+    }
+    
+    @FXML
+    void exitSubmit(ActionEvent e) throws IOException{
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initModality(Modality.NONE);
+        alert.setTitle("Confirm Exit");
+        alert.setHeaderText("Confirm Exit");
+        alert.setContentText("Are you sure you wish to exit?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
             Parent mainMenuParent = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
             Scene mainMenuScene = new Scene(mainMenuParent);
             Stage mainMenuStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
             mainMenuStage.setScene(mainMenuScene);
-            mainMenuStage.show(); 
-        }catch(IOException exc){
-            exc.printStackTrace();
+            mainMenuStage.show();
         }
-        
-                  
     }
     
-    
-    
+    @FXML
+    private void handleBackAction(ActionEvent e){
+        if(e.getSource()==btnBack){
+            paneSelectAddCustomer.toFront();
+        }
+    }
     
     
     public void updateCustomerTable(){
@@ -189,7 +217,8 @@ public class AddAppointmentController implements Initializable {
         updateCustomerTable();
         cbAppointmentStart.setItems(apptTimes);
         cbAppointmentEnd.setItems(apptTimes);
-        
+        cbAppointmentLocation.setItems(apptLocations);
+        cbAppointmentType.setItems(apptType);
     }    
     
 }

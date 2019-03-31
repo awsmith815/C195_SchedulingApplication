@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import java.util.Locale;
 
 /**
  *
@@ -21,6 +22,7 @@ public class SchedulingApplication extends Application {
     
     @Override
     public void start(Stage primaryStage) throws Exception {
+        Locale.setDefault(new Locale.Builder().setLanguage("de").build());
         primaryStage.setResizable(false);
         Parent root = FXMLLoader.load(getClass().getResource("LoginPage.fxml"));
         primaryStage.setScene(new Scene(root));

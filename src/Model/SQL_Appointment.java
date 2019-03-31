@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
@@ -44,6 +46,21 @@ public class SQL_Appointment {
     }
     public static boolean verifyAddAppointment(Timestamp start, Timestamp end){
         return false;
+    }
+    
+    public static boolean addVerifyNewAppointment(Customer customer, String title, String description, String location, String contact, String type, String url,ZonedDateTime start, ZonedDateTime end){
+        LocalDateTime startWOTZ = start.toLocalDateTime();
+        LocalDateTime endWOTZ = end.toLocalDateTime();
+        Timestamp startTimestamp = Timestamp.valueOf(startWOTZ);
+        Timestamp endTimestamp = Timestamp.valueOf(endWOTZ);
+        //Add functionality to make sure no appointments overlap in DB
+        if(verifyAddAppointment(startTimestamp, endTimestamp)==true){
+            return false;
+        }else{
+            int customerID = customer.getCustomerID();
+            addAppointment(customerID, title, description, location, contact, type, url, startTimestamp, endTimestamp);
+            return true;
+        }
     }
     
     public static void updateAllAppointments(){
