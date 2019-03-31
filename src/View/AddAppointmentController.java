@@ -126,7 +126,7 @@ public class AddAppointmentController implements Initializable {
     private void addAppointment(ActionEvent e){ 
         Customer customer = null;
         if(customerSelected.size()==1){
-             customer = customerSelected.get(0);
+             customer = customerSelected.get(0);             
         }
         String title = txtAppointmentTitle.getText();
         String description = txtAppointmentDescription.getText();

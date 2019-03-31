@@ -40,8 +40,9 @@ public class SQL_Appointment {
             }
             stmt.executeUpdate("insert into appointment values("+appointmentID+","+customerID+",'"+title+"','"+description+"','"+location+"','"+contact+"','"+type+"','"+url+"','"+start+"','"+end+"',"
                     + "current_timestamp,'"+currentUser+"',current_timestamp,'"+currentUser+"')");
-        }catch(SQLException exc){
+        }catch(SQLException exc){            
             exc.printStackTrace();
+            
         }        
     }
     public static boolean verifyAddAppointment(Timestamp start, Timestamp end){
