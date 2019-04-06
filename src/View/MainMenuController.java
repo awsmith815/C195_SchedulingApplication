@@ -89,6 +89,8 @@ public class MainMenuController implements Initializable {
     
     private static int modifyCustomerIndex;
     private static Customer modifyCustomer;
+    private static int modifyAppointmentIndex;
+    private static Appointment modifyAppointment;
     
     @FXML
     private void handleButtonAction(ActionEvent e){
@@ -180,7 +182,7 @@ public class MainMenuController implements Initializable {
             alert.initModality(Modality.NONE);
             alert.setTitle("Error");
             alert.setHeaderText("Error");
-            alert.setContentText("No Customer Selected to modify");
+            alert.setContentText("No Customer Selected to Modify");
             alert.showAndWait();
             return;
         }        
@@ -225,8 +227,31 @@ public class MainMenuController implements Initializable {
     
     @FXML
     void modifyAppointment(ActionEvent e){
-        
+        modifyAppointment = tblAppointment.getSelectionModel().getSelectedItem();      
+        if(modifyAppointment == null){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initModality(Modality.NONE);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error");
+            alert.setContentText("No Appointment Selected to Modify");
+            alert.showAndWait();
+            return;
+        }        
+        modifyAppointmentIndex = AppointmentList.getAllAppointments().indexOf(modifyAppointment);
+        try{
+            Parent modifyAppointmentParent = FXMLLoader.load(getClass().getResource("ModifyAppointment.fxml"));
+            Scene modifyAppointmentScene = new Scene(modifyAppointmentParent);
+            Stage modifyAppointmentStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            modifyAppointmentStage.setScene(modifyAppointmentScene);
+            modifyAppointmentStage.show();
+        }catch(IOException exc){
+            System.out.println(exc.getMessage());
+            System.out.println(exc.getLocalizedMessage());
+            System.out.println(exc.initCause(exc));
+            
+        }
     }
+    
     @FXML
     void deleteAppointment(ActionEvent e){
         Appointment appointment = tblAppointment.getSelectionModel().getSelectedItem();
@@ -259,11 +284,16 @@ public class MainMenuController implements Initializable {
         }
     }
        
+    public static int getModifyAppointmentIndex(){
+        return modifyAppointmentIndex;
+    }
     
     public void updateAppointmentTable(){
         SQL_Appointment.updateAllAppointments();
         tblAppointment.setItems(AppointmentList.getAllAppointments());
     }
+    
+    
     
     /**
      * Initializes the controller class.

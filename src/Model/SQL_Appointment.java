@@ -123,7 +123,7 @@ public class SQL_Appointment {
                 //String type = rs.getString("type");
                 String url = rs.getString("url");                
                 Timestamp start = rs.getTimestamp("start");
-                //System.out.println("timestamp from SQL: "+start);
+                System.out.println("timestamp from SQL: "+start);
                 Timestamp end = rs.getTimestamp("end");
                 //SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss S");
                 //dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
