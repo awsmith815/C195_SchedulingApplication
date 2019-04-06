@@ -146,19 +146,20 @@ public class AddAppointmentController implements Initializable {
             alert.showAndWait();
             errorMessage = "";
         }
-        SimpleDateFormat localFormat = new SimpleDateFormat("yyyy-MM-dd h:mm a");
-        localFormat.setTimeZone(TimeZone.getDefault());
+        SimpleDateFormat localOutputFormat = new SimpleDateFormat("yyyy-MM-dd h:mm a");
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd KK:mm a");
+        localOutputFormat.setTimeZone(TimeZone.getDefault());
         Date startFullDate = null;
         Date endFullDate = null;
         try{
-            startFullDate = localFormat.parse(appointmentDate.toString()+" "+start);
-            endFullDate = localFormat.parse(appointmentDate.toString()+" "+end);
+            startFullDate = localOutputFormat.parse(appointmentDate.toString()+" "+start);            
+            endFullDate = localOutputFormat.parse(appointmentDate.toString()+" "+end);
         }catch(ParseException exc){
             exc.printStackTrace();
         }
         ZonedDateTime startDateTimeZone = ZonedDateTime.ofInstant(startFullDate.toInstant(), ZoneId.of("UTC"));
         ZonedDateTime endDateTimeZone = ZonedDateTime.ofInstant(endFullDate.toInstant(), ZoneId.of("UTC"));
-        if(SQL_Appointment.addVerifyNewAppointment(customer, title, description, location, contact, type, url, startDateTimeZone, endDateTimeZone)){
+        if(SQL_Appointment.addVerifyNewAppointment(customer, title, description, location, contact, url, startDateTimeZone, endDateTimeZone)){
             try{
                 Parent mainMenuParent = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
                 Scene mainMenuScene = new Scene(mainMenuParent);

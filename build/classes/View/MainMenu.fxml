@@ -19,28 +19,28 @@
                   <DropShadow />
                </effect>
             </AnchorPane>
-            <Button fx:id="btnMainMenu" layoutX="62.0" layoutY="71.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="27.0" prefWidth="171.0" style="-fx-background-color: none;" text="Main Menu">
+            <Button fx:id="btnMainMenu" layoutX="62.0" layoutY="71.0" mnemonicParsing="false" onAction="#handleButtonAction" onMouseEntered="#handleMainButtonEnter" onMouseExited="#handleMainButtonExit" prefHeight="27.0" prefWidth="171.0" style="-fx-background-color: none;" text="Main Menu">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
                <effect>
                   <InnerShadow />
                </effect></Button>
-            <Button fx:id="btnCustomer" layoutX="62.0" layoutY="113.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="35.0" prefWidth="171.0" style="-fx-background-color: none;" text="Customer">
+            <Button fx:id="btnCustomer" layoutX="62.0" layoutY="113.0" mnemonicParsing="false" onAction="#handleButtonAction" onMouseEntered="#handleCustomerButtonEnter" onMouseExited="#handleCustomerButtonExit" prefHeight="35.0" prefWidth="171.0" style="-fx-background-color: none;" text="Customer">
                <font>
                   <Font size="18.0" />
                </font>
                <effect>
                   <InnerShadow />
                </effect></Button>
-            <Button fx:id="btnAppointment" layoutX="62.0" layoutY="155.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="35.0" prefWidth="171.0" style="-fx-background-color: none;" text="Appointment">
+            <Button fx:id="btnAppointment" layoutX="62.0" layoutY="155.0" mnemonicParsing="false" onAction="#handleButtonAction" onMouseEntered="#handleAppointmentButtonEnter" onMouseExited="#handleAppointmentButtonExit" prefHeight="35.0" prefWidth="171.0" style="-fx-background-color: none;" text="Appointment">
                <font>
                   <Font size="18.0" />
                </font>
                <effect>
                   <InnerShadow />
                </effect></Button>
-            <Button fx:id="btnReport" layoutX="62.0" layoutY="199.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="35.0" prefWidth="171.0" style="-fx-background-color: none;" text="Report">
+            <Button fx:id="btnReport" layoutX="62.0" layoutY="199.0" mnemonicParsing="false" onAction="#handleButtonAction" onMouseEntered="#handleReportButtonEnter" onMouseExited="#handleReportButtonExit" prefHeight="35.0" prefWidth="171.0" style="-fx-background-color: none;" text="Report">
                <font>
                   <Font size="18.0" />
                </font>
@@ -90,16 +90,15 @@
                <children>
                   <Button alignment="CENTER" contentDisplay="CENTER" layoutX="400.0" layoutY="522.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="View Calendar" />
                   <Button alignment="CENTER" contentDisplay="CENTER" layoutX="214.0" layoutY="464.0" mnemonicParsing="false" onAction="#addAppointment" prefHeight="38.0" prefWidth="150.0" text="New Appointment" />
-                  <Button layoutX="400.0" layoutY="464.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="Modify Appointment" />
-                  <Button layoutX="585.0" layoutY="464.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="Delete Appointment" />
-                  <TableView fx:id="tblAppointment" layoutX="136.0" layoutY="78.0" prefHeight="362.0" prefWidth="679.0">
+                  <Button layoutX="400.0" layoutY="464.0" mnemonicParsing="false" onAction="#modifyAppointment" prefHeight="38.0" prefWidth="150.0" text="Modify Appointment" />
+                  <Button layoutX="585.0" layoutY="464.0" mnemonicParsing="false" onAction="#deleteAppointment" prefHeight="38.0" prefWidth="150.0" text="Delete Appointment" />
+                  <TableView fx:id="tblAppointment" layoutX="41.0" layoutY="80.0" prefHeight="362.0" prefWidth="869.0">
                     <columns>
+                        <TableColumn fx:id="colAppointmentStart" prefWidth="231.0" text="Start" />
+                        <TableColumn fx:id="colAppointmentEnd" prefWidth="254.0" text="End" />
                       <TableColumn fx:id="colAppointmentTitle" prefWidth="125.0" text="Title" />
                       <TableColumn fx:id="colAppointmentLocation" prefWidth="126.0" text="Location" />
-                        <TableColumn fx:id="colAppointmentType" prefWidth="108.0" text="Type" />
-                        <TableColumn fx:id="colAppointmentContact" prefWidth="97.0" text="Contact" />
-                        <TableColumn fx:id="colAppointmentStart" prefWidth="110.0" text="Start" />
-                        <TableColumn fx:id="colAppointmentEnd" prefWidth="112.0" text="End" />
+                        <TableColumn fx:id="colAppointmentContact" prefWidth="132.0" text="Contact" />
                     </columns>
                   </TableView>
                </children>

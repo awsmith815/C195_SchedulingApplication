@@ -14,8 +14,10 @@ import Model.AppointmentList;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -30,6 +32,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -76,13 +80,11 @@ public class MainMenuController implements Initializable {
     @FXML
     private TableColumn<Appointment,String> colAppointmentLocation;
     @FXML
-    private TableColumn<Appointment,String> colAppointmentType;
-    @FXML
     private TableColumn<Appointment,String> colAppointmentContact;
     @FXML
-    private TableColumn<Appointment,Timestamp> colAppointmentStart;
+    private TableColumn<Appointment,Date> colAppointmentStart;
     @FXML
-    private TableColumn<Appointment,Timestamp> colAppointmentEnd;
+    private TableColumn<Appointment,Date> colAppointmentEnd;
     
     
     private static int modifyCustomerIndex;
@@ -100,6 +102,45 @@ public class MainMenuController implements Initializable {
             paneReport.toFront();
         }
     }
+    
+    DropShadow shadow = new DropShadow();
+    @FXML
+    private void handleMainButtonEnter(MouseEvent me){        
+        btnMainMenu.setEffect(shadow);        
+    }
+    @FXML
+    private void handleMainButtonExit(MouseEvent me){        
+        btnMainMenu.setEffect(null);
+    }
+    @FXML
+    private void handleCustomerButtonEnter(MouseEvent me){        
+        btnCustomer.setEffect(shadow);        
+    }
+    @FXML
+    private void handleCustomerButtonExit(MouseEvent me){        
+        btnCustomer.setEffect(null);
+    }
+    @FXML
+    private void handleAppointmentButtonEnter(MouseEvent me){        
+        btnAppointment.setEffect(shadow);        
+    }
+    @FXML
+    private void handleAppointmentButtonExit(MouseEvent me){        
+        btnAppointment.setEffect(null);
+    }    
+    @FXML
+    private void handleReportButtonEnter(MouseEvent me){        
+        btnReport.setEffect(shadow);        
+    }
+    @FXML
+    private void handleReportButtonExit(MouseEvent me){        
+        btnReport.setEffect(null);
+    }
+
+
+
+    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //Customer
     
     @FXML
     void addCustomer(ActionEvent e){
@@ -126,7 +167,7 @@ public class MainMenuController implements Initializable {
             if(result.get()==ButtonType.OK){
                 SQL_Customer.setCustomerInactive(customer);
             }else{
-                System.out.println("Part was not removed");
+                System.out.println("Customer was not removed");
             }
         }
     }
@@ -183,6 +224,29 @@ public class MainMenuController implements Initializable {
     }
     
     @FXML
+    void modifyAppointment(ActionEvent e){
+        
+    }
+    @FXML
+    void deleteAppointment(ActionEvent e){
+        Appointment appointment = tblAppointment.getSelectionModel().getSelectedItem();
+        if(appointment !=null){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.initModality(Modality.NONE);
+            alert.setTitle("Confirm");
+            alert.setHeaderText("Confirm");
+            alert.setContentText("Are you sure you wish to cancel this appointment?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if(result.get()==ButtonType.OK){
+                //SQL_Customer.setCustomerInactive(customer);
+                SQL_Appointment.deleteAppointment(appointment);
+            }else{
+                System.out.println("Appointment was not removed");
+            }
+        }
+    }
+    
+    @FXML
     void exit(ActionEvent e){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.initModality(Modality.NONE);
@@ -217,8 +281,7 @@ public class MainMenuController implements Initializable {
         updateCustomerTable();
         
         colAppointmentTitle.setCellValueFactory(appointment -> new SimpleStringProperty(appointment.getValue().getTitle()));
-        colAppointmentLocation.setCellValueFactory(appointment -> new SimpleStringProperty(appointment.getValue().getLocation()));
-        colAppointmentType.setCellValueFactory(appointment -> new SimpleStringProperty(appointment.getValue().getType()));
+        colAppointmentLocation.setCellValueFactory(appointment -> new SimpleStringProperty(appointment.getValue().getLocation()));        
         colAppointmentContact.setCellValueFactory(appointment -> new SimpleStringProperty(appointment.getValue().getContact()));
         colAppointmentStart.setCellValueFactory(appointment -> new SimpleObjectProperty(appointment.getValue().getStart()));
         colAppointmentEnd.setCellValueFactory(appointment -> new SimpleObjectProperty(appointment.getValue().getEnd()));

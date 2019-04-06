@@ -20,6 +20,7 @@ import javafx.collections.ObservableList;
 public class SQL_Customer {
     
     //private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
+    //Link back to user login
     private static String currentUser = "Test";
     
     //Add Customer
