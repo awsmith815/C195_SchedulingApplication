@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/Users/austin.smith/NetBeansProjects/SchedulingApplication/src/View/ModifyAppointmentController.java</file>
+            <file>file:/Users/austin.smith/NetBeansProjects/SchedulingApplication/src/View/MainMenuController.java</file>
+            <file>file:/Users/austin.smith/NetBeansProjects/SchedulingApplication/src/Model/SQL_User.java</file>
+            <file>file:/Users/austin.smith/NetBeansProjects/SchedulingApplication/src/Model/SQL_Appointment.java</file>
+            <file>file:/Users/austin.smith/NetBeansProjects/SchedulingApplication/src/Model/SQL_Customer.java</file>
+            <file>file:/Users/austin.smith/NetBeansProjects/SchedulingApplication/src/View/LoginPageController.java</file>
+            <file>file:/Users/austin.smith/NetBeansProjects/SchedulingApplication/src/Model/User.java</file>
+        </group>
     </open-files>
 </project-private>

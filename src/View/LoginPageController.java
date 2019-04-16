@@ -85,7 +85,7 @@ public class LoginPageController implements Initializable {
                 Stage mainMenuStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 mainMenuStage.setScene(mainMenuScene);
                 mainMenuStage.centerOnScreen();
-                mainMenuStage.show();
+                mainMenuStage.show();                
             }catch(IOException exc){
                 exc.printStackTrace();
             }
@@ -117,6 +117,10 @@ public class LoginPageController implements Initializable {
      */    
     public void initialize(URL url, ResourceBundle rb) {
         setLanguage();
+        
+        
+        
+        System.out.println("Login Page Initialized");
     }    
     
 }

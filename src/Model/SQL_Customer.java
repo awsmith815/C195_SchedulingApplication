@@ -6,6 +6,7 @@
 package Model;
 
 import Util.Database;
+import Model.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,8 +21,8 @@ import javafx.collections.ObservableList;
 public class SQL_Customer {
     
     //private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
-    //Link back to user login
-    private static String currentUser = "Test";
+    //Link back to user login        
+    private static String currentUser = "test";    
     
     //Add Customer
     public static int addCustomer(String customerName, String address1, String address2, String city, String country, String postalCode, String phone){

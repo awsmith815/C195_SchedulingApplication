@@ -6,6 +6,7 @@
 package Model;
 
 import Util.Database;
+import Model.User;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -21,12 +22,12 @@ import java.util.Arrays;
  * @author austin.smith
  */
 public class SQL_User {
-    private static String currentUser;
-    
-    public static void setCurrentUser(String userName){
-        currentUser = userName;
-    }
-    private static int getUser(String userName){
+    private static User currentUser;
+        
+    //public static void setCurrentUser(String userName){
+    //    currentUser = userName;
+    //}
+    private static int getCurrentUser(String userName){
         int userId = -1;
         try{
             Statement stmt = Database.getConnection().createStatement();
@@ -65,10 +66,13 @@ public class SQL_User {
     }
     
     public static boolean login(String userName, String password){        
-        int userId = getUser(userName);
+        int userId = getCurrentUser(userName);
         boolean confirmPassword = confirmPassword(userId,password);
         if(confirmPassword){
-            setCurrentUser(userName);
+            currentUser = new User();
+            System.out.println("UserId: "+userId);            
+            currentUser.setUser(userName);
+            System.out.println("UserName: "+ userName);
             try{
                 Path path = Paths.get("logger.txt");
                 Files.write(path, Arrays.asList("User " + currentUser + " logged in at " + Date.from(Instant.now()).toString() + "."),

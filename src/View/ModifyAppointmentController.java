@@ -9,13 +9,17 @@ import Model.Appointment;
 import Model.AppointmentList;
 import Model.Customer;
 import Model.CustomerList;
+import Model.SQL_Appointment;
 import Model.SQL_Customer;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
@@ -103,7 +107,7 @@ public class ModifyAppointmentController implements Initializable {
     private ObservableList<Customer> customerSelected = FXCollections.observableArrayList();
     
 
-    ObservableList<String> apptTimes = FXCollections.observableArrayList("8:00 AM","9:00 AM","10:00 AM","11:00 AM","12:00 PM","1:00 PM","2:00 PM","3:00 PM","4:00 PM","5:00 PM");
+    ObservableList<String> apptTimes = FXCollections.observableArrayList("08:00 AM","09:00 AM","10:00 AM","11:00 AM","12:00 PM","01:00 PM","02:00 PM","03:00 PM","04:00 PM","05:00 PM");
     ObservableList<String> apptLocations = FXCollections.observableArrayList("New York","London","Phoenix","Online");
     ObservableList<String> apptType = FXCollections.observableArrayList("Meeting","Documenting","Planning");
 
@@ -141,7 +145,54 @@ public class ModifyAppointmentController implements Initializable {
     
     @FXML
     void submitModifyCustomer(ActionEvent e){
+        Customer customer = null;
+        if(customerSelected.size()==1){
+            customer = customerSelected.get(0);
+        }
         
+        int appointmentID = appointment.getAppointmentID();
+        String title = txtAppointmentTitle.getText();
+        String description = txtAppointmentDescription.getText();
+        String location = cbAppointmentLocation.getSelectionModel().getSelectedItem();
+        String contact = txtAppointmentContact.getText();       
+        String type = cbAppointmentType.getSelectionModel().getSelectedItem();
+        String url = txtAppointmentURL.getText();
+        String start = cbAppointmentStart.getSelectionModel().getSelectedItem();
+        String end = cbAppointmentEnd.getSelectionModel().getSelectedItem();
+        LocalDate appointmentDate = dateAppointmentDate.getValue();
+        if(errorMessage.length()>0){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText("Add Appointment Error");
+            alert.setContentText(errorMessage);
+            alert.showAndWait();
+            errorMessage = "";
+        }
+        SimpleDateFormat localOutputFormat = new SimpleDateFormat("yyyy-MM-dd h:mm a");
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd KK:mm a");
+        localOutputFormat.setTimeZone(TimeZone.getDefault());
+        Date startFullDate = null;
+        Date endFullDate = null;
+        try{
+            startFullDate = localOutputFormat.parse(appointmentDate.toString()+" "+start);            
+            endFullDate = localOutputFormat.parse(appointmentDate.toString()+" "+end);
+        }catch(ParseException exc){
+            exc.printStackTrace();
+        }
+        ZonedDateTime startDateTimeZone = ZonedDateTime.ofInstant(startFullDate.toInstant(), ZoneId.of("UTC"));
+        ZonedDateTime endDateTimeZone = ZonedDateTime.ofInstant(endFullDate.toInstant(), ZoneId.of("UTC"));
+        //public static boolean modifyAppointment(int appointmentID, Customer customer, String title, String description, String location, String contact, String url,ZonedDateTime start, ZonedDateTime end)
+        if(SQL_Appointment.modifyAppointment(appointmentID, customer, title, description, location, contact, url, startDateTimeZone, endDateTimeZone)){
+            try{
+                Parent mainMenuParent = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+                Scene mainMenuScene = new Scene(mainMenuParent);
+                Stage mainMenuStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                mainMenuStage.setScene(mainMenuScene);
+                mainMenuStage.show(); 
+            }catch(IOException exc){
+                exc.printStackTrace();
+            }
+        }
     }
     
     @FXML
@@ -181,20 +232,25 @@ public class ModifyAppointmentController implements Initializable {
         String type = appointment.getType();
         String contact = appointment.getContact();
         String urlApt = appointment.getUrl();
-        /*
+        
+        //get the date for the date picker
         Date appointmentDate = appointment.getStartDate();
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-        calendar.setTime(appointmentDate);
+        calendar.setTime(appointmentDate);        
         int appointmentDateYear = calendar.get(Calendar.YEAR);
         int appointmentDateMonth = calendar.get(Calendar.MONTH);
         int appointmentDateDay = calendar.get(Calendar.DAY_OF_MONTH);
         LocalDate appointmentLocalDate = LocalDate.of(appointmentDateYear, appointmentDateMonth, appointmentDateDay);
+        
+        //get the times for the appointment
         Timestamp start = appointment.getStart();
         Timestamp end = appointment.getEnd();        
-        SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm a z");
-        StringProperty startString = new SimpleStringProperty(formatTime.format(start));
-        StringProperty endString = new SimpleStringProperty(formatTime.format(end));    
-        */
+        SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm a");
+        System.out.println("formatTime == " + formatTime);
+        String startString = formatTime.format(start);
+        System.out.println("startString == " + startString);
+        String endString = formatTime.format(end); 
+        System.out.println("endString == " + endString);
         int customerID = appointment.getCustomerID();
         ObservableList<Customer> customerList = CustomerList.getAllCustomers();
         for(Customer customer:customerList){
@@ -208,12 +264,9 @@ public class ModifyAppointmentController implements Initializable {
         cbAppointmentLocation.setValue(location);
         txtAppointmentContact.setText(contact);
         txtAppointmentURL.setText(urlApt);
-        /*
         cbAppointmentStart.setValue(startString);
         cbAppointmentEnd.setValue(endString);
-        dateAppointmentDate.setValue(appointmentLocalDate);
-        */
-         
+        dateAppointmentDate.setValue(appointmentLocalDate);                 
         colCustomerName.setCellValueFactory(customer -> new SimpleStringProperty(customer.getValue().getCustomerName()));
         colCustomerAddress.setCellValueFactory(customer -> new SimpleStringProperty(customer.getValue().getAddress1()));
         colCustomerCity.setCellValueFactory(customer -> new SimpleStringProperty(customer.getValue().getCity()));
