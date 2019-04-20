@@ -11,18 +11,23 @@ import Model.CustomerList;
 import Model.SQL_Appointment;
 import Model.Appointment;
 import Model.AppointmentList;
+import Model.ReportCustomer;
+import Model.ReportCustomerList;
 import Model.ReportLocation;
 import Model.ReportLocationList;
 import Model.SQL_Reporting;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,6 +38,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.effect.DropShadow;
@@ -88,6 +94,23 @@ public class MainMenuController implements Initializable {
     private TableColumn<Appointment,Date> colAppointmentStart;
     @FXML
     private TableColumn<Appointment,Date> colAppointmentEnd;
+    
+    @FXML
+    private ComboBox<ReportCustomer> cbCustomerNames;
+    @FXML
+    private TableView<ReportCustomer> tblReport2;
+    @FXML
+    private TableColumn<ReportCustomer,LocalDate> colReport2ApptDate;
+    @FXML
+    private TableColumn<ReportCustomer,String> colReport2ApptTime;
+    @FXML
+    private TableColumn<ReportCustomer,String> colReport2CustomerName;
+    @FXML
+    private TableColumn<ReportCustomer,String> colReport2ApptTitle;
+    @FXML
+    private TableColumn<ReportCustomer,String> colReport2ApptLocation;
+    @FXML
+    private TableColumn<ReportCustomer,String> colReport2ApptContact;
     
     @FXML
     private TableView<ReportLocation> tblReport3;
@@ -315,7 +338,13 @@ public class MainMenuController implements Initializable {
     
     
     //Report 2
+    //FilteredList
+    
     public void updateReport2(){
+        SQL_Reporting.customerSchedule();
+        tblReport2.setItems(ReportCustomerList.getAllCustomersReport());
+        colReport2ApptDate.setComparator(colReport2ApptDate.getComparator().reversed());
+        tblReport2.getSortOrder().add(colReport2ApptDate);
         
     }
     
@@ -351,6 +380,16 @@ public class MainMenuController implements Initializable {
         colAppointmentStart.setCellValueFactory(appointment -> new SimpleObjectProperty(appointment.getValue().getStart()));
         colAppointmentEnd.setCellValueFactory(appointment -> new SimpleObjectProperty(appointment.getValue().getEnd()));
         updateAppointmentTable();
+        
+        //initialize report2       
+        colReport2ApptDate.setCellValueFactory(reportCustomer -> new SimpleObjectProperty(reportCustomer.getValue().getApptDate()));
+        colReport2ApptTime.setCellValueFactory(reportCustomer -> new SimpleStringProperty(reportCustomer.getValue().getApptTime()));
+        colReport2CustomerName.setCellValueFactory(reportCustomer -> new SimpleStringProperty(reportCustomer.getValue().getCustomerName()));
+        colReport2ApptTitle.setCellValueFactory(reportCustomer -> new SimpleStringProperty(reportCustomer.getValue().getTitle()));
+        colReport2ApptLocation.setCellValueFactory(reportCustomer -> new SimpleStringProperty(reportCustomer.getValue().getLocation()));
+        colReport2ApptContact.setCellValueFactory(reportCustomer -> new SimpleStringProperty(reportCustomer.getValue().getContact()));
+        updateReport2();
+        
         //initialize report3
         colReport3Location.setCellValueFactory(reportLocation -> new SimpleStringProperty(reportLocation.getValue().getLocation()));
         colReport3NumApptAT.setCellValueFactory(reportLocation -> new SimpleIntegerProperty(reportLocation.getValue().getNumApptAT()).asObject());

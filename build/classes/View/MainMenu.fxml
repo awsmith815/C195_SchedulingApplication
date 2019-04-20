@@ -134,13 +134,14 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #daf7f8;">
                                  <children>
-                                    <TableView layoutX="127.0" layoutY="131.0" prefHeight="362.0" prefWidth="696.0">
+                                    <TableView fx:id="tblReport2" layoutX="127.0" layoutY="131.0" prefHeight="362.0" prefWidth="696.0">
                                       <columns>
-                                        <TableColumn prefWidth="130.0" text="Date" />
-                                        <TableColumn prefWidth="109.0" text="Time" />
-                                          <TableColumn prefWidth="132.0" text="Title" />
-                                          <TableColumn prefWidth="155.0" text="Location" />
-                                          <TableColumn prefWidth="169.0" text="Contact" />
+                                        <TableColumn fx:id="colReport2ApptDate" prefWidth="130.0" text="Date" />
+                                        <TableColumn fx:id="colReport2ApptTime" prefWidth="109.0" text="Time" />
+                                          <TableColumn fx:id="colReport2CustomerName" prefWidth="140.0" text="Customer" />
+                                          <TableColumn fx:id="colReport2ApptTitle" prefWidth="104.0" text="Title" />
+                                          <TableColumn fx:id="colReport2ApptLocation" prefWidth="84.0" text="Location" />
+                                          <TableColumn fx:id="colReport2ApptContact" prefWidth="128.0" text="Contact" />
                                       </columns>
                                     </TableView>
                                     <ComboBox layoutX="127.0" layoutY="62.0" prefHeight="27.0" prefWidth="262.0" promptText="Customers" />
