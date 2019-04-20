@@ -6,11 +6,14 @@ import java.util.Date;
 /**
  *
  * @author austin.smith
+ * 
+ * Depreciate out "type" on April 20, 2019 per Wanda Burwick's instruction
+ * Will be replaced by "description"
  */
 public class Appointment {
     
     private int appointmentID, customerID;
-    private String title, description, location, contact, type, url, createdBy;
+    private String title, description, location, contact, url, createdBy;
     private Timestamp start, end, lastUpdated;
     private Date startDate, endDate, createdDate;
     
@@ -35,9 +38,6 @@ public class Appointment {
     }
     public String getContact(){
         return contact;
-    }
-    public String getType(){
-        return type;
     }
     public String getUrl(){
         return url;
@@ -81,9 +81,6 @@ public class Appointment {
     }
     public void setContact(String contact){
         this.contact=contact;
-    }
-    public void setType(String type){
-        this.type=type;
     }
     public void setUrl(String url){
         this.url=url;

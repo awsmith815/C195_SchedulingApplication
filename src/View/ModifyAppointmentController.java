@@ -58,11 +58,9 @@ public class ModifyAppointmentController implements Initializable {
     @FXML
     private TextField txtAppointmentTitle;
     @FXML
-    private TextArea txtAppointmentDescription;
-    @FXML
     private ComboBox<String> cbAppointmentLocation;
     @FXML
-    private ComboBox<String> cbAppointmentType;
+    private ComboBox<String> cbAppointmentDescription;
     @FXML
     private TextField txtAppointmentContact;
     @FXML
@@ -109,7 +107,7 @@ public class ModifyAppointmentController implements Initializable {
 
     ObservableList<String> apptTimes = FXCollections.observableArrayList("08:00 AM","09:00 AM","10:00 AM","11:00 AM","12:00 PM","01:00 PM","02:00 PM","03:00 PM","04:00 PM","05:00 PM");
     ObservableList<String> apptLocations = FXCollections.observableArrayList("New York","London","Phoenix","Online");
-    ObservableList<String> apptType = FXCollections.observableArrayList("Meeting","Documenting","Planning");
+    ObservableList<String> apptDescription = FXCollections.observableArrayList("Meeting","Documenting","Planning");
 
     @FXML
     private void handleBackAction(ActionEvent e){
@@ -151,11 +149,10 @@ public class ModifyAppointmentController implements Initializable {
         }
         
         int appointmentID = appointment.getAppointmentID();
-        String title = txtAppointmentTitle.getText();
-        String description = txtAppointmentDescription.getText();
+        String title = txtAppointmentTitle.getText();        
         String location = cbAppointmentLocation.getSelectionModel().getSelectedItem();
         String contact = txtAppointmentContact.getText();       
-        String type = cbAppointmentType.getSelectionModel().getSelectedItem();
+        String description = cbAppointmentDescription.getSelectionModel().getSelectedItem();
         String url = txtAppointmentURL.getText();
         String start = cbAppointmentStart.getSelectionModel().getSelectedItem();
         String end = cbAppointmentEnd.getSelectionModel().getSelectedItem();
@@ -226,10 +223,9 @@ public class ModifyAppointmentController implements Initializable {
         
         appointment = AppointmentList.getAllAppointments().get(modifyAppointmentIndex);
         
-        String title = appointment.getTitle();
-        String description = appointment.getDescription();
+        String title = appointment.getTitle();        
         String location = appointment.getLocation();
-        String type = appointment.getType();
+        String description = appointment.getDescription();
         String contact = appointment.getContact();
         String urlApt = appointment.getUrl();
         
@@ -261,7 +257,7 @@ public class ModifyAppointmentController implements Initializable {
         }        
         txtCustomerID.setText(Integer.toString(customerID));
         txtAppointmentTitle.setText(title);
-        txtAppointmentDescription.setText(description);
+        cbAppointmentDescription.setValue(description);
         cbAppointmentLocation.setValue(location);
         txtAppointmentContact.setText(contact);
         txtAppointmentURL.setText(urlApt);
@@ -278,7 +274,7 @@ public class ModifyAppointmentController implements Initializable {
         cbAppointmentStart.setItems(apptTimes);
         cbAppointmentEnd.setItems(apptTimes);
         cbAppointmentLocation.setItems(apptLocations);
-        cbAppointmentType.setItems(apptType);
+        cbAppointmentDescription.setItems(apptDescription);
     }    
     
 }

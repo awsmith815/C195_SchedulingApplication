@@ -119,8 +119,7 @@ public class SQL_Appointment {
                 String title = rs.getString("title");
                 String description = rs.getString("description");
                 String location = rs.getString("location");
-                String contact = rs.getString("contact");
-                //String type = rs.getString("type");
+                String contact = rs.getString("contact");                
                 String url = rs.getString("url");                
                 Timestamp start = rs.getTimestamp("start");
                 //System.out.println("timestamp from SQL: "+start);
@@ -137,8 +136,7 @@ public class SQL_Appointment {
                 appt.setTitle(title);
                 appt.setDescription(description);
                 appt.setLocation(location);
-                appt.setContact(contact);
-                //appt.setType(type);
+                appt.setContact(contact);                
                 appt.setUrl(url);
                 appt.setStart(start);
                 appt.setEnd(end);

@@ -57,15 +57,15 @@ public class SQL_Reporting {
                 Timestamp date = rs.getTimestamp(1);
                 SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm a");
                 String apptTime = formatTime.format(date);
-                System.out.println("Report2Col1: "+apptTime);
+                //System.out.println("Report2Col1: "+apptTime);
                 String customerName = rs.getString(2);
-                System.out.println("Report2Col2: "+customerName);
+                //System.out.println("Report2Col2: "+customerName);
                 String title = rs.getString(3);
-                System.out.println("Report2Col3: "+title);
+                //System.out.println("Report2Col3: "+title);
                 String location = rs.getString(4);
-                System.out.println("Report2Col4: "+location);
+                //System.out.println("Report2Col4: "+location);
                 String contact = rs.getString(5);
-                System.out.println("Report2Col5: "+contact);
+               // System.out.println("Report2Col5: "+contact);
                 Date apptDate = date;
                 Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
                 calendar.setTime(apptDate);        
@@ -73,7 +73,7 @@ public class SQL_Reporting {
                 int appointmentDateMonth = calendar.get(Calendar.MONTH);
                 int appointmentDateDay = calendar.get(Calendar.DAY_OF_MONTH);
                 LocalDate apptLocalDate = LocalDate.of(appointmentDateYear, appointmentDateMonth, appointmentDateDay);
-                System.out.println("Report2Date: "+apptLocalDate);
+                //System.out.println("Report2Date: "+apptLocalDate);
                 rc.setApptDate(apptLocalDate);
                 rc.setApptTime(apptTime);
                 rc.setCustomerName(customerName);
@@ -131,4 +131,5 @@ public class SQL_Reporting {
             System.out.println("Error: "+exc.getLocalizedMessage());            
         }
     }
+    
 }

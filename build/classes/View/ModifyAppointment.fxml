@@ -6,7 +6,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
@@ -40,19 +39,18 @@
             </Pane>
             <Pane fx:id="paneModifyAppointment" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lightgrey;">
                <children>
-                  <TextField fx:id="txtAppointmentTitle" layoutX="68.0" layoutY="54.0" prefHeight="27.0" prefWidth="194.0" promptText="Appointment Title" />
+                  <TextField fx:id="txtAppointmentTitle" layoutX="68.0" layoutY="232.0" prefHeight="27.0" prefWidth="194.0" promptText="Appointment Title" />
                   <TextField fx:id="txtAppointmentContact" layoutX="65.0" layoutY="392.0" prefHeight="27.0" prefWidth="194.0" promptText="Appointment Contact" />
-                  <DatePicker fx:id="dateAppointmentDate" layoutX="336.0" layoutY="54.0" promptText="Appointment Date" />
-                  <TextArea fx:id="txtAppointmentDescription" layoutX="68.0" layoutY="152.0" prefHeight="139.0" prefWidth="465.0" promptText="Description" />
-                  <Button fx:id="btnChangeCustomer" layoutX="336.0" layoutY="98.0" mnemonicParsing="false" onAction="#handleBackAction" prefHeight="27.0" prefWidth="194.0" text="Change Customer" />
+                  <DatePicker fx:id="dateAppointmentDate" layoutX="339.0" layoutY="232.0" promptText="Appointment Date" />
+                  <Button fx:id="btnChangeCustomer" layoutX="339.0" layoutY="283.0" mnemonicParsing="false" onAction="#handleBackAction" prefHeight="27.0" prefWidth="194.0" text="Change Customer" />
                   <TextField fx:id="txtAppointmentURL" layoutX="339.0" layoutY="392.0" prefHeight="27.0" prefWidth="194.0" promptText="URL" />
                   <ComboBox fx:id="cbAppointmentLocation" layoutX="65.0" layoutY="330.0" prefHeight="27.0" prefWidth="194.0" promptText="Appointment Location" />
-                  <ComboBox fx:id="cbAppointmentType" layoutX="339.0" layoutY="330.0" prefHeight="27.0" prefWidth="194.0" promptText="Appointment Type" />
+                  <ComboBox fx:id="cbAppointmentDescription" layoutX="339.0" layoutY="330.0" prefHeight="27.0" prefWidth="194.0" promptText="Appointment Description" />
                   <ComboBox fx:id="cbAppointmentStart" layoutX="65.0" layoutY="448.0" prefHeight="27.0" prefWidth="194.0" promptText="Start Time" />
                   <ComboBox fx:id="cbAppointmentEnd" layoutX="339.0" layoutY="448.0" prefHeight="27.0" prefWidth="194.0" promptText="End Time" />
                   <Button layoutX="203.0" layoutY="500.0" mnemonicParsing="false" onAction="#submitModifyAppointment" prefHeight="27.0" prefWidth="194.0" text="Submit" />
                   <Button layoutX="204.0" layoutY="541.0" mnemonicParsing="false" onAction="#exitSubmit" prefHeight="27.0" prefWidth="194.0" text="Cancel" />
-                  <TextField fx:id="txtCustomerID" layoutX="68.0" layoutY="98.0" prefHeight="27.0" prefWidth="194.0" promptText="CustomerID" />
+                  <TextField fx:id="txtCustomerID" layoutX="68.0" layoutY="283.0" prefHeight="27.0" prefWidth="194.0" promptText="CustomerID" />
                </children>
             </Pane>
          </children>

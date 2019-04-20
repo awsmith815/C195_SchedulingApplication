@@ -75,11 +75,9 @@ public class AddAppointmentController implements Initializable {
     @FXML
     private TextField txtAppointmentTitle;
     @FXML
-    private TextArea txtAppointmentDescription;
-    @FXML
     private ComboBox<String> cbAppointmentLocation;
     @FXML
-    private ComboBox<String> cbAppointmentType;
+    private ComboBox<String> cbAppointmentDescription;
     @FXML
     private TextField txtAppointmentContact;
     @FXML
@@ -98,7 +96,7 @@ public class AddAppointmentController implements Initializable {
         
     ObservableList<String> apptTimes = FXCollections.observableArrayList("8:00 AM","9:00 AM","10:00 AM","11:00 AM","12:00 PM","1:00 PM","2:00 PM","3:00 PM","4:00 PM","5:00 PM");
     ObservableList<String> apptLocations = FXCollections.observableArrayList("New York","London","Phoenix","Online");
-    ObservableList<String> apptType = FXCollections.observableArrayList("Meeting","Documenting","Planning");
+    ObservableList<String> apptDescription = FXCollections.observableArrayList("Meeting","Documenting","Planning");
     
     @FXML
     private void selectCustomerNext(ActionEvent e){
@@ -128,11 +126,10 @@ public class AddAppointmentController implements Initializable {
         if(customerSelected.size()==1){
              customer = customerSelected.get(0);             
         }
-        String title = txtAppointmentTitle.getText();
-        String description = txtAppointmentDescription.getText();
+        String title = txtAppointmentTitle.getText();        
         String location = cbAppointmentLocation.getSelectionModel().getSelectedItem();
         String contact = txtAppointmentContact.getText();       
-        String type = cbAppointmentType.getSelectionModel().getSelectedItem();
+        String description = cbAppointmentDescription.getSelectionModel().getSelectedItem();
         String url = txtAppointmentURL.getText();
         String start = cbAppointmentStart.getSelectionModel().getSelectedItem();
         String end = cbAppointmentEnd.getSelectionModel().getSelectedItem();
@@ -219,7 +216,7 @@ public class AddAppointmentController implements Initializable {
         cbAppointmentStart.setItems(apptTimes);
         cbAppointmentEnd.setItems(apptTimes);
         cbAppointmentLocation.setItems(apptLocations);
-        cbAppointmentType.setItems(apptType);
+        cbAppointmentDescription.setItems(apptDescription);
     }    
     
 }

@@ -18,16 +18,26 @@ import Model.ReportLocationList;
 import Model.SQL_Reporting;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,7 +51,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
@@ -96,7 +108,7 @@ public class MainMenuController implements Initializable {
     private TableColumn<Appointment,Date> colAppointmentEnd;
     
     @FXML
-    private ComboBox<ReportCustomer> cbCustomerNames;
+    private TextField search;
     @FXML
     private TableView<ReportCustomer> tblReport2;
     @FXML
@@ -338,13 +350,33 @@ public class MainMenuController implements Initializable {
     
     
     //Report 2
-    //FilteredList
+    FilteredList filter = new FilteredList(ReportCustomerList.getAllCustomersReport(), e->true);
+    @FXML 
+    private void search(KeyEvent event) {
+       search.textProperty().addListener((observable, oldValue, newValue) ->{
+           filter.setPredicate((Predicate<? super ReportCustomer>) (ReportCustomer rc)->{
+               if(newValue.isEmpty() || newValue==null){
+                   return true;
+               }else if(rc.getCustomerName().toLowerCase().contains(newValue.toLowerCase())){
+                   return true;
+               }               
+               return false;
+           });
+       });
+       SortedList sort = new SortedList(filter);
+       sort.comparatorProperty().bind(tblReport2.comparatorProperty());
+       tblReport2.setItems(sort);
+    }
     
     public void updateReport2(){
         SQL_Reporting.customerSchedule();
         tblReport2.setItems(ReportCustomerList.getAllCustomersReport());
         colReport2ApptDate.setComparator(colReport2ApptDate.getComparator().reversed());
         tblReport2.getSortOrder().add(colReport2ApptDate);
+        
+    }
+    @FXML
+    public void writeReport2(ActionEvent e){
         
     }
     
