@@ -11,6 +11,9 @@ import Model.CustomerList;
 import Model.SQL_Appointment;
 import Model.Appointment;
 import Model.AppointmentList;
+import Model.ReportLocation;
+import Model.ReportLocationList;
+import Model.SQL_Reporting;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
@@ -85,6 +88,17 @@ public class MainMenuController implements Initializable {
     private TableColumn<Appointment,Date> colAppointmentStart;
     @FXML
     private TableColumn<Appointment,Date> colAppointmentEnd;
+    
+    @FXML
+    private TableView<ReportLocation> tblReport3;
+    @FXML
+    private TableColumn<ReportLocation, String> colReport3Location;
+    @FXML
+    private TableColumn<ReportLocation, Integer> colReport3NumApptAT;
+    @FXML
+    private TableColumn<ReportLocation, Integer> colReport3NumUpcomingAppt;
+    @FXML
+    private TableColumn<ReportLocation, Integer> colReport3NumCustomers;
     
     
     private static int modifyCustomerIndex;
@@ -293,6 +307,27 @@ public class MainMenuController implements Initializable {
         tblAppointment.setItems(AppointmentList.getAllAppointments());
     }
     
+    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //Reporting
+    //Report 1
+    
+    
+    
+    
+    //Report 2
+    public void updateReport2(){
+        
+    }
+    
+    
+    
+    //Report 3
+    public void updateReport3Location(){
+        SQL_Reporting.locationReport();
+        tblReport3.setItems(ReportLocationList.getAllLocations());
+        colReport3NumApptAT.setComparator(colReport3NumApptAT.getComparator().reversed());
+        tblReport3.getSortOrder().add(colReport3NumApptAT);
+    }
     
     
     /**
@@ -302,22 +337,26 @@ public class MainMenuController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        //initialize customer
         colCustomerName.setCellValueFactory(customer -> new SimpleStringProperty(customer.getValue().getCustomerName()));
         colAddress.setCellValueFactory(customer -> new SimpleStringProperty(customer.getValue().getAddress1()));
         colCity.setCellValueFactory(customer -> new SimpleStringProperty(customer.getValue().getCity()));
         colCountry.setCellValueFactory(customer -> new SimpleStringProperty(customer.getValue().getCountry()));
         colPhone.setCellValueFactory(customer -> new SimpleStringProperty(customer.getValue().getPhone()));
         updateCustomerTable();
-        
+        //initialize appointment
         colAppointmentTitle.setCellValueFactory(appointment -> new SimpleStringProperty(appointment.getValue().getTitle()));
         colAppointmentLocation.setCellValueFactory(appointment -> new SimpleStringProperty(appointment.getValue().getLocation()));        
         colAppointmentContact.setCellValueFactory(appointment -> new SimpleStringProperty(appointment.getValue().getContact()));
         colAppointmentStart.setCellValueFactory(appointment -> new SimpleObjectProperty(appointment.getValue().getStart()));
         colAppointmentEnd.setCellValueFactory(appointment -> new SimpleObjectProperty(appointment.getValue().getEnd()));
         updateAppointmentTable();
-        
-        
+        //initialize report3
+        colReport3Location.setCellValueFactory(reportLocation -> new SimpleStringProperty(reportLocation.getValue().getLocation()));
+        colReport3NumApptAT.setCellValueFactory(reportLocation -> new SimpleIntegerProperty(reportLocation.getValue().getNumApptAT()).asObject());
+        colReport3NumUpcomingAppt.setCellValueFactory(reportLocation -> new SimpleIntegerProperty(reportLocation.getValue().getNumUpcomingAppt()).asObject());
+        colReport3NumCustomers.setCellValueFactory(reportLocation -> new SimpleIntegerProperty(reportLocation.getValue().getNumCustomers()).asObject());
+        updateReport3Location();
     }    
-    
+
 }

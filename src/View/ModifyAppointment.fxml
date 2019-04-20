@@ -13,8 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="View.ModifyAppointmentController">
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.ModifyAppointmentController">
    <children>
       <Label layoutX="185.0" layoutY="34.0" text="Modify Appointment">
          <font>
@@ -51,7 +50,7 @@
                   <ComboBox fx:id="cbAppointmentType" layoutX="339.0" layoutY="330.0" prefHeight="27.0" prefWidth="194.0" promptText="Appointment Type" />
                   <ComboBox fx:id="cbAppointmentStart" layoutX="65.0" layoutY="448.0" prefHeight="27.0" prefWidth="194.0" promptText="Start Time" />
                   <ComboBox fx:id="cbAppointmentEnd" layoutX="339.0" layoutY="448.0" prefHeight="27.0" prefWidth="194.0" promptText="End Time" />
-                  <Button layoutX="203.0" layoutY="500.0" mnemonicParsing="false" onAction="#submitModifyCustomer" prefHeight="27.0" prefWidth="194.0" text="Submit" />
+                  <Button layoutX="203.0" layoutY="500.0" mnemonicParsing="false" onAction="#submitModifyAppointment" prefHeight="27.0" prefWidth="194.0" text="Submit" />
                   <Button layoutX="204.0" layoutY="541.0" mnemonicParsing="false" onAction="#exitSubmit" prefHeight="27.0" prefWidth="194.0" text="Cancel" />
                   <TextField fx:id="txtCustomerID" layoutX="68.0" layoutY="98.0" prefHeight="27.0" prefWidth="194.0" promptText="CustomerID" />
                </children>

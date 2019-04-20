@@ -144,7 +144,7 @@ public class ModifyAppointmentController implements Initializable {
     }
     
     @FXML
-    void submitModifyCustomer(ActionEvent e){
+    void submitModifyAppointment(ActionEvent e){
         Customer customer = null;
         if(customerSelected.size()==1){
             customer = customerSelected.get(0);
@@ -246,12 +246,13 @@ public class ModifyAppointmentController implements Initializable {
         Timestamp start = appointment.getStart();
         Timestamp end = appointment.getEnd();        
         SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm a");
-        System.out.println("formatTime == " + formatTime);
+        //System.out.println("formatTime == " + formatTime);
         String startString = formatTime.format(start);
-        System.out.println("startString == " + startString);
+        //System.out.println("startString == " + startString);
         String endString = formatTime.format(end); 
-        System.out.println("endString == " + endString);
+        //System.out.println("endString == " + endString);
         int customerID = appointment.getCustomerID();
+        System.out.println("CustomerID: " + customerID);
         ObservableList<Customer> customerList = CustomerList.getAllCustomers();
         for(Customer customer:customerList){
             if(customer.getCustomerID() == customerID){

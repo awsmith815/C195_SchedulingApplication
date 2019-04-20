@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
@@ -10,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="813.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainMenuController">
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="813.0" style="-fx-background-color: #daf7f8;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainMenuController">
    <children>
       <AnchorPane prefHeight="700.0" prefWidth="238.0" style="-fx-background-color: lightblue;">
          <children>
@@ -52,17 +55,9 @@
             <InnerShadow />
          </effect>
       </AnchorPane>
-      <AnchorPane layoutX="238.0" prefHeight="700.0" prefWidth="949.0">
+      <AnchorPane layoutX="238.0" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #daf7f8;">
          <children>
-            <Pane fx:id="paneReport" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #FFE5CC;">
-               <children>
-                  <Button layoutX="400.0" layoutY="428.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="Build Report" />
-               </children>
-               <effect>
-                  <InnerShadow />
-               </effect>
-            </Pane>
-            <Pane fx:id="paneCustomer" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #FFE5CC;">
+            <Pane fx:id="paneCustomer" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #daf7f8;">
                <children>
                   <TableView fx:id="tblCustomer" layoutX="172.0" layoutY="110.0" prefHeight="295.0" prefWidth="587.0">
                     <columns>
@@ -86,13 +81,13 @@
                   <InnerShadow />
                </effect>
             </Pane>
-            <Pane fx:id="paneAppointment" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #FFE5CC;">
+            <Pane fx:id="paneAppointment" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #daf7f8;">
                <children>
                   <Button alignment="CENTER" contentDisplay="CENTER" layoutX="400.0" layoutY="522.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" text="View Calendar" />
                   <Button alignment="CENTER" contentDisplay="CENTER" layoutX="214.0" layoutY="464.0" mnemonicParsing="false" onAction="#addAppointment" prefHeight="38.0" prefWidth="150.0" text="New Appointment" />
                   <Button layoutX="400.0" layoutY="464.0" mnemonicParsing="false" onAction="#modifyAppointment" prefHeight="38.0" prefWidth="150.0" text="Modify Appointment" />
                   <Button layoutX="585.0" layoutY="464.0" mnemonicParsing="false" onAction="#deleteAppointment" prefHeight="38.0" prefWidth="150.0" text="Delete Appointment" />
-                  <TableView fx:id="tblAppointment" layoutX="41.0" layoutY="80.0" prefHeight="362.0" prefWidth="869.0">
+                  <TableView fx:id="tblAppointment" layoutX="41.0" layoutY="136.0" prefHeight="306.0" prefWidth="869.0">
                     <columns>
                         <TableColumn fx:id="colAppointmentStart" prefWidth="231.0" text="Start" />
                         <TableColumn fx:id="colAppointmentEnd" prefWidth="254.0" text="End" />
@@ -101,12 +96,17 @@
                         <TableColumn fx:id="colAppointmentContact" prefWidth="132.0" text="Contact" />
                     </columns>
                   </TableView>
+                  <Label layoutX="41.0" layoutY="94.0" text="Upcoming Appointments">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
                </children>
                <effect>
                   <InnerShadow />
                </effect>
             </Pane>
-            <Pane fx:id="paneMainMenu" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #FFE5CC;">
+            <Pane fx:id="paneMainMenu" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #daf7f8;">
                <children>
                   <Label layoutX="240.0" layoutY="112.0" prefHeight="71.0" prefWidth="469.0" text="WELCOME TO THE SCHEDULING APP">
                      <font>
@@ -117,6 +117,68 @@
                <effect>
                   <InnerShadow />
                </effect>
+            </Pane>
+            <Pane fx:id="paneReport" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #FFE5CC;">
+               <effect>
+                  <InnerShadow />
+               </effect>
+               <children>
+                  <TabPane prefHeight="700.0" prefWidth="949.0" side="BOTTOM" style="-fx-background-color: #daf7f8;" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                      <Tab text="Report1: Appointments by Type MoM">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="499.0" prefWidth="892.0" style="-fx-background-color: #daf7f8;" />
+                        </content>
+                      </Tab>
+                      <Tab text="Report 2: Schedule per Customer">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #daf7f8;">
+                                 <children>
+                                    <TableView layoutX="127.0" layoutY="131.0" prefHeight="362.0" prefWidth="696.0">
+                                      <columns>
+                                        <TableColumn prefWidth="130.0" text="Date" />
+                                        <TableColumn prefWidth="109.0" text="Time" />
+                                          <TableColumn prefWidth="132.0" text="Title" />
+                                          <TableColumn prefWidth="155.0" text="Location" />
+                                          <TableColumn prefWidth="169.0" text="Contact" />
+                                      </columns>
+                                    </TableView>
+                                    <ComboBox layoutX="127.0" layoutY="62.0" prefHeight="27.0" prefWidth="262.0" promptText="Customers" />
+                                    <Label layoutX="127.0" layoutY="38.0" text="Please select a customer" />
+                                    <Button layoutX="442.0" layoutY="62.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="138.0" text="Search" />
+                                    <Button layoutX="511.0" layoutY="522.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="138.0" text="Export" />
+                                    <Button layoutX="685.0" layoutY="522.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="138.0" text="Clear" />
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                        <Tab text="Report 3: Most Active Locations">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #daf7f8;">
+                                 <children>
+                                    <TableView fx:id="tblReport3" layoutX="78.0" layoutY="217.0" prefHeight="141.0" prefWidth="796.0">
+                                      <columns>
+                                        <TableColumn fx:id="colReport3Location" prefWidth="126.0" text="Location" />
+                                        <TableColumn fx:id="colReport3NumApptAT" prefWidth="268.0" text="Number of Appointments All Time" />
+                                          <TableColumn fx:id="colReport3NumUpcomingAppt" prefWidth="256.0" text="Number of Upcoming Appointments" />
+                                          <TableColumn fx:id="colReport3NumCustomers" prefWidth="145.0" text="Different Customers" />
+                                      </columns>
+                                    </TableView>
+                                    <Button layoutX="293.0" layoutY="391.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="150.0" text="Export" />
+                                    <Label layoutX="80.0" layoutY="136.0" text="Location Report">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="80.0" layoutY="165.0" prefHeight="52.0" prefWidth="727.0" text="This report shows the number of appointments all time, number of appointments upcoming and number of different distinct customers per location" wrapText="true" />
+                                    <Button layoutX="510.0" layoutY="391.0" mnemonicParsing="false" onAction="#updateReport3Location" prefHeight="27.0" prefWidth="150.0" text="Refresh" />
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
+                    </tabs>
+                  </TabPane>
+               </children>
             </Pane>
          </children>
       </AnchorPane>
