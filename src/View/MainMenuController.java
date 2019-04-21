@@ -51,6 +51,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -68,6 +69,8 @@ import javafx.stage.Stage;
  */
 public class MainMenuController implements Initializable {
     
+    @FXML
+    private Label lblUpcomingAppt;
     @FXML
     private Button btnMainMenu;
     @FXML
@@ -200,7 +203,17 @@ public class MainMenuController implements Initializable {
     private void handleReportButtonExit(MouseEvent me){        
         btnReport.setEffect(null);
     }
-
+        
+    private void mainMenuApptAlert(){
+        int numAppts = SQL_Appointment.appointmentsAlert();
+        if(numAppts==0){
+            lblUpcomingAppt.setText("You have no appointments in the next 15 minutes!");
+        }else if(numAppts==1){
+            lblUpcomingAppt.setText("You have "+numAppts+" appointment in the next 15 minutes!");
+        }else if(numAppts>1){
+            lblUpcomingAppt.setText("You have "+numAppts+" appointments in the next 15 minutes!");
+        }
+    }
 
 
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -357,7 +370,8 @@ public class MainMenuController implements Initializable {
     
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     //Reporting
-    //Report 1
+    //Report 1    
+    
     public void updateReport1(){
         SQL_Reporting.apptByType();
         tblReport1.setItems(ReportTypeList.getAllTypes());
@@ -367,11 +381,11 @@ public class MainMenuController implements Initializable {
     
     
     //Report 2
-    FilteredList filter = new FilteredList(ReportCustomerList.getAllCustomersReport(), e->true);
+    FilteredList filterReport2 = new FilteredList(ReportCustomerList.getAllCustomersReport(), e->true);
     @FXML 
     private void search(KeyEvent event) {
        search.textProperty().addListener((observable, oldValue, newValue) ->{
-           filter.setPredicate((Predicate<? super ReportCustomer>) (ReportCustomer rc)->{
+           filterReport2.setPredicate((Predicate<? super ReportCustomer>) (ReportCustomer rc)->{
                if(newValue.isEmpty() || newValue==null){
                    return true;
                }else if(rc.getCustomerName().toLowerCase().contains(newValue.toLowerCase())){
@@ -380,7 +394,7 @@ public class MainMenuController implements Initializable {
                return false;
            });
        });
-       SortedList sort = new SortedList(filter);
+       SortedList sort = new SortedList(filterReport2);
        sort.comparatorProperty().bind(tblReport2.comparatorProperty());
        tblReport2.setItems(sort);
     }
@@ -449,6 +463,7 @@ public class MainMenuController implements Initializable {
         colReport3NumUpcomingAppt.setCellValueFactory(reportLocation -> new SimpleIntegerProperty(reportLocation.getValue().getNumUpcomingAppt()).asObject());
         colReport3NumCustomers.setCellValueFactory(reportLocation -> new SimpleIntegerProperty(reportLocation.getValue().getNumCustomers()).asObject());
         updateReport3Location();
+        mainMenuApptAlert();
     }    
 
 }

@@ -106,18 +106,6 @@
                   <InnerShadow />
                </effect>
             </Pane>
-            <Pane fx:id="paneMainMenu" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #daf7f8;">
-               <children>
-                  <Label layoutX="240.0" layoutY="112.0" prefHeight="71.0" prefWidth="469.0" text="WELCOME TO THE SCHEDULING APP">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-               </children>
-               <effect>
-                  <InnerShadow />
-               </effect>
-            </Pane>
             <Pane fx:id="paneReport" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #FFE5CC;">
                <effect>
                   <InnerShadow />
@@ -200,6 +188,25 @@
                     </tabs>
                   </TabPane>
                </children>
+            </Pane>
+            <Pane fx:id="paneMainMenu" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #daf7f8;">
+               <children>
+                  <Label layoutX="240.0" layoutY="112.0" prefHeight="71.0" prefWidth="469.0" text="WELCOME TO THE SCHEDULING APP">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="120.0" layoutY="212.0" text="Alerts">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="120.0" layoutY="247.0" text="Upcoming Appointments:" />
+                  <Label fx:id="lblUpcomingAppt" layoutX="120.0" layoutY="283.0" text="You have no Appointments in the next 15 minutes!" />
+               </children>
+               <effect>
+                  <InnerShadow />
+               </effect>
             </Pane>
          </children>
       </AnchorPane>

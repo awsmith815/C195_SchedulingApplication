@@ -149,4 +149,18 @@ public class SQL_Appointment {
         }
     }
     
+    //Used to alert for appointments within 15 minutes
+    public static int appointmentsAlert(){
+        try{
+            Statement stmt = Database.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery("select count(distinct appointmentId) from appointment where `start` between current_timestamp() and date_add(current_timestamp(), INTERVAL 15 MINUTE)");
+            while(rs.next()){
+                int numAppts = rs.getInt(1);
+                return numAppts;
+            }
+        }catch(SQLException exc){
+            System.out.println("SQLException(Alert15MIN): "+exc.getMessage());
+        }
+        return 0;
+    }
 }
