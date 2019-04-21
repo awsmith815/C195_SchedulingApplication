@@ -26,7 +26,46 @@ public class SQL_Reporting {
     
     //Build Report 1
     public static void apptByType(){
-        
+        try{
+            Statement stmt = Database.getConnection().createStatement();
+            ObservableList<ReportType> allTypes = ReportTypeList.getAllTypes();
+            ArrayList<String> allTypesArray = new ArrayList<>();
+            allTypes.clear();
+            ResultSet initialTypes = stmt.executeQuery("select distinct description from appointment");
+            while(initialTypes.next()){
+                allTypesArray.add(initialTypes.getString(1));
+            }
+            for(String types : allTypesArray){
+                ReportType rt = new ReportType();
+                ResultSet rs = stmt.executeQuery("select\n" +
+                                                "MONTHNAME(a.`start`) as apptMonth\n" +
+                                                ",YEAR(a.`start`) as apptYear\n" +
+                                                ",a.description\n" +
+                                                ",COUNT(distinct a.appointmentId) as numAppts\n" +
+                                                "from appointment a\n" +
+                                                "where description = '"+types+"'group by \n" +
+                                                "MONTHNAME(a.`start`)\n" +
+                                                ",YEAR(a.`start`) \n" +
+                                                ",a.description");
+                rs.next();
+                String month = rs.getString(1);
+                //System.out.println("Report1Col1: "+ month);
+                int year = rs.getInt(2);
+                //System.out.println("Report1Col2: "+ year);
+                String description = rs.getString(3);
+                //System.out.println("Report1Col3: "+ description);
+                int numAppts = rs.getInt(4);
+                //System.out.println("Report1Col4: "+ numAppts);
+                rt.setMonth(month);
+                rt.setYear(year);
+                rt.setDescription(description);
+                rt.setNumAppts(numAppts);
+                allTypes.add(rt);
+            }
+        }catch(SQLException exc){
+            System.out.println("SQLException: "+exc.getMessage());
+            System.out.println("Error: "+exc.getLocalizedMessage());   
+        }
     }
     
     
@@ -112,7 +151,7 @@ public class SQL_Reporting {
                                                 "where a.location = '"+ location + "' group by a.location");
                 rs.next();
                 //String location = rs.getString(1);  
-                System.out.println("Report3Col1: "+location);
+                //System.out.println("Report3Col1: "+location);
                 int numApptAT = rs.getInt(2);
                 //System.out.println("Report3Col2: "+numApptAT);
                 int numUpcomingAppt = rs.getInt(3);

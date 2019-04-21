@@ -7,53 +7,61 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.ModifyAppointmentController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.ModifyAppointmentController">
+   <effect>
+      <InnerShadow />
+   </effect>
    <children>
-      <Label layoutX="185.0" layoutY="34.0" text="Modify Appointment">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Label>
-      <StackPane layoutY="81.0" prefHeight="619.0" prefWidth="600.0">
+      <Pane fx:id="paneModifyAppointment" prefHeight="500.0" prefWidth="1000.0" style="-fx-background-color: #daf7f8;">
          <children>
-            <Pane fx:id="paneModifyCustomer" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lightblue;">
-               <children>
-                  <TableView fx:id="tblCustomerAppt" layoutX="57.0" layoutY="98.0" prefHeight="280.0" prefWidth="486.0">
-                    <columns>
-                      <TableColumn fx:id="colCustomerName" prefWidth="124.0" text="Customer Name" />
-                      <TableColumn fx:id="colCustomerAddress" prefWidth="93.0" text="Address" />
-                        <TableColumn fx:id="colCustomerCity" prefWidth="84.0" text="City" />
-                        <TableColumn fx:id="colCustomerCountry" prefWidth="66.0" text="Country" />
-                        <TableColumn fx:id="colCustomerPhone" prefWidth="118.0" text="Phone" />
-                    </columns>
-                  </TableView>
-                  <Label layoutX="209.0" layoutY="71.0" text="Please select a new customer" />
-                  <Button layoutX="219.0" layoutY="418.0" mnemonicParsing="false" onAction="#selectCustomerNext" prefHeight="38.0" prefWidth="163.0" text="Update" />
-                  <Button fx:id="btnBack" layoutX="218.0" layoutY="470.0" mnemonicParsing="false" onAction="#handleBackAction" prefHeight="38.0" prefWidth="163.0" text="Go Back" />
-               </children>
-            </Pane>
-            <Pane fx:id="paneModifyAppointment" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lightgrey;">
-               <children>
-                  <TextField fx:id="txtAppointmentTitle" layoutX="68.0" layoutY="232.0" prefHeight="27.0" prefWidth="194.0" promptText="Appointment Title" />
-                  <TextField fx:id="txtAppointmentContact" layoutX="65.0" layoutY="392.0" prefHeight="27.0" prefWidth="194.0" promptText="Appointment Contact" />
-                  <DatePicker fx:id="dateAppointmentDate" layoutX="339.0" layoutY="232.0" promptText="Appointment Date" />
-                  <Button fx:id="btnChangeCustomer" layoutX="339.0" layoutY="283.0" mnemonicParsing="false" onAction="#handleBackAction" prefHeight="27.0" prefWidth="194.0" text="Change Customer" />
-                  <TextField fx:id="txtAppointmentURL" layoutX="339.0" layoutY="392.0" prefHeight="27.0" prefWidth="194.0" promptText="URL" />
-                  <ComboBox fx:id="cbAppointmentLocation" layoutX="65.0" layoutY="330.0" prefHeight="27.0" prefWidth="194.0" promptText="Appointment Location" />
-                  <ComboBox fx:id="cbAppointmentDescription" layoutX="339.0" layoutY="330.0" prefHeight="27.0" prefWidth="194.0" promptText="Appointment Description" />
-                  <ComboBox fx:id="cbAppointmentStart" layoutX="65.0" layoutY="448.0" prefHeight="27.0" prefWidth="194.0" promptText="Start Time" />
-                  <ComboBox fx:id="cbAppointmentEnd" layoutX="339.0" layoutY="448.0" prefHeight="27.0" prefWidth="194.0" promptText="End Time" />
-                  <Button layoutX="203.0" layoutY="500.0" mnemonicParsing="false" onAction="#submitModifyAppointment" prefHeight="27.0" prefWidth="194.0" text="Submit" />
-                  <Button layoutX="204.0" layoutY="541.0" mnemonicParsing="false" onAction="#exitSubmit" prefHeight="27.0" prefWidth="194.0" text="Cancel" />
-                  <TextField fx:id="txtCustomerID" layoutX="68.0" layoutY="283.0" prefHeight="27.0" prefWidth="194.0" promptText="CustomerID" />
-               </children>
-            </Pane>
+            <Label layoutX="120.0" layoutY="56.0" text="Modify Appointment">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TableView fx:id="tbl1CustomerAppt" layoutX="500.0" layoutY="70.0" prefHeight="169.0" prefWidth="427.0">
+              <columns>
+                <TableColumn fx:id="col1CustomerName" prefWidth="144.0" text="Customer Name" />
+                <TableColumn fx:id="col1CustomerAddress" prefWidth="116.0" text="Address" />
+                  <TableColumn fx:id="col1CustomerCity" prefWidth="93.0" text="City" />
+                  <TableColumn fx:id="col1CustomerCountry" prefWidth="73.0" text="Country" />
+              </columns>
+               <effect>
+                  <Blend />
+               </effect>
+            </TableView>
+            <TableView fx:id="tbl2CustomerAppt" layoutX="500.0" layoutY="300.0" prefHeight="100.0" prefWidth="427.0">
+               <columns>
+                  <TableColumn fx:id="col2CustomerName" prefWidth="144.0" text="Customer Name" />
+                  <TableColumn fx:id="col2CustomerAddress" prefWidth="116.0" text="Address" />
+                  <TableColumn fx:id="col2CustomerCity" prefWidth="93.0" text="City" />
+                  <TableColumn fx:id="col2CustomerCountry" prefWidth="73.0" text="Country" />
+               </columns>
+               <effect>
+                  <Blend />
+               </effect>
+            </TableView>
+            <TextField fx:id="txtAppointmentTitle" layoutX="21.0" layoutY="108.0" prefHeight="27.0" prefWidth="211.0" promptText="Appointment Title" />
+            <TextField fx:id="txtAppointmentURL" layoutX="235.0" layoutY="200.0" prefHeight="27.0" prefWidth="211.0" promptText="URL" />
+            <ComboBox fx:id="cbAppointmentLocation" layoutX="21.0" layoutY="154.0" prefHeight="27.0" prefWidth="211.0" promptText="Appointment Location" />
+            <ComboBox fx:id="cbAppointmentDescription" layoutX="235.0" layoutY="154.0" prefHeight="27.0" prefWidth="211.0" promptText="Appointment Description" />
+            <DatePicker fx:id="dateAppointmentDate" layoutX="235.0" layoutY="108.0" prefHeight="27.0" prefWidth="211.0" promptText="Appointment Date" />
+            <ComboBox fx:id="cbAppointmentStart" layoutX="21.0" layoutY="239.0" prefHeight="27.0" prefWidth="211.0" promptText="Start Time" />
+            <ComboBox fx:id="cbAppointmentEnd" layoutX="235.0" layoutY="239.0" prefHeight="27.0" prefWidth="211.0" promptText="End Time" />
+            <Button layoutX="136.0" layoutY="302.0" mnemonicParsing="false" onAction="#submitModifyAppointment" prefHeight="17.0" prefWidth="198.0" text="Submit" />
+            <TextField fx:id="txtAppointmentContact" layoutX="21.0" layoutY="200.0" prefHeight="27.0" prefWidth="211.0" promptText="Appointment Contact" />
+            <Button layoutX="136.0" layoutY="350.0" mnemonicParsing="false" onAction="#exitSubmit" prefHeight="17.0" prefWidth="198.0" text="Cancel" />
+            <Label layoutX="505.0" layoutY="44.0" text="Please select a customer" />
+            <Label layoutX="500.0" layoutY="273.0" text="Customer for Appointment" />
+            <Button layoutX="774.0" layoutY="253.0" mnemonicParsing="false" onAction="#selectCustomerNext" prefHeight="27.0" prefWidth="153.0" text="Add Customer" />
+            <Button layoutX="774.0" layoutY="415.0" mnemonicParsing="false" onAction="#customerRemove" prefHeight="27.0" prefWidth="153.0" text="Remove Customer" />
          </children>
-      </StackPane>
+      </Pane>
    </children>
 </AnchorPane>

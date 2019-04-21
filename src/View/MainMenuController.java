@@ -15,6 +15,8 @@ import Model.ReportCustomer;
 import Model.ReportCustomerList;
 import Model.ReportLocation;
 import Model.ReportLocationList;
+import Model.ReportType;
+import Model.ReportTypeList;
 import Model.SQL_Reporting;
 import java.io.IOException;
 import java.net.URL;
@@ -106,6 +108,17 @@ public class MainMenuController implements Initializable {
     private TableColumn<Appointment,Date> colAppointmentStart;
     @FXML
     private TableColumn<Appointment,Date> colAppointmentEnd;
+    
+    @FXML
+    private TableView<ReportType> tblReport1;
+    @FXML
+    private TableColumn<ReportType, String> colReport1Month;
+    @FXML
+    private TableColumn<ReportType, Integer> colReport1Year;
+    @FXML
+    private TableColumn<ReportType, String> colReport1Description;
+    @FXML
+    private TableColumn<ReportType, Integer> colReport1NumAppts;
     
     @FXML
     private TextField search;
@@ -345,7 +358,11 @@ public class MainMenuController implements Initializable {
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     //Reporting
     //Report 1
-    
+    public void updateReport1(){
+        SQL_Reporting.apptByType();
+        tblReport1.setItems(ReportTypeList.getAllTypes());
+        
+    }
     
     
     
@@ -412,7 +429,12 @@ public class MainMenuController implements Initializable {
         colAppointmentStart.setCellValueFactory(appointment -> new SimpleObjectProperty(appointment.getValue().getStart()));
         colAppointmentEnd.setCellValueFactory(appointment -> new SimpleObjectProperty(appointment.getValue().getEnd()));
         updateAppointmentTable();
-        
+        //initialize report1
+        colReport1Month.setCellValueFactory(reportType -> new SimpleStringProperty(reportType.getValue().getMonth()));
+        colReport1Year.setCellValueFactory(reportType -> new SimpleIntegerProperty(reportType.getValue().getYear()).asObject());
+        colReport1Description.setCellValueFactory(reportType -> new SimpleStringProperty(reportType.getValue().getDescription()));
+        colReport1NumAppts.setCellValueFactory(reportType -> new SimpleIntegerProperty(reportType.getValue().getNumAppts()).asObject());
+        updateReport1();
         //initialize report2       
         colReport2ApptDate.setCellValueFactory(reportCustomer -> new SimpleObjectProperty(reportCustomer.getValue().getApptDate()));
         colReport2ApptTime.setCellValueFactory(reportCustomer -> new SimpleStringProperty(reportCustomer.getValue().getApptTime()));
@@ -420,8 +442,7 @@ public class MainMenuController implements Initializable {
         colReport2ApptTitle.setCellValueFactory(reportCustomer -> new SimpleStringProperty(reportCustomer.getValue().getTitle()));
         colReport2ApptLocation.setCellValueFactory(reportCustomer -> new SimpleStringProperty(reportCustomer.getValue().getLocation()));
         colReport2ApptContact.setCellValueFactory(reportCustomer -> new SimpleStringProperty(reportCustomer.getValue().getContact()));
-        updateReport2();
-        
+        updateReport2();        
         //initialize report3
         colReport3Location.setCellValueFactory(reportLocation -> new SimpleStringProperty(reportLocation.getValue().getLocation()));
         colReport3NumApptAT.setCellValueFactory(reportLocation -> new SimpleIntegerProperty(reportLocation.getValue().getNumApptAT()).asObject());

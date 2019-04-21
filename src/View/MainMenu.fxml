@@ -106,6 +106,18 @@
                   <InnerShadow />
                </effect>
             </Pane>
+            <Pane fx:id="paneMainMenu" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #daf7f8;">
+               <children>
+                  <Label layoutX="240.0" layoutY="112.0" prefHeight="71.0" prefWidth="469.0" text="WELCOME TO THE SCHEDULING APP">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+               <effect>
+                  <InnerShadow />
+               </effect>
+            </Pane>
             <Pane fx:id="paneReport" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #FFE5CC;">
                <effect>
                   <InnerShadow />
@@ -115,7 +127,24 @@
                     <tabs>
                       <Tab text="Report1: Appointments by Type MoM">
                         <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="499.0" prefWidth="892.0" style="-fx-background-color: #daf7f8;" />
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="499.0" prefWidth="892.0" style="-fx-background-color: #daf7f8;">
+                                 <children>
+                                    <Label layoutX="109.0" layoutY="107.0" text="Appointment Types Report">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <TableView fx:id="tblReport1" layoutX="109.0" layoutY="234.0" prefHeight="200.0" prefWidth="695.0">
+                                      <columns>
+                                        <TableColumn fx:id="colReport1Month" prefWidth="109.0" text="Month" />
+                                        <TableColumn fx:id="colReport1Year" prefWidth="108.0" text="Year" />
+                                          <TableColumn fx:id="colReport1Description" prefWidth="204.0" text="Appointment Description" />
+                                          <TableColumn fx:id="colReport1NumAppts" prefWidth="273.0" text="Number of Appointments" />
+                                      </columns>
+                                    </TableView>
+                                    <Button layoutX="262.0" layoutY="465.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="150.0" text="Export" />
+                                    <Button layoutX="475.0" layoutY="465.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="150.0" text="Refresh" />
+                                 </children></AnchorPane>
                         </content>
                       </Tab>
                       <Tab text="Report 2: Schedule per Customer">
@@ -171,18 +200,6 @@
                     </tabs>
                   </TabPane>
                </children>
-            </Pane>
-            <Pane fx:id="paneMainMenu" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #daf7f8;">
-               <children>
-                  <Label layoutX="240.0" layoutY="112.0" prefHeight="71.0" prefWidth="469.0" text="WELCOME TO THE SCHEDULING APP">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-               </children>
-               <effect>
-                  <InnerShadow />
-               </effect>
             </Pane>
          </children>
       </AnchorPane>

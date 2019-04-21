@@ -72,27 +72,25 @@ public class ModifyAppointmentController implements Initializable {
     @FXML
     private DatePicker dateAppointmentDate;
     @FXML
-    private TextField txtCustomerID;
+    private TableView<Customer> tbl1CustomerAppt;
     @FXML
-    private TableView<Customer> tblCustomerAppt;
+    private TableColumn<Customer, String> col1CustomerName;
     @FXML
-    private TableColumn<Customer, String> colCustomerName;
+    private TableColumn<Customer, String> col1CustomerAddress;
     @FXML
-    private TableColumn<Customer, String> colCustomerAddress;
+    private TableColumn<Customer, String> col1CustomerCity;
     @FXML
-    private TableColumn<Customer, String> colCustomerCity;
+    private TableColumn<Customer, String> col1CustomerCountry;
     @FXML
-    private TableColumn<Customer, String> colCustomerCountry;
+    private TableView<Customer> tbl2CustomerAppt;
     @FXML
-    private TableColumn<Customer, String> colCustomerPhone;
+    private TableColumn<Customer, String> col2CustomerName;
     @FXML
-    private Button btnChangeCustomer;
+    private TableColumn<Customer, String> col2CustomerAddress;
     @FXML
-    private Button btnUpdateCustomer;
+    private TableColumn<Customer, String> col2CustomerCity;
     @FXML
-    private Button btnBack;
-    @FXML
-    private Pane paneModifyCustomer;
+    private TableColumn<Customer, String> col2CustomerCountry;
     @FXML
     private Pane paneModifyAppointment;
     
@@ -109,19 +107,10 @@ public class ModifyAppointmentController implements Initializable {
     ObservableList<String> apptLocations = FXCollections.observableArrayList("New York","London","Phoenix","Online");
     ObservableList<String> apptDescription = FXCollections.observableArrayList("Meeting","Documenting","Planning");
 
-    @FXML
-    private void handleBackAction(ActionEvent e){
-        if(e.getSource()==btnBack){
-            paneModifyAppointment.toFront();
-        }
-        if(e.getSource()==btnChangeCustomer){
-            paneModifyCustomer.toFront();
-        }
-    }
     
     @FXML
     private void selectCustomerNext(ActionEvent e){
-        modifyApptCustomer = tblCustomerAppt.getSelectionModel().getSelectedItem();      
+        modifyApptCustomer = tbl1CustomerAppt.getSelectionModel().getSelectedItem();      
         if(modifyApptCustomer == null){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initModality(Modality.NONE);
@@ -132,13 +121,30 @@ public class ModifyAppointmentController implements Initializable {
         }else{        
         modifyApptCustomerIndex = CustomerList.getAllCustomers().indexOf(modifyApptCustomer);
         customerSelected.add(modifyApptCustomer);
-        paneModifyAppointment.toFront();
-        }
-                  
+        updateActiveCustomer();
+        }   
     }        
    
     public static int getAddApptCustomerIndex(){
         return modifyApptCustomerIndex;
+    }
+    public void updateActiveCustomer(){
+        tbl2CustomerAppt.setItems(customerSelected);
+    }
+    @FXML
+    private void customerRemove(ActionEvent e){
+        modifyApptCustomer = tbl2CustomerAppt.getSelectionModel().getSelectedItem();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initModality(Modality.NONE);
+        alert.setTitle("Confirm Exit");
+        alert.setHeaderText("Confirm Exit");
+        alert.setContentText("Are you sure you wish to remove this customer?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            customerSelected.remove(modifyApptCustomer);
+        }else{
+            System.out.println("You canceled exit.");
+        }
     }
     
     @FXML
@@ -147,7 +153,6 @@ public class ModifyAppointmentController implements Initializable {
         if(customerSelected.size()==1){
             customer = customerSelected.get(0);
         }
-        
         int appointmentID = appointment.getAppointmentID();
         String title = txtAppointmentTitle.getText();        
         String location = cbAppointmentLocation.getSelectionModel().getSelectedItem();
@@ -212,7 +217,7 @@ public class ModifyAppointmentController implements Initializable {
     
     public void updateCustomerTable(){
         SQL_Customer.updateAllCustomers();
-        tblCustomerAppt.setItems(CustomerList.getAllCustomers());
+        tbl1CustomerAppt.setItems(CustomerList.getAllCustomers());
     }
    
     /**
@@ -255,7 +260,6 @@ public class ModifyAppointmentController implements Initializable {
                 customerSelected.add(customer);                
             }
         }        
-        txtCustomerID.setText(Integer.toString(customerID));
         txtAppointmentTitle.setText(title);
         cbAppointmentDescription.setValue(description);
         cbAppointmentLocation.setValue(location);
@@ -264,13 +268,16 @@ public class ModifyAppointmentController implements Initializable {
         cbAppointmentStart.setValue(startString);
         cbAppointmentEnd.setValue(endString);
         dateAppointmentDate.setValue(appointmentLocalDate);                 
-        colCustomerName.setCellValueFactory(customer -> new SimpleStringProperty(customer.getValue().getCustomerName()));
-        colCustomerAddress.setCellValueFactory(customer -> new SimpleStringProperty(customer.getValue().getAddress1()));
-        colCustomerCity.setCellValueFactory(customer -> new SimpleStringProperty(customer.getValue().getCity()));
-        colCustomerCountry.setCellValueFactory(customer -> new SimpleStringProperty(customer.getValue().getCountry()));
-        colCustomerPhone.setCellValueFactory(customer -> new SimpleStringProperty(customer.getValue().getPhone()));
+        col1CustomerName.setCellValueFactory(customer -> new SimpleStringProperty(customer.getValue().getCustomerName()));
+        col1CustomerAddress.setCellValueFactory(customer -> new SimpleStringProperty(customer.getValue().getAddress1()));
+        col1CustomerCity.setCellValueFactory(customer -> new SimpleStringProperty(customer.getValue().getCity()));
+        col1CustomerCountry.setCellValueFactory(customer -> new SimpleStringProperty(customer.getValue().getCountry()));        
         updateCustomerTable();
-       
+        col2CustomerName.setCellValueFactory(customer -> new SimpleStringProperty(customer.getValue().getCustomerName()));
+        col2CustomerAddress.setCellValueFactory(customer -> new SimpleStringProperty(customer.getValue().getAddress1()));
+        col2CustomerCity.setCellValueFactory(customer -> new SimpleStringProperty(customer.getValue().getCity()));
+        col2CustomerCountry.setCellValueFactory(customer -> new SimpleStringProperty(customer.getValue().getCountry()));
+        updateActiveCustomer();        
         cbAppointmentStart.setItems(apptTimes);
         cbAppointmentEnd.setItems(apptTimes);
         cbAppointmentLocation.setItems(apptLocations);
