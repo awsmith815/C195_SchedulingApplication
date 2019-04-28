@@ -9,21 +9,21 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.LoginPageController">
+<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="350.0" style="-fx-background-color: #daf7f8;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.LoginPageController">
    <children>
       <Label fx:id="lblWelcome" alignment="CENTER" layoutX="25.0" layoutY="14.0" prefHeight="34.0" prefWidth="301.0" text="Welcome">
          <font>
-            <Font size="24.0" />
+            <Font size="36.0" />
          </font>
       </Label>
       <Line disable="true" endX="200.0" layoutX="125.0" layoutY="70.0" startX="-100.0" />
-      <TextField fx:id="txtUsername" layoutX="38.0" layoutY="145.0" prefHeight="34.0" prefWidth="275.0" promptText="Username" />
-      <PasswordField fx:id="txtPassword" layoutX="38.0" layoutY="205.0" prefHeight="34.0" prefWidth="275.0" promptText="Password">
+      <TextField fx:id="txtUsername" layoutX="38.0" layoutY="145.0" prefHeight="34.0" prefWidth="275.0" />
+      <PasswordField fx:id="txtPassword" layoutX="38.0" layoutY="205.0" prefHeight="34.0" prefWidth="275.0">
          <font>
             <Font size="12.0" />
          </font></PasswordField>
-      <Button fx:id="btnLogin" layoutX="78.0" layoutY="286.0" mnemonicParsing="false" onAction="#clickLogin" prefHeight="25.0" prefWidth="87.0" text="Login" />
-      <Button fx:id="btnExit" layoutX="187.0" layoutY="286.0" mnemonicParsing="false" onAction="#confirmExit" prefHeight="25.0" prefWidth="87.0" text="Exit" />
+      <Button fx:id="btnLogin" layoutX="91.0" layoutY="275.0" mnemonicParsing="false" onAction="#clickLogin" prefHeight="27.0" prefWidth="169.0" text="Login" />
+      <Button fx:id="btnExit" layoutX="91.0" layoutY="320.0" mnemonicParsing="false" onAction="#confirmExit" prefHeight="27.0" prefWidth="169.0" text="Exit" />
       <Line disable="true" endX="200.0" layoutX="125.0" layoutY="380.0" startX="-100.0" />
       <Label fx:id="lblFooter" alignment="CENTER" layoutX="32.0" layoutY="428.0" opacity="0.5" prefHeight="16.0" prefWidth="301.0" text="The Scheduling App">
          <font>
@@ -34,6 +34,8 @@
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Label>
+      <Label fx:id="lblUsername" layoutX="38.0" layoutY="121.0" text="Username:" />
+      <Label fx:id="lblPassword" layoutX="38.0" layoutY="188.0" text="Password:" />
    </children>
    <effect>
       <InnerShadow />

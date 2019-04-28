@@ -75,7 +75,7 @@ public class SQL_User {
             System.out.println("UserName: "+ userName);
             try{
                 Path path = Paths.get("logger.txt");
-                Files.write(path, Arrays.asList("User " + currentUser + " logged in at " + Date.from(Instant.now()).toString() + "."),
+                Files.write(path, Arrays.asList("User " + userName + " logged in at " + Date.from(Instant.now()).toString() + "."),
                         StandardCharsets.UTF_8, Files.exists(path) ? StandardOpenOption.APPEND : StandardOpenOption.CREATE);
             }catch(IOException exc){
                 exc.printStackTrace();

@@ -40,7 +40,11 @@ public class LoginPageController implements Initializable {
     @FXML
     private Button btnExit;
     @FXML
-    private TextField txtUsername; 
+    private TextField txtUsername;
+    @FXML
+    private Label lblUsername;
+    @FXML
+    private Label lblPassword;
     @FXML
     private TextField txtPassword;
     @FXML
@@ -51,8 +55,8 @@ public class LoginPageController implements Initializable {
         ResourceBundle rb = ResourceBundle.getBundle("Resources/LoginPage", Locale.getDefault());
         lblWelcome.setText(rb.getString("lblWelcomeHome"));
         lblFooter.setText(rb.getString("lblFooter"));
-        txtUsername.setPromptText(rb.getString("txtUsername"));
-        txtPassword.setPromptText(rb.getString("txtPassword"));
+        lblUsername.setText(rb.getString("txtUsername"));
+        lblPassword.setText(rb.getString("txtPassword"));
         btnLogin.setText(rb.getString("btnLogin"));
         btnExit.setText(rb.getString("btnExit"));        
     }
