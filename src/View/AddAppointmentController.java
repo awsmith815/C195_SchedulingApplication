@@ -156,7 +156,8 @@ public class AddAppointmentController implements Initializable {
         String start = cbAppointmentStart.getSelectionModel().getSelectedItem();
         String end = cbAppointmentEnd.getSelectionModel().getSelectedItem();
         LocalDate appointmentDate = dateAppointmentDate.getValue();
-        errorMessage = Appointment.appointmentValidation(title, errorMessage);
+        //public static String appointmentValidation(String title, String description, location String contact, String url, int customerID, String errorMessage)
+        errorMessage = Appointment.appointmentValidation(title,description,location, contact, url, customer.getCustomerID(), errorMessage);
         if(errorMessage.length()>0){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");

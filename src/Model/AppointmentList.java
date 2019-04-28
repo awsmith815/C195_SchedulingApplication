@@ -14,8 +14,16 @@ import javafx.collections.ObservableList;
  */
 public class AppointmentList {
     private static ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
+    private static ObservableList<Appointment> monthlyAppointments = FXCollections.observableArrayList();
+    private static ObservableList<Appointment> weeklyAppointments = FXCollections.observableArrayList();
     
     public static ObservableList<Appointment> getAllAppointments(){
         return allAppointments;
+    }
+    public static ObservableList<Appointment> getMonthlyAppointments(){
+        return monthlyAppointments;
+    }
+    public static ObservableList<Appointment> getWeeklyAppointments(){
+        return weeklyAppointments;
     }
 }

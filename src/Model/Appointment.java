@@ -13,9 +13,10 @@ import java.util.Date;
 public class Appointment {
     
     private int appointmentID, customerID;
-    private String title, description, location, contact, url, createdBy;
+    private String title, description, location, contact, url, createdBy,dayNameStart;
     private Timestamp start, end, lastUpdated;
     private Date startDate, endDate, createdDate;
+    
     
     public Appointment(){
         
@@ -63,6 +64,9 @@ public class Appointment {
     public Date getCreatedDate(){
         return createdDate;
     }
+    public String getDayNameStart(){
+        return dayNameStart;
+    }
     //Setters
     public void setAppointmentID(int appointmentID){
         this.appointmentID=appointmentID;
@@ -106,8 +110,24 @@ public class Appointment {
     public void setCreatedDate(Date createdDate){
         this.createdDate=createdDate;
     }
-    
-    public static String appointmentValidation(String title, String errorMessage){
+    public void setDayNameStart(String dayNameStart){
+        this.dayNameStart=dayNameStart;
+    }
+    public static String appointmentValidation(String title, String description, String location, String contact, String url, int customerID, String errorMessage){
+        if(title.length()==0){
+            errorMessage = errorMessage + "Appointment title cannot be empty\n";
+        }else if(description.length()==0){
+            errorMessage = errorMessage + "Appointment description cannot be empty\n";
+        }else if(contact.length()==0){
+            errorMessage = errorMessage + "Appointment contact cannot be empty\n";
+        }else if(url.length()==0){
+            errorMessage = errorMessage + "Appointment url cannot be empty\n";
+        }else if(customerID == 0){
+            errorMessage = errorMessage + "Customer cannot be empty\n";
+        }else if(location.length()==0){
+            errorMessage = errorMessage + "Appointment location cannot be empty\n";
+        }
+        
         return errorMessage;
     }
 }

@@ -163,4 +163,69 @@ public class SQL_Appointment {
         }
         return 0;
     }
+    
+    
+    public static void updateMonthlyView(String monthToSearch){
+        try{
+            ObservableList<Appointment> monthlyAppointments = AppointmentList.getMonthlyAppointments();            
+            ArrayList<Integer> monthlyAppointmentIDs = new ArrayList<>();
+            Statement stmt = Database.getConnection().createStatement();
+            ResultSet allAppt = stmt.executeQuery("select appointmentId from appointment where monthname(start)='"+monthToSearch+"'");
+            while(allAppt.next()){
+                monthlyAppointmentIDs.add(allAppt.getInt(1));
+            }
+            for(int appointmentID:monthlyAppointmentIDs){                
+                ResultSet rs = stmt.executeQuery("select start, title, description, contact from appointment where appointmentId="+appointmentID);
+                rs.next();
+                Appointment appt = new Appointment();
+                Timestamp start = rs.getTimestamp(1);
+                String title = rs.getString(2);
+                String description = rs.getString(3);
+                String contact = rs.getString(4);
+                //appt.setMonthName(startMonth);
+                appt.setStart(start);
+                appt.setTitle(title);
+                appt.setDescription(description);
+                appt.setContact(contact);
+                monthlyAppointments.add(appt);                
+            }
+        }catch(SQLException exc){
+            System.out.println("SQLException(MonthlyView): "+exc.getMessage());
+        }
+    }
+    public static void updateWeeklyView(int weeksToSearch){
+        try{
+            ObservableList<Appointment> weeklyAppointments = AppointmentList.getWeeklyAppointments();
+            ArrayList<Integer> weeklyAppointmentIDs = new ArrayList<>();
+            Statement stmt = Database.getConnection().createStatement();
+            ResultSet allAppt = stmt.executeQuery("select appointmentId \n" +
+                                                    "from appointment \n" +
+                                                    "where year(start) = YEAR(date_add(curdate(), interval "+weeksToSearch+" WEEK)) and \n" +
+                                                    "weekofyear(start) = weekofyear(date_add(curdate(),interval "+weeksToSearch+" WEEK));");
+            while(allAppt.next()){
+                weeklyAppointmentIDs.add(allAppt.getInt(1));
+            }
+            for(int appointmentID:weeklyAppointmentIDs){
+                ResultSet rs = stmt.executeQuery("select dayname(start), start, title, description, contact from appointment where appointmentId="+appointmentID);
+                rs.next();
+                Appointment appt = new Appointment();
+                String dayName = rs.getString(1);
+                Timestamp start = rs.getTimestamp(2);
+                String title = rs.getString(3);
+                String description = rs.getString(4);
+                String contact = rs.getString(5);
+                appt.setDayNameStart(dayName);
+                appt.setStart(start);
+                appt.setTitle(title);
+                appt.setDescription(description);
+                appt.setContact(contact);
+                weeklyAppointments.add(appt);
+                
+            }
+            
+        }catch(SQLException exc){
+            System.out.println("SQLException(WeeklyView): "+exc.getMessage());
+        }
+    }
+    
 }

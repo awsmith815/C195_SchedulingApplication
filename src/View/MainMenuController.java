@@ -33,9 +33,12 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -122,6 +125,8 @@ public class MainMenuController implements Initializable {
     private TableColumn<ReportType, String> colReport1Description;
     @FXML
     private TableColumn<ReportType, Integer> colReport1NumAppts;
+    @FXML
+    private ComboBox<String> cbMonths;
     
     @FXML
     private TextField search;
@@ -210,8 +215,21 @@ public class MainMenuController implements Initializable {
             lblUpcomingAppt.setText("You have no appointments in the next 15 minutes!");
         }else if(numAppts==1){
             lblUpcomingAppt.setText("You have "+numAppts+" appointment in the next 15 minutes!");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initModality(Modality.NONE);
+            alert.setTitle("Appointment Alert");
+            alert.setHeaderText("Appointment Alert");
+            alert.setContentText("You have "+numAppts+" appointment in the next 15 minutes!");
+            alert.showAndWait();
+            return;
         }else if(numAppts>1){
             lblUpcomingAppt.setText("You have "+numAppts+" appointments in the next 15 minutes!");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initModality(Modality.NONE);
+            alert.setTitle("Appointment Alert");
+            alert.setHeaderText("Appointment Alert");
+            alert.setContentText("You have "+numAppts+" appointments in the next 15 minutes!");
+            alert.showAndWait();
         }
     }
 
@@ -346,6 +364,23 @@ public class MainMenuController implements Initializable {
         }
     }
     
+    
+    @FXML
+    void detailedSchedule(ActionEvent e){
+        try{
+            Parent detailedScheduleParent = FXMLLoader.load(getClass().getResource("DetailedSchedule.fxml"));
+            Scene detailedScheduleScene = new Scene(detailedScheduleParent);
+            Stage detailedScheduleStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            detailedScheduleStage.setScene(detailedScheduleScene);
+            detailedScheduleStage.show();
+        }catch(IOException exc){
+            System.out.println(exc.getMessage());
+            System.out.println(exc.getLocalizedMessage());
+            System.out.println(exc.initCause(exc));
+
+        }
+    }
+    
     @FXML
     void exit(ActionEvent e){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -371,6 +406,7 @@ public class MainMenuController implements Initializable {
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     //Reporting
     //Report 1    
+    
     
     public void updateReport1(){
         SQL_Reporting.apptByType();
@@ -464,6 +500,7 @@ public class MainMenuController implements Initializable {
         colReport3NumCustomers.setCellValueFactory(reportLocation -> new SimpleIntegerProperty(reportLocation.getValue().getNumCustomers()).asObject());
         updateReport3Location();
         mainMenuApptAlert();
+               
     }    
 
 }
