@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.AddCustomerController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="550.0" style="-fx-background-color: #daf7f8;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.AddCustomerController">
    <children>
       <Line endX="236.0" layoutX="275.0" layoutY="77.0" startX="-243.0" />
       <Label layoutX="188.0" layoutY="24.0" text="New Customer">

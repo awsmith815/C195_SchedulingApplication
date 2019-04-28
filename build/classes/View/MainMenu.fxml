@@ -82,26 +82,6 @@
                   <InnerShadow />
                </effect>
             </Pane>
-            <Pane fx:id="paneMainMenu" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #daf7f8;">
-               <children>
-                  <Label layoutX="139.0" layoutY="114.0" prefHeight="71.0" prefWidth="671.0" text="WELCOME TO THE SCHEDULING APP">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Label>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="121.0" layoutX="76.0" layoutY="195.0" stroke="BLACK" strokeType="INSIDE" width="799.0" />
-                  <Label layoutX="120.0" layoutY="212.0" text="Alerts">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="120.0" layoutY="247.0" text="Upcoming Appointments:" />
-                  <Label fx:id="lblUpcomingAppt" layoutX="120.0" layoutY="283.0" text="You have no Appointments in the next 15 minutes!" />
-               </children>
-               <effect>
-                  <InnerShadow />
-               </effect>
-            </Pane>
             <Pane fx:id="paneReport" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #FFE5CC;">
                <effect>
                   <InnerShadow />
@@ -205,6 +185,26 @@
                      </font>
                   </Label>
                   <Button alignment="CENTER" contentDisplay="CENTER" layoutX="401.0" layoutY="523.0" mnemonicParsing="false" onAction="#detailedSchedule" prefHeight="38.0" prefWidth="150.0" text="Detailed Schedule" />
+               </children>
+               <effect>
+                  <InnerShadow />
+               </effect>
+            </Pane>
+            <Pane fx:id="paneMainMenu" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #daf7f8;">
+               <children>
+                  <Label layoutX="139.0" layoutY="114.0" prefHeight="71.0" prefWidth="671.0" text="WELCOME TO THE SCHEDULING APP">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="121.0" layoutX="76.0" layoutY="195.0" stroke="BLACK" strokeType="INSIDE" width="799.0" />
+                  <Label layoutX="120.0" layoutY="212.0" text="Alerts">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="120.0" layoutY="247.0" text="Upcoming Appointments:" />
+                  <Label fx:id="lblUpcomingAppt" layoutX="120.0" layoutY="283.0" text="You have no Appointments in the next 15 minutes!" />
                </children>
                <effect>
                   <InnerShadow />

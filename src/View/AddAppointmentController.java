@@ -156,7 +156,7 @@ public class AddAppointmentController implements Initializable {
         String start = cbAppointmentStart.getSelectionModel().getSelectedItem();
         String end = cbAppointmentEnd.getSelectionModel().getSelectedItem();
         LocalDate appointmentDate = dateAppointmentDate.getValue();
-        //public static String appointmentValidation(String title, String description, location String contact, String url, int customerID, String errorMessage)
+        //public static String appointmentValidation(String title, String description, String location, String contact, String url, int customerID, String errorMessage)
         errorMessage = Appointment.appointmentValidation(title,description,location, contact, url, customer.getCustomerID(), errorMessage);
         if(errorMessage.length()>0){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -172,12 +172,14 @@ public class AddAppointmentController implements Initializable {
         Date startFullDate = null;
         Date endFullDate = null;
         try{
-            startFullDate = localOutputFormat.parse(appointmentDate.toString()+" "+start);            
+            startFullDate = localOutputFormat.parse(appointmentDate.toString()+" "+start);
+            System.out.println("StartFullDate - Local: "+startFullDate);
             endFullDate = localOutputFormat.parse(appointmentDate.toString()+" "+end);
         }catch(ParseException exc){
             exc.printStackTrace();
         }
         ZonedDateTime startDateTimeZone = ZonedDateTime.ofInstant(startFullDate.toInstant(), ZoneId.of("UTC"));
+        System.out.println("StartZoned - UTC: "+startDateTimeZone);
         ZonedDateTime endDateTimeZone = ZonedDateTime.ofInstant(endFullDate.toInstant(), ZoneId.of("UTC"));
         if(SQL_Appointment.addVerifyNewAppointment(customer, title, description, location, contact, url, startDateTimeZone, endDateTimeZone)){
             try{
@@ -189,6 +191,12 @@ public class AddAppointmentController implements Initializable {
             }catch(IOException exc){
                 exc.printStackTrace();
             }
+        }else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText("Add Appointment Error");
+            alert.setContentText("Add Appointment contains an error!");
+            alert.showAndWait();
         }
                   
     }

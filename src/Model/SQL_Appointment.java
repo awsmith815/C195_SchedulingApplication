@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
 /**
  *
@@ -46,6 +47,24 @@ public class SQL_Appointment {
         }        
     }
     public static boolean verifyAddAppointment(Timestamp start, Timestamp end){
+        updateAllAppointments();
+        ObservableList<Appointment> allAppointments = AppointmentList.getAllAppointments();
+        for(Appointment appointment:allAppointments){
+            Timestamp prevStart = appointment.getStart();
+            Timestamp prevEnd = appointment.getEnd();
+            if(end.after(prevStart)&&end.before(prevEnd)){
+                return true;
+            }else if(start.after(prevStart)&&end.before(prevEnd)){
+                return true;
+            }else if(start.before(prevEnd)&&end.after(prevEnd)){
+                return true;
+            }else if(start.equals(prevStart)){
+                return true;
+            }else if(end.equals(prevEnd)){
+                return true;
+            }
+        }
+        
         return false;
     }
     
@@ -56,6 +75,11 @@ public class SQL_Appointment {
         Timestamp endTimestamp = Timestamp.valueOf(endWOTZ);
         //Add functionality to make sure no appointments overlap in DB
         if(verifyAddAppointment(startTimestamp, endTimestamp)==true){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error");
+            alert.setContentText("Appointment Time Overlaps with Another!");
+            alert.showAndWait();            
             return false;
         }else{
             int customerID = customer.getCustomerID();
@@ -66,11 +90,18 @@ public class SQL_Appointment {
     
     public static boolean modifyAppointment(int appointmentID, Customer customer, String title, String description, String location, String contact, String url,ZonedDateTime start, ZonedDateTime end){
         LocalDateTime startWOTZ = start.toLocalDateTime();
+        System.out.println("SQLStart WOTZ: "+startWOTZ);
         LocalDateTime endWOTZ = end.toLocalDateTime();
         Timestamp startTimestamp = Timestamp.valueOf(startWOTZ);
+        System.out.println("SQLStartTimestamp: "+startTimestamp);
         Timestamp endTimestamp = Timestamp.valueOf(endWOTZ);
         //Add functionality to make sure no appointments overlap in DB
         if(verifyAddAppointment(startTimestamp, endTimestamp)==true){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error");
+            alert.setContentText("Appointment Time Overlaps with Another!");
+            alert.showAndWait();            
             return false;
         }else{
             int customerID = customer.getCustomerID();

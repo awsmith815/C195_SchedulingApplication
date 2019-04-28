@@ -465,6 +465,7 @@ public class MainMenuController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         //initialize customer
         colCustomerName.setCellValueFactory(customer -> new SimpleStringProperty(customer.getValue().getCustomerName()));
         colAddress.setCellValueFactory(customer -> new SimpleStringProperty(customer.getValue().getAddress1()));
