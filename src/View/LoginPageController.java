@@ -93,6 +93,8 @@ public class LoginPageController implements Initializable {
             lblLoginError.setText(rb.getString("lblConnectionError"));
         }else{
             lblLoginError.setText(rb.getString("lblLoginError"));
+            txtPassword.setStyle("-fx-border-color: red");
+            txtUsername.setStyle("-fx-border-color: red");
         }
     }
     
@@ -117,9 +119,7 @@ public class LoginPageController implements Initializable {
      */    
     public void initialize(URL url, ResourceBundle rb) {
         setLanguage();
-        
-        
-        
+
         System.out.println("Login Page Initialized");
     }    
     

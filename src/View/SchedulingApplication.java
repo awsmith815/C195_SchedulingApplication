@@ -22,7 +22,7 @@ public class SchedulingApplication extends Application {
     
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //Locale.setDefault(new Locale.Builder().setLanguage("de").build());
+        //Locale.setDefault(new Locale.Builder().setLanguage("de").setRegion("DE").build());
         primaryStage.setResizable(false);
         Parent root = FXMLLoader.load(getClass().getResource("LoginPage.fxml"));
         primaryStage.setScene(new Scene(root));
