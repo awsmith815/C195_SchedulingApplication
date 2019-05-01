@@ -12,7 +12,9 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
@@ -70,8 +72,10 @@ public class SQL_Appointment {
     
     public static boolean addVerifyNewAppointment(Customer customer, String title, String description, String location, String contact, String url,ZonedDateTime start, ZonedDateTime end){
         LocalDateTime startWOTZ = start.toLocalDateTime();
+        System.out.println("SQLStart WOTZ: "+startWOTZ);
         LocalDateTime endWOTZ = end.toLocalDateTime();
         Timestamp startTimestamp = Timestamp.valueOf(startWOTZ);
+        System.out.println("SQLStartTimestamp: "+startTimestamp);
         Timestamp endTimestamp = Timestamp.valueOf(endWOTZ);
         //Add functionality to make sure no appointments overlap in DB
         if(verifyAddAppointment(startTimestamp, endTimestamp)==true){
@@ -152,16 +156,18 @@ public class SQL_Appointment {
                 String location = rs.getString("location");
                 String contact = rs.getString("contact");                
                 String url = rs.getString("url");                
-                Timestamp start = rs.getTimestamp("start");
-                //System.out.println("timestamp from SQL: "+start);
+                Timestamp start = rs.getTimestamp("start");                
                 Timestamp end = rs.getTimestamp("end");
-                //SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss S");
-                //dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-                //Date startFormat = dateFormat.parse(start.toString());
-                //System.out.println("dateformat from SQL:"+startFormat);
-                //Date endFormat = dateFormat.parse(end.toString());              
-                Date startFormat = start;                              
-                Date endFormat = end;
+                DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a");
+                LocalDateTime ldts = start.toLocalDateTime();
+                LocalDateTime ldte = end.toLocalDateTime();
+                ZonedDateTime currentUTCTimeS = ldts.atZone(ZoneId.of("UTC"));
+                ZonedDateTime currentUTCTimeE = ldte.atZone(ZoneId.of("UTC"));
+                ZonedDateTime currentETimeS = currentUTCTimeS.withZoneSameInstant(ZoneId.systemDefault());
+                ZonedDateTime currentETimeE = currentUTCTimeE.withZoneSameInstant(ZoneId.systemDefault());
+                Date startDateCal = Date.from(currentETimeS.toInstant());
+                String startFormat = currentETimeS.format(formatTime);
+                String endFormat = currentETimeE.format(formatTime);
                 appt.setAppointmentID(appointmentID);
                 appt.setCustomerID(customerID);
                 appt.setTitle(title);
@@ -171,8 +177,9 @@ public class SQL_Appointment {
                 appt.setUrl(url);
                 appt.setStart(start);
                 appt.setEnd(end);
-                appt.setStartDate(startFormat);
-                appt.setEndDate(endFormat);
+                appt.setStartString(startFormat);
+                appt.setEndString(endFormat);
+                appt.setStartDate(startDateCal);
                 allAppointments.add(appt);                
             }           
         }catch(Exception exc){

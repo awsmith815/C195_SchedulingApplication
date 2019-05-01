@@ -58,25 +58,46 @@
       </AnchorPane>
       <AnchorPane layoutX="238.0" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #daf7f8;">
          <children>
-            <Pane fx:id="paneCustomer" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #daf7f8;">
+            <Pane fx:id="paneCustomer" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #daf7f8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <TableView fx:id="tblCustomer" layoutX="172.0" layoutY="110.0" prefHeight="295.0" prefWidth="587.0">
+                  <TableView fx:id="tblCustomer" layoutX="73.0" layoutY="144.0" prefHeight="341.0" prefWidth="799.0">
                     <columns>
-                      <TableColumn fx:id="colCustomerName" prefWidth="132.0" text="Customer Name" />
-                      <TableColumn fx:id="colAddress" prefWidth="140.0" text="Address" />
-                        <TableColumn fx:id="colCity" prefWidth="95.0" text="City" />
-                        <TableColumn fx:id="colCountry" prefWidth="112.0" text="Country" />
-                        <TableColumn fx:id="colPhone" prefWidth="107.0" text="Phone" />
+                      <TableColumn fx:id="colCustomerName" prefWidth="188.0" text="Customer Name" />
+                      <TableColumn fx:id="colAddress" prefWidth="181.0" text="Address" />
+                        <TableColumn fx:id="colCity" prefWidth="125.0" text="City" />
+                        <TableColumn fx:id="colCountry" prefWidth="145.0" text="Country" />
+                        <TableColumn fx:id="colPhone" prefWidth="159.0" text="Phone" />
                     </columns>
                   </TableView>
-                  <Button layoutX="238.0" layoutY="421.0" mnemonicParsing="false" onAction="#addCustomer" prefHeight="38.0" prefWidth="150.0" text="New Customer" />
-                  <Button layoutX="400.0" layoutY="421.0" mnemonicParsing="false" onAction="#modifyCustomers" prefHeight="38.0" prefWidth="150.0" text="Modify Customer" />
-                  <Button layoutX="561.0" layoutY="421.0" mnemonicParsing="false" onAction="#removeCustomer" prefHeight="38.0" prefWidth="150.0" text="Remove Customer" />
-                  <Label layoutX="387.0" layoutY="69.0" text="All Customers">
+                  <Button layoutX="238.0" layoutY="506.0" mnemonicParsing="false" onAction="#addCustomer" prefHeight="38.0" prefWidth="150.0" text="New Customer" />
+                  <Button layoutX="400.0" layoutY="506.0" mnemonicParsing="false" onAction="#modifyCustomers" prefHeight="38.0" prefWidth="150.0" text="Modify Customer" />
+                  <Button layoutX="561.0" layoutY="506.0" mnemonicParsing="false" onAction="#removeCustomer" prefHeight="38.0" prefWidth="150.0" text="Remove Customer" />
+                  <Label layoutX="373.0" layoutY="68.0" text="Customers">
                      <font>
-                        <Font name="System Bold" size="24.0" />
+                        <Font name="System Bold" size="36.0" />
                      </font>
                   </Label>
+                  <Label layoutX="328.0" layoutY="112.0" text="List of all customers that are currently active" />
+               </children>
+               <effect>
+                  <InnerShadow />
+               </effect>
+            </Pane>
+            <Pane fx:id="paneMainMenu" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #daf7f8;">
+               <children>
+                  <Label layoutX="139.0" layoutY="114.0" prefHeight="71.0" prefWidth="671.0" text="WELCOME TO THE SCHEDULING APP">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="121.0" layoutX="76.0" layoutY="195.0" stroke="BLACK" strokeType="INSIDE" width="799.0" />
+                  <Label layoutX="120.0" layoutY="212.0" text="Alerts">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="120.0" layoutY="247.0" text="Upcoming Appointments:" />
+                  <Label fx:id="lblUpcomingAppt" layoutX="120.0" layoutY="283.0" text="You have no Appointments in the next 15 minutes!" />
                </children>
                <effect>
                   <InnerShadow />
@@ -93,7 +114,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="499.0" prefWidth="892.0" style="-fx-background-color: #daf7f8;">
                                  <children>
-                                    <Label layoutX="109.0" layoutY="107.0" text="Appointment Types Report">
+                                    <Label layoutX="110.0" layoutY="157.0" text="Appointment Types Report">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
@@ -106,8 +127,8 @@
                                           <TableColumn fx:id="colReport1NumAppts" prefWidth="273.0" text="Number of Appointments" />
                                       </columns>
                                     </TableView>
-                                    <Button layoutX="262.0" layoutY="465.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="150.0" text="Export" />
-                                    <Button layoutX="475.0" layoutY="465.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="150.0" text="Refresh" />
+                                    <Button layoutX="382.0" layoutY="465.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="150.0" text="Refresh" />
+                                    <Label layoutX="109.0" layoutY="197.0" text="Report shows total number of appointment grouped by month, year and description." />
                                  </children></AnchorPane>
                         </content>
                       </Tab>
@@ -129,8 +150,7 @@
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font></Label>
-                                    <Button layoutX="299.0" layoutY="574.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="138.0" text="Export" />
-                                    <Button layoutX="529.0" layoutY="574.0" mnemonicParsing="false" onAction="#updateReport2" prefHeight="27.0" prefWidth="138.0" text="Refresh" />
+                                    <Button layoutX="406.0" layoutY="573.0" mnemonicParsing="false" onAction="#updateReport2" prefHeight="27.0" prefWidth="138.0" text="Refresh" />
                                     <TextField fx:id="search" layoutX="95.0" layoutY="156.0" onKeyReleased="#search" prefHeight="27.0" prefWidth="273.0" promptText="Search" />
                                     <Label layoutX="95.0" layoutY="122.0" text="Please type a customer's name that you wish to search for" />
                                  </children>
@@ -141,7 +161,7 @@
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #daf7f8;">
                                  <children>
-                                    <TableView fx:id="tblReport3" layoutX="78.0" layoutY="217.0" prefHeight="141.0" prefWidth="796.0">
+                                    <TableView fx:id="tblReport3" layoutX="78.0" layoutY="217.0" prefHeight="159.0" prefWidth="796.0">
                                       <columns>
                                         <TableColumn fx:id="colReport3Location" prefWidth="126.0" text="Location" />
                                         <TableColumn fx:id="colReport3NumApptAT" prefWidth="268.0" text="Number of Appointments All Time" />
@@ -149,14 +169,13 @@
                                           <TableColumn fx:id="colReport3NumCustomers" prefWidth="145.0" text="Different Customers" />
                                       </columns>
                                     </TableView>
-                                    <Button layoutX="293.0" layoutY="391.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="150.0" text="Export" />
                                     <Label layoutX="80.0" layoutY="136.0" text="Location Report">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
                                     </Label>
                                     <Label layoutX="80.0" layoutY="165.0" prefHeight="52.0" prefWidth="727.0" text="This report shows the number of appointments all time, number of appointments upcoming and number of different distinct customers per location" wrapText="true" />
-                                    <Button layoutX="510.0" layoutY="391.0" mnemonicParsing="false" onAction="#updateReport3Location" prefHeight="27.0" prefWidth="150.0" text="Refresh" />
+                                    <Button layoutX="401.0" layoutY="392.0" mnemonicParsing="false" onAction="#updateReport3Location" prefHeight="27.0" prefWidth="150.0" text="Refresh" />
                                  </children>
                               </AnchorPane>
                           </content>
@@ -185,26 +204,6 @@
                      </font>
                   </Label>
                   <Button alignment="CENTER" contentDisplay="CENTER" layoutX="401.0" layoutY="523.0" mnemonicParsing="false" onAction="#detailedSchedule" prefHeight="38.0" prefWidth="150.0" text="Detailed Schedule" />
-               </children>
-               <effect>
-                  <InnerShadow />
-               </effect>
-            </Pane>
-            <Pane fx:id="paneMainMenu" prefHeight="700.0" prefWidth="949.0" style="-fx-background-color: #daf7f8;">
-               <children>
-                  <Label layoutX="139.0" layoutY="114.0" prefHeight="71.0" prefWidth="671.0" text="WELCOME TO THE SCHEDULING APP">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Label>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="121.0" layoutX="76.0" layoutY="195.0" stroke="BLACK" strokeType="INSIDE" width="799.0" />
-                  <Label layoutX="120.0" layoutY="212.0" text="Alerts">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="120.0" layoutY="247.0" text="Upcoming Appointments:" />
-                  <Label fx:id="lblUpcomingAppt" layoutX="120.0" layoutY="283.0" text="You have no Appointments in the next 15 minutes!" />
                </children>
                <effect>
                   <InnerShadow />

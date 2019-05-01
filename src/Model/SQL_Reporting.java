@@ -12,6 +12,10 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -93,9 +97,14 @@ public class SQL_Reporting {
                                                 "inner join customer c on c.customerId = a.customerId\n" +
                                                  "where appointmentId="+appointmentID);
                 rs.next();
-                Timestamp date = rs.getTimestamp(1);
-                SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm a");
-                String apptTime = formatTime.format(date);
+                Timestamp date = rs.getTimestamp(1);                
+                DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("hh:mm a");
+                LocalDateTime ldts = date.toLocalDateTime();                
+                ZonedDateTime currentUTCTimeS = ldts.atZone(ZoneId.of("UTC"));                
+                ZonedDateTime currentETimeS = currentUTCTimeS.withZoneSameInstant(ZoneId.systemDefault());                
+                //System.out.println("CurrentET: "+ currentETimeS);
+                //System.out.println("formatTime == " + formatTime);                               
+                String apptTime = currentETimeS.format(formatTime);
                 //System.out.println("Report2Col1: "+apptTime);
                 String customerName = rs.getString(2);
                 //System.out.println("Report2Col2: "+customerName);

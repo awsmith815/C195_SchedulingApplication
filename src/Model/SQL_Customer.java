@@ -22,7 +22,8 @@ public class SQL_Customer {
     
     //private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
     //Link back to user login        
-    private static String currentUser = "test";    
+    private static String currentUser="test";
+    
     
     //Add Customer
     public static int addCustomer(String customerName, String address1, String address2, String city, String country, String postalCode, String phone){

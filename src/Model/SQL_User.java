@@ -71,7 +71,7 @@ public class SQL_User {
         if(confirmPassword){
             currentUser = new User();
             System.out.println("UserId: "+userId);            
-            currentUser.setUser(userName);
+            currentUser.setCurrentUser(userName);
             System.out.println("UserName: "+ userName);
             try{
                 Path path = Paths.get("logger.txt");

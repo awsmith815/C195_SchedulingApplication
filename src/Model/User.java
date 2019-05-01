@@ -15,10 +15,10 @@ public class User {
     public User(){
         
     }
-    public String getUser(){
+    public String getCurrentUser(){
         return currentUser;
     }
-    public void setUser(String currentUser){
+    public void setCurrentUser(String currentUser){
         this.currentUser=currentUser;
     }
 }

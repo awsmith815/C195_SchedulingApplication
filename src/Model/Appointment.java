@@ -2,7 +2,12 @@
 package Model;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+
 /**
  *
  * @author austin.smith
@@ -13,7 +18,7 @@ import java.util.Date;
 public class Appointment {
     
     private int appointmentID, customerID;
-    private String title, description, location, contact, url, createdBy,dayNameStart;
+    private String title, description, location, contact, url, createdBy,dayNameStart,startString, endString;
     private Timestamp start, end, lastUpdated;
     private Date startDate, endDate, createdDate;
     
@@ -67,6 +72,12 @@ public class Appointment {
     public String getDayNameStart(){
         return dayNameStart;
     }
+    public String getStartString(){
+        return startString;
+    }
+    public String getEndString(){
+        return endString;
+    }
     //Setters
     public void setAppointmentID(int appointmentID){
         this.appointmentID=appointmentID;
@@ -113,6 +124,12 @@ public class Appointment {
     public void setDayNameStart(String dayNameStart){
         this.dayNameStart=dayNameStart;
     }
+    public void setStartString(String startString){
+        this.startString=startString;
+    }
+    public void setEndString(String endString){
+        this.endString=endString;
+    }
     public static String appointmentValidation(String title, String description, String location, String contact, String url, int customerID, String errorMessage){
         if(title.length()==0){
             errorMessage = errorMessage + "Appointment title cannot be empty\n";
@@ -129,5 +146,7 @@ public class Appointment {
         }
         
         return errorMessage;
-    }
+    }    
+
+    
 }

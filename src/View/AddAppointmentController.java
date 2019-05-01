@@ -166,8 +166,7 @@ public class AddAppointmentController implements Initializable {
             alert.showAndWait();
             errorMessage = "";
         }
-        SimpleDateFormat localOutputFormat = new SimpleDateFormat("yyyy-MM-dd h:mm a");
-        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd KK:mm a");
+        SimpleDateFormat localOutputFormat = new SimpleDateFormat("yyyy-MM-dd h:mm a");        
         localOutputFormat.setTimeZone(TimeZone.getDefault());
         Date startFullDate = null;
         Date endFullDate = null;

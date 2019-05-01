@@ -111,9 +111,9 @@ public class MainMenuController implements Initializable {
     @FXML
     private TableColumn<Appointment,String> colAppointmentContact;
     @FXML
-    private TableColumn<Appointment,Date> colAppointmentStart;
+    private TableColumn<Appointment,String> colAppointmentStart;
     @FXML
-    private TableColumn<Appointment,Date> colAppointmentEnd;
+    private TableColumn<Appointment,String> colAppointmentEnd;
     
     @FXML
     private TableView<ReportType> tblReport1;
@@ -436,14 +436,10 @@ public class MainMenuController implements Initializable {
     }
     
     public void updateReport2(){
-        SQL_Reporting.customerSchedule();
+        SQL_Reporting.customerSchedule();        
         tblReport2.setItems(ReportCustomerList.getAllCustomersReport());
         colReport2ApptDate.setComparator(colReport2ApptDate.getComparator().reversed());
         tblReport2.getSortOrder().add(colReport2ApptDate);
-        
-    }
-    @FXML
-    public void writeReport2(ActionEvent e){
         
     }
     
@@ -477,8 +473,8 @@ public class MainMenuController implements Initializable {
         colAppointmentTitle.setCellValueFactory(appointment -> new SimpleStringProperty(appointment.getValue().getTitle()));
         colAppointmentLocation.setCellValueFactory(appointment -> new SimpleStringProperty(appointment.getValue().getLocation()));        
         colAppointmentContact.setCellValueFactory(appointment -> new SimpleStringProperty(appointment.getValue().getContact()));
-        colAppointmentStart.setCellValueFactory(appointment -> new SimpleObjectProperty(appointment.getValue().getStart()));
-        colAppointmentEnd.setCellValueFactory(appointment -> new SimpleObjectProperty(appointment.getValue().getEnd()));
+        colAppointmentStart.setCellValueFactory(appointment -> new SimpleObjectProperty(appointment.getValue().getStartString()));
+        colAppointmentEnd.setCellValueFactory(appointment -> new SimpleObjectProperty(appointment.getValue().getEndString()));
         updateAppointmentTable();
         //initialize report1
         colReport1Month.setCellValueFactory(reportType -> new SimpleStringProperty(reportType.getValue().getMonth()));
