@@ -110,7 +110,7 @@ public class SQL_Appointment {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
             alert.setHeaderText("Error");
-            alert.setContentText("Appointment Time Overlaps with Another!");
+            alert.setContentText("Appointment Time Overlaps with Another or Itself!");
             alert.showAndWait();            
             return false;
         }else{

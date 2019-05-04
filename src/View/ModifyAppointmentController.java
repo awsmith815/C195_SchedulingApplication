@@ -198,12 +198,6 @@ public class ModifyAppointmentController implements Initializable {
             }catch(IOException exc){
                 exc.printStackTrace();
             }
-        }else{
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText("Add Appointment Error");
-            alert.setContentText("Add Appointment contains an error!");
-            alert.showAndWait();
         }
     
     }

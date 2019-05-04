@@ -158,14 +158,12 @@ public class Appointment {
         String endAMPM = eAMPMSplit[1];
         int startNum = Integer.parseInt(startSplit[0]);
         int endNum = Integer.parseInt(endSplit[0]);
-        
         if(startNum==12){
-            startNum = 0;
-            if(startNum>endNum && startAMPM.equals(endAMPM) || startAMPM.equals("PM") && endAMPM.equals("AM")){
-                errorMessage = errorMessage + "Appointment start cannot be greater than end\n"; 
-            }
+           startNum = 0;
         }
-        
+        if(startNum>endNum && startAMPM.equals(endAMPM) || startAMPM.equals("PM") && endAMPM.equals("AM") || startAMPM.equals("PM") && endAMPM.equals("PM") && endNum == 12){
+                errorMessage = errorMessage + "Appointment start cannot be greater than end\n"; 
+        }                        
         return errorMessage;
     }    
 

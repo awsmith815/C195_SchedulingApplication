@@ -118,26 +118,14 @@ public class DetailedScheduleController implements Initializable {
 
     }
     
-    
-    
-    
-    
-    
     @FXML
     void exitDetailView(ActionEvent e) throws IOException{
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.initModality(Modality.NONE);
-        alert.setTitle("Confirm Exit");
-        alert.setHeaderText("Confirm Exit");
-        alert.setContentText("Are you sure you wish to exit?");
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            Parent mainMenuParent = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-            Scene mainMenuScene = new Scene(mainMenuParent);
-            Stage mainMenuStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-            mainMenuStage.setScene(mainMenuScene);
-            mainMenuStage.show();
-        }
+        Parent mainMenuParent = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+        Scene mainMenuScene = new Scene(mainMenuParent);
+        Stage mainMenuStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        mainMenuStage.setScene(mainMenuScene);
+        mainMenuStage.show();
+
     }
     /**
      * Initializes the controller class.
