@@ -22,16 +22,17 @@ public class SQL_Customer {
     
     //private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
     //Link back to user login        
-    private static String currentUser="test";
-    
-    
+    //private static User currentUser;
+    private static User userName;
+    private static String currentUser = "test";
+
     //Add Customer
     public static int addCustomer(String customerName, String address1, String address2, String city, String country, String postalCode, String phone){
         try{
             int countryID = addCountryID(country);
             int cityID = addCityID(city, countryID);
-            int addressID = addAddressID(address1, address2, cityID, postalCode, phone);
-            Statement stmt = Database.getConnection().createStatement();
+            int addressID = addAddressID(address1, address2, cityID, postalCode, phone);            
+            Statement stmt = Database.getConnection().createStatement();            
             ResultSet rs = stmt.executeQuery("select customerId from customer where customerName='"+customerName+"' and addressId="+addressID);
             if(rs.next()){
                 int customerID = rs.getInt(1);
@@ -49,7 +50,7 @@ public class SQL_Customer {
                     customerID = 1;
                 }
                 int active = 1;
-                stmt.executeUpdate("Insert into customer values("+customerID+",'"+customerName+"',"+addressID+","+active+",current_date,'"+currentUser+"',current_timestamp,'"+currentUser+"')");
+                stmt.executeUpdate("Insert into customer values("+customerID+",'"+customerName+"',"+addressID+","+active+",current_timestamp,'"+userName+"',current_timestamp,'"+userName+"')");
                 return customerID;
             }
             
@@ -79,7 +80,7 @@ public class SQL_Customer {
                     newCountryID.close();
                     countryID = 1;
                 }
-                stmt.executeUpdate("Insert into country values("+countryID+",'"+country+"',current_date,'"+currentUser+"',current_timestamp,'"+currentUser+"')");
+                stmt.executeUpdate("Insert into country values("+countryID+",'"+country+"',current_timestamp,'"+currentUser+"',current_timestamp,'"+currentUser+"')");
                 return countryID;
             }
             
@@ -108,7 +109,7 @@ public class SQL_Customer {
                     newCityID.close();
                     cityID = 1;
                 }
-                stmt.executeUpdate("insert into city values("+cityID+",'"+city+"',"+countryID+",current_date,'"+currentUser+"',current_timestamp,'"+currentUser+"')");
+                stmt.executeUpdate("insert into city values("+cityID+",'"+city+"',"+countryID+",current_timestamp,'"+currentUser+"',current_timestamp,'"+currentUser+"')");
                 return cityID;
             }
         }catch(SQLException exc){
@@ -136,7 +137,7 @@ public class SQL_Customer {
                     newAddressID.close();
                     addressID = 1;
                 }
-                stmt.executeUpdate("insert into address values("+addressID+",'"+address1+"','"+address2+"',"+cityID+",'"+postalCode+"','"+phone+"',current_date,'"+currentUser+"',current_timestamp,'"+currentUser+"')");
+                stmt.executeUpdate("insert into address values("+addressID+",'"+address1+"','"+address2+"',"+cityID+",'"+postalCode+"','"+phone+"',current_timestamp,'"+currentUser+"',current_timestamp,'"+currentUser+"')");
                 return addressID;
             }
         }catch(SQLException exc){

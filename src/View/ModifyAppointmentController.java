@@ -164,6 +164,7 @@ public class ModifyAppointmentController implements Initializable {
         String start = cbAppointmentStart.getSelectionModel().getSelectedItem();
         String end = cbAppointmentEnd.getSelectionModel().getSelectedItem();
         LocalDate appointmentDate = dateAppointmentDate.getValue();
+        errorMessage = Appointment.appointmentValidation(title, location, contact, url, description, appointmentDate,start, end, errorMessage);
         if(errorMessage.length()>0){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
@@ -171,6 +172,7 @@ public class ModifyAppointmentController implements Initializable {
             alert.setContentText(errorMessage);
             alert.showAndWait();
             errorMessage = "";
+            return;
         }
         SimpleDateFormat localOutputFormat = new SimpleDateFormat("yyyy-MM-dd h:mm a");
         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd KK:mm a");
@@ -196,9 +198,15 @@ public class ModifyAppointmentController implements Initializable {
             }catch(IOException exc){
                 exc.printStackTrace();
             }
+        }else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText("Add Appointment Error");
+            alert.setContentText("Add Appointment contains an error!");
+            alert.showAndWait();
         }
-    }
     
+    }
     @FXML
     void exitSubmit(ActionEvent e) throws IOException{
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -238,11 +246,14 @@ public class ModifyAppointmentController implements Initializable {
         
         //get the date for the date picker
         Date appointmentDate = appointment.getStartDate();
-        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        System.out.println("ModifyAppt - appointmentDate: "+appointmentDate);
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());        
         calendar.setTime(appointmentDate);        
         int appointmentDateYear = calendar.get(Calendar.YEAR);
-        int appointmentDateMonth = calendar.get(Calendar.MONTH);
+        int appointmentDateMonth = (calendar.get(Calendar.MONTH)+1)%12;
+        System.out.println("ModifyAppt - month: "+appointmentDateMonth);
         int appointmentDateDay = calendar.get(Calendar.DAY_OF_MONTH);
+        System.out.println("ModifyAppt - date: "+appointmentDateDay);
         LocalDate appointmentLocalDate = LocalDate.of(appointmentDateYear, appointmentDateMonth, appointmentDateDay);
         
         //get the times for the appointment
@@ -262,7 +273,7 @@ public class ModifyAppointmentController implements Initializable {
         String endString = currentETimeE.format(formatTime); 
         //System.out.println("endString == " + endString);
         int customerID = appointment.getCustomerID();
-        System.out.println("CustomerID: " + customerID);
+        //System.out.println("CustomerID: " + customerID);
         ObservableList<Customer> customerList = CustomerList.getAllCustomers();
         for(Customer customer:customerList){
             if(customer.getCustomerID() == customerID){

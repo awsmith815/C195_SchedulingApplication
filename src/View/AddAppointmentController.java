@@ -35,6 +35,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
@@ -147,7 +148,14 @@ public class AddAppointmentController implements Initializable {
         Customer customer = null;
         if(customerSelected.size()==1){
              customer = customerSelected.get(0);             
-        }
+        }if(customerSelected.isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initModality(Modality.NONE);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error");
+                alert.setContentText("No Customer Selected!");
+                alert.showAndWait();   
+        }                  
         String title = txtAppointmentTitle.getText();        
         String location = cbAppointmentLocation.getSelectionModel().getSelectedItem();
         String contact = txtAppointmentContact.getText();       
@@ -157,14 +165,15 @@ public class AddAppointmentController implements Initializable {
         String end = cbAppointmentEnd.getSelectionModel().getSelectedItem();
         LocalDate appointmentDate = dateAppointmentDate.getValue();
         //public static String appointmentValidation(String title, String description, String location, String contact, String url, int customerID, String errorMessage)
-        errorMessage = Appointment.appointmentValidation(title,description,location, contact, url, customer.getCustomerID(), errorMessage);
-        if(errorMessage.length()>0){
+        errorMessage = Appointment.appointmentValidation(title, location, contact, url, description, appointmentDate,start, end, errorMessage);
+        if(errorMessage.length()>0){            
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
             alert.setHeaderText("Add Appointment Error");
             alert.setContentText(errorMessage);
             alert.showAndWait();
             errorMessage = "";
+            return;
         }
         SimpleDateFormat localOutputFormat = new SimpleDateFormat("yyyy-MM-dd h:mm a");        
         localOutputFormat.setTimeZone(TimeZone.getDefault());

@@ -2,10 +2,7 @@
 package Model;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -130,19 +127,43 @@ public class Appointment {
     public void setEndString(String endString){
         this.endString=endString;
     }
-    public static String appointmentValidation(String title, String description, String location, String contact, String url, int customerID, String errorMessage){
+    public static String appointmentValidation(String title, String location, String contact, String url, String description, LocalDate appointmentDate,String start, String end, String errorMessage) throws NumberFormatException{
         if(title.length()==0){
-            errorMessage = errorMessage + "Appointment title cannot be empty\n";
-        }else if(description.length()==0){
-            errorMessage = errorMessage + "Appointment description cannot be empty\n";
-        }else if(contact.length()==0){
+            errorMessage = errorMessage + "Appointment title cannot be empty\n";        
+        }if(contact.length()==0){
             errorMessage = errorMessage + "Appointment contact cannot be empty\n";
-        }else if(url.length()==0){
+        }if(url.length()==0){
             errorMessage = errorMessage + "Appointment url cannot be empty\n";
-        }else if(customerID == 0){
-            errorMessage = errorMessage + "Customer cannot be empty\n";
-        }else if(location.length()==0){
+        }if(location == null){
             errorMessage = errorMessage + "Appointment location cannot be empty\n";
+        }if(description == null){
+            errorMessage = errorMessage + "Appointment description cannot be empty\n";
+        }if(appointmentDate == null){
+            errorMessage = errorMessage + "Appointment date cannot be empty\n";
+        }if(start == null){
+            errorMessage = errorMessage + "Appointment start cannot be empty\n";
+        }if(end == null){
+            errorMessage = errorMessage + "Appointment end cannot be empty\n";
+        }if(appointmentDate.getDayOfWeek().toString().toUpperCase().equals("SATURDAY") || appointmentDate.getDayOfWeek().toString().toUpperCase().equals("SUNDAY")) {
+            errorMessage = errorMessage + "Appointment date cannot be outside business hours\n";
+        }if(appointmentDate.isBefore(LocalDate.now())){
+            errorMessage = errorMessage + "Appointment date cannot before today\n";    
+        }
+        
+        String[] startSplit = start.split(":");
+        String[] endSplit = end.split(":");                
+        String[] sAMPMSplit = startSplit[1].split(" ");
+        String[] eAMPMSplit = endSplit[1].split(" ");
+        String startAMPM = sAMPMSplit[1];
+        String endAMPM = eAMPMSplit[1];
+        int startNum = Integer.parseInt(startSplit[0]);
+        int endNum = Integer.parseInt(endSplit[0]);
+        
+        if(startNum==12){
+            startNum = 0;
+            if(startNum>endNum && startAMPM.equals(endAMPM) || startAMPM.equals("PM") && endAMPM.equals("AM")){
+                errorMessage = errorMessage + "Appointment start cannot be greater than end\n"; 
+            }
         }
         
         return errorMessage;

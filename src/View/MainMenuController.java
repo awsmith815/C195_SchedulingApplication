@@ -20,13 +20,6 @@ import Model.ReportTypeList;
 import Model.SQL_Reporting;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Date;
@@ -461,7 +454,7 @@ public class MainMenuController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        
         //initialize customer
         colCustomerName.setCellValueFactory(customer -> new SimpleStringProperty(customer.getValue().getCustomerName()));
         colAddress.setCellValueFactory(customer -> new SimpleStringProperty(customer.getValue().getAddress1()));

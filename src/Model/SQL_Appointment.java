@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.TimeZone;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import javafx.stage.Modality;
 
 /**
  *
@@ -44,7 +45,12 @@ public class SQL_Appointment {
             stmt.executeUpdate("insert into appointment values("+appointmentID+","+customerID+",'"+title+"','"+description+"','"+location+"','"+contact+"','"+url+"','"+start+"','"+end+"',"
                     + "current_timestamp,'"+currentUser+"',current_timestamp,'"+currentUser+"')");
         }catch(SQLException exc){            
-            exc.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initModality(Modality.NONE);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error");
+            alert.setContentText("Error adding appointment");
+            alert.showAndWait();
             
         }        
     }

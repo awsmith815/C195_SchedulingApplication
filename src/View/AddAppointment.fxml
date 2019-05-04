@@ -49,7 +49,6 @@
             </TableView>
             <TextField fx:id="txtAppointmentTitle" layoutX="21.0" layoutY="108.0" prefHeight="27.0" prefWidth="211.0" promptText="Appointment Title" />
             <TextField fx:id="txtAppointmentURL" layoutX="235.0" layoutY="200.0" prefHeight="27.0" prefWidth="211.0" promptText="URL" />
-            <ComboBox fx:id="cbAppointmentLocation" layoutX="21.0" layoutY="154.0" prefHeight="27.0" prefWidth="211.0" promptText="Appointment Location" />
             <ComboBox fx:id="cbAppointmentDescription" layoutX="235.0" layoutY="154.0" prefHeight="27.0" prefWidth="211.0" promptText="Appointment Description" />
             <DatePicker fx:id="dateAppointmentDate" layoutX="235.0" layoutY="108.0" prefHeight="27.0" prefWidth="211.0" promptText="Appointment Date" />
             <ComboBox fx:id="cbAppointmentStart" layoutX="21.0" layoutY="239.0" prefHeight="27.0" prefWidth="211.0" promptText="Start Time" />
@@ -61,6 +60,7 @@
             <Label layoutX="500.0" layoutY="273.0" text="Customer for Appointment" />
             <Button layoutX="774.0" layoutY="253.0" mnemonicParsing="false" onAction="#selectCustomerNext" prefHeight="27.0" prefWidth="153.0" text="Add Customer" />
             <Button layoutX="774.0" layoutY="415.0" mnemonicParsing="false" onAction="#customerRemove" prefHeight="27.0" prefWidth="153.0" text="Remove Customer" />
+            <ComboBox fx:id="cbAppointmentLocation" layoutX="21.0" layoutY="154.0" prefHeight="27.0" prefWidth="211.0" promptText="Appointment Location" />
          </children>
       </Pane>
    </children>
