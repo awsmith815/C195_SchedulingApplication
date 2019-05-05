@@ -6,7 +6,6 @@
 package Model;
 
 import Util.Database;
-import Model.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,12 +18,6 @@ import javafx.collections.ObservableList;
  * @author austin.smith
  */
 public class SQL_Customer {
-    
-    //private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
-    //Link back to user login        
-    //private static User currentUser;
-    private static User userCurrent;
-    private static String currentUser = "test";
 
     //Add Customer
     public static int addCustomer(String customerName, String address1, String address2, String city, String country, String postalCode, String phone){
@@ -52,8 +45,8 @@ public class SQL_Customer {
                     customerID = 1;
                 }
                 int active = 1;     
-                userCurrent = new User();
-                String userName = userCurrent.getCurrentUsername();
+                String userName = SQL_User.getActiveUsername();
+                System.out.println("Add Customer User: "+userName);
                 System.out.println("the current username from customerAdd: "+userName);
                 stmt.executeUpdate("Insert into customer values("+customerID+",'"+customerName+"',"+addressID+","+active+",current_timestamp,'"+userName+"',current_timestamp,'"+userName+"')");
                 return customerID;
@@ -85,7 +78,8 @@ public class SQL_Customer {
                     newCountryID.close();
                     countryID = 1;
                 }
-                stmt.executeUpdate("Insert into country values("+countryID+",'"+country+"',current_timestamp,'"+currentUser+"',current_timestamp,'"+currentUser+"')");
+                String userName = SQL_User.getActiveUsername();
+                stmt.executeUpdate("Insert into country values("+countryID+",'"+country+"',current_timestamp,'"+userName+"',current_timestamp,'"+userName+"')");
                 return countryID;
             }
             
@@ -114,7 +108,8 @@ public class SQL_Customer {
                     newCityID.close();
                     cityID = 1;
                 }
-                stmt.executeUpdate("insert into city values("+cityID+",'"+city+"',"+countryID+",current_timestamp,'"+currentUser+"',current_timestamp,'"+currentUser+"')");
+                String userName = SQL_User.getActiveUsername();
+                stmt.executeUpdate("insert into city values("+cityID+",'"+city+"',"+countryID+",current_timestamp,'"+userName+"',current_timestamp,'"+userName+"')");
                 return cityID;
             }
         }catch(SQLException exc){
@@ -142,7 +137,8 @@ public class SQL_Customer {
                     newAddressID.close();
                     addressID = 1;
                 }
-                stmt.executeUpdate("insert into address values("+addressID+",'"+address1+"','"+address2+"',"+cityID+",'"+postalCode+"','"+phone+"',current_timestamp,'"+currentUser+"',current_timestamp,'"+currentUser+"')");
+                String userName = SQL_User.getActiveUsername();
+                stmt.executeUpdate("insert into address values("+addressID+",'"+address1+"','"+address2+"',"+cityID+",'"+postalCode+"','"+phone+"',current_timestamp,'"+userName+"',current_timestamp,'"+userName+"')");
                 return addressID;
             }
         }catch(SQLException exc){
@@ -221,9 +217,10 @@ public class SQL_Customer {
     
     private static void updateCustomerTable(int customerID, String customerName, int addressID){
         try{            
-            Statement stmt = Database.getConnection().createStatement();                        
+            Statement stmt = Database.getConnection().createStatement();
+            String userName = SQL_User.getActiveUsername();
             stmt.executeUpdate("update customer set customerName='"+customerName+"',addressId="+addressID+", lastUpdate= current_timestamp, "
-                        + "lastUpdateBy='"+currentUser+"' where customerId="+customerID);
+                        + "lastUpdateBy='"+userName+"' where customerId="+customerID);
         }catch(SQLException exc){
             exc.printStackTrace();
         }
@@ -234,7 +231,8 @@ public class SQL_Customer {
         int customerID = customer.getCustomerID();
         try{
             Statement stmt = Database.getConnection().createStatement();
-            stmt.executeUpdate("update customer set active=0 where customerId="+customerID);
+            String userName = SQL_User.getActiveUsername();
+            stmt.executeUpdate("update customer set active=0, lastUpdate=current_timestamp, lastUpdateBy='"+userName+"' where customerId="+customerID);
         }catch(SQLException exc){
             System.out.println("SQLException: "+exc.getMessage());
         }

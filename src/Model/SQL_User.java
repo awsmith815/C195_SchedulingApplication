@@ -24,10 +24,8 @@ import javafx.collections.ObservableList;
  */
 public class SQL_User {
     private static User currentUsername;
-        
-    //public static void setCurrentUser(String userName){
-    //    currentUser = userName;
-    //}
+    private static String activeUsername;
+    
     public static int getCurrentUser(String userName){
         int userId = -1;
         try{
@@ -75,6 +73,7 @@ public class SQL_User {
             currentUsername = new User();
             //System.out.println("UserId: "+userId);            
             currentUsername.setCurrentUsername(userName);
+            setActiveUsername(userName);
             //System.out.println("UserName: "+ userName);
             try{
                 Path path = Paths.get("logger.txt");
@@ -88,6 +87,11 @@ public class SQL_User {
             return false;
         }
     }
-    
+    public static void setActiveUsername(String userName){
+        activeUsername = userName;
+    }
+    public static String getActiveUsername(){
+        return activeUsername;
+    }
     
 }

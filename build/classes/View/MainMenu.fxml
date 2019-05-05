@@ -178,12 +178,13 @@
                         <TableColumn fx:id="colAppointmentContact" prefWidth="132.0" text="Contact" />
                     </columns>
                   </TableView>
-                  <Label layoutX="41.0" layoutY="94.0" text="Upcoming Appointments">
+                  <Label layoutX="41.0" layoutY="65.0" text="Upcoming Appointments">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
                   <Button alignment="CENTER" contentDisplay="CENTER" layoutX="401.0" layoutY="523.0" mnemonicParsing="false" onAction="#detailedSchedule" prefHeight="38.0" prefWidth="150.0" text="Detailed Schedule" />
+                  <Label layoutX="41.0" layoutY="104.0" text="List of appointments shown below include only appointments that have a date that has not occured yet." />
                </children>
                <effect>
                   <InnerShadow />

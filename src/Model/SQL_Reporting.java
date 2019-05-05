@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -159,7 +158,6 @@ public class SQL_Reporting {
                                                 "from appointment a\n" +
                                                 "where a.location = '"+ location + "' group by a.location");
                 rs.next();
-                //String location = rs.getString(1);  
                 //System.out.println("Report3Col1: "+location);
                 int numApptAT = rs.getInt(2);
                 //System.out.println("Report3Col2: "+numApptAT);

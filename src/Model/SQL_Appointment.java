@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model;
 
 import Util.Database;
@@ -10,14 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.TimeZone;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.stage.Modality;
@@ -27,9 +20,7 @@ import javafx.stage.Modality;
  * @author austin.smith
  */
 public class SQL_Appointment {
-    //Link back to user login
-    private static String currentUser = "Test";
-    
+
     public static void addAppointment(int customerID, String title, String description, String location, String contact, String url, Timestamp start, Timestamp end){
         try{
             int appointmentID;
@@ -42,8 +33,9 @@ public class SQL_Appointment {
                 rs.close();
                 appointmentID=1;
             }
+            String userName = SQL_User.getActiveUsername();
             stmt.executeUpdate("insert into appointment values("+appointmentID+","+customerID+",'"+title+"','"+description+"','"+location+"','"+contact+"','"+url+"','"+start+"','"+end+"',"
-                    + "current_timestamp,'"+currentUser+"',current_timestamp,'"+currentUser+"')");
+                    + "current_timestamp,'"+userName+"',current_timestamp,'"+userName+"')");
         }catch(SQLException exc){            
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initModality(Modality.NONE);
@@ -123,8 +115,9 @@ public class SQL_Appointment {
     public static void updateAppointment(int appointmentID, int customerID, String title, String description, String location, String contact, String url, Timestamp start, Timestamp end){
         try{
             Statement stmt = Database.getConnection().createStatement();
+            String userName = SQL_User.getActiveUsername();
             stmt.executeUpdate("update appointment set customerId="+customerID+",title='"+title+"',description='"+description+"',location='"+location+"',contact='"+contact+"',url='"+url+"',"
-                    + "start='"+start+"',end='"+end+"',lastUpdate=current_timestamp, lastUpdateBy='"+currentUser+"' where appointmentId="+appointmentID);            
+                    + "start='"+start+"',end='"+end+"',lastUpdate=current_timestamp, lastUpdateBy='"+userName+"' where appointmentId="+appointmentID);            
         }catch(SQLException exc){
             System.out.println("SQL Exception updating Appointment: "+ exc.getMessage());
         }
