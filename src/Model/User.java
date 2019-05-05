@@ -10,15 +10,15 @@ package Model;
  * @author austin.smith
  */
 public class User {
-    private String currentUser;
+    private String currentUsername;
     
     public User(){
         
     }
-    public String getCurrentUser(){
-        return currentUser;
+    public String getCurrentUsername(){
+        return currentUsername;
     }
-    public void setCurrentUser(String currentUser){
-        this.currentUser=currentUser;
+    public void setCurrentUsername(String currentUsername){
+        this.currentUsername=currentUsername;
     }
 }

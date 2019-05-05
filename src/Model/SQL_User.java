@@ -16,18 +16,19 @@ import java.nio.file.StandardOpenOption;
 import java.sql.*;
 import java.time.Instant;
 import java.util.Arrays;
+import javafx.collections.ObservableList;
 
 /**
  *
  * @author austin.smith
  */
 public class SQL_User {
-    private static User currentUser;
+    private static User currentUsername;
         
     //public static void setCurrentUser(String userName){
     //    currentUser = userName;
     //}
-    private static int getCurrentUser(String userName){
+    public static int getCurrentUser(String userName){
         int userId = -1;
         try{
             Statement stmt = Database.getConnection().createStatement();
@@ -55,6 +56,7 @@ public class SQL_User {
             }
             rs.close();
             if(loginPassword.equals(password)){
+                stmt.executeUpdate("update user set active = 1 where userId="+userId);
                 return true;
             }else{
                 return false;
@@ -68,11 +70,12 @@ public class SQL_User {
     public static boolean login(String userName, String password){        
         int userId = getCurrentUser(userName);
         boolean confirmPassword = confirmPassword(userId,password);
+        
         if(confirmPassword){
-            currentUser = new User();
-            System.out.println("UserId: "+userId);            
-            currentUser.setCurrentUser(userName);
-            System.out.println("UserName: "+ userName);
+            currentUsername = new User();
+            //System.out.println("UserId: "+userId);            
+            currentUsername.setCurrentUsername(userName);
+            //System.out.println("UserName: "+ userName);
             try{
                 Path path = Paths.get("logger.txt");
                 Files.write(path, Arrays.asList("User " + userName + " logged in at " + Date.from(Instant.now()).toString() + "."),

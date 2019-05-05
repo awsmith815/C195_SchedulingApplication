@@ -23,7 +23,7 @@ public class SQL_Customer {
     //private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
     //Link back to user login        
     //private static User currentUser;
-    private static User userName;
+    private static User userCurrent;
     private static String currentUser = "test";
 
     //Add Customer
@@ -31,7 +31,9 @@ public class SQL_Customer {
         try{
             int countryID = addCountryID(country);
             int cityID = addCityID(city, countryID);
-            int addressID = addAddressID(address1, address2, cityID, postalCode, phone);            
+            int addressID = addAddressID(address1, address2, cityID, postalCode, phone);
+            
+            
             Statement stmt = Database.getConnection().createStatement();            
             ResultSet rs = stmt.executeQuery("select customerId from customer where customerName='"+customerName+"' and addressId="+addressID);
             if(rs.next()){
@@ -49,7 +51,10 @@ public class SQL_Customer {
                     newCustomerID.close();
                     customerID = 1;
                 }
-                int active = 1;
+                int active = 1;     
+                userCurrent = new User();
+                String userName = userCurrent.getCurrentUsername();
+                System.out.println("the current username from customerAdd: "+userName);
                 stmt.executeUpdate("Insert into customer values("+customerID+",'"+customerName+"',"+addressID+","+active+",current_timestamp,'"+userName+"',current_timestamp,'"+userName+"')");
                 return customerID;
             }

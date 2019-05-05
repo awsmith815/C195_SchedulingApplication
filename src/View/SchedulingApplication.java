@@ -6,6 +6,7 @@ package View;
  * and open the template in the editor.
  */
 
+import Model.SQL_User;
 import Util.Database;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -35,7 +36,7 @@ public class SchedulingApplication extends Application {
      */
     public static void main(String[] args) {
         Database.connect();
-        launch(args);
+        launch(args);        
         Database.disconnect();
     }
     

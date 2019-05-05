@@ -21,19 +21,12 @@ import Model.SQL_Reporting;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
@@ -410,6 +403,7 @@ public class MainMenuController implements Initializable {
     
     
     //Report 2
+    //Use lambda function to filter list 
     FilteredList filterReport2 = new FilteredList(ReportCustomerList.getAllCustomersReport(), e->true);
     @FXML 
     private void search(KeyEvent event) {
@@ -432,11 +426,9 @@ public class MainMenuController implements Initializable {
         SQL_Reporting.customerSchedule();        
         tblReport2.setItems(ReportCustomerList.getAllCustomersReport());
         colReport2ApptDate.setComparator(colReport2ApptDate.getComparator().reversed());
-        tblReport2.getSortOrder().add(colReport2ApptDate);
-        
+        tblReport2.getSortOrder().add(colReport2ApptDate); 
     }
-    
-    
+
     
     //Report 3
     public void updateReport3Location(){

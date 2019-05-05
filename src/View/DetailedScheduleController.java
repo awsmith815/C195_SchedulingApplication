@@ -10,7 +10,6 @@ import Model.AppointmentList;
 import Model.SQL_Appointment;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -23,13 +22,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -41,8 +37,6 @@ public class DetailedScheduleController implements Initializable {
     
     @FXML
     private TableView<Appointment> tbMonthlyView;
-    //@FXML
-    //private TableColumn<Appointment, String> colDayOfWeek;
     @FXML
     private TableColumn<Appointment, String> colTime;
     @FXML
@@ -132,7 +126,6 @@ public class DetailedScheduleController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
         cbMonth.setItems(monthsCombo);
     }    
     

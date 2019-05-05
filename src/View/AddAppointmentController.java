@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package View;
 
 import Model.Appointment;
@@ -16,7 +11,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.Optional;
@@ -35,12 +29,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
@@ -48,7 +40,7 @@ import javafx.stage.Stage;
 
 /**
  * FXML Controller class
- *
+ * Add appointment controller class - provides the user the ability to update all details relating to the appointment.
  * @author austin.smith
  */
 public class AddAppointmentController implements Initializable {
@@ -163,8 +155,7 @@ public class AddAppointmentController implements Initializable {
         String url = txtAppointmentURL.getText();
         String start = cbAppointmentStart.getSelectionModel().getSelectedItem();
         String end = cbAppointmentEnd.getSelectionModel().getSelectedItem();
-        LocalDate appointmentDate = dateAppointmentDate.getValue();
-        //public static String appointmentValidation(String title, String description, String location, String contact, String url, int customerID, String errorMessage)
+        LocalDate appointmentDate = dateAppointmentDate.getValue();        
         errorMessage = Appointment.appointmentValidation(title, location, contact, url, description, appointmentDate,start, end, errorMessage);
         if(errorMessage.length()>0){            
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
