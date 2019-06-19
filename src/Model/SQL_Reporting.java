@@ -117,7 +117,7 @@ public class SQL_Reporting {
                 Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
                 calendar.setTime(apptDate);        
                 int appointmentDateYear = calendar.get(Calendar.YEAR);
-                int appointmentDateMonth = calendar.get(Calendar.MONTH);
+                int appointmentDateMonth = (calendar.get(Calendar.MONTH)+1)%12;
                 int appointmentDateDay = calendar.get(Calendar.DAY_OF_MONTH);
                 LocalDate apptLocalDate = LocalDate.of(appointmentDateYear, appointmentDateMonth, appointmentDateDay);
                 //System.out.println("Report2Date: "+apptLocalDate);
